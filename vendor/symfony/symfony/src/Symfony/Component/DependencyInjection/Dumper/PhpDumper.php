@@ -441,6 +441,12 @@ class PhpDumper extends Dumper
                 continue;
             }
 
+            // if the instance is simple, the return statement has already been generated
+            // so, the only possible way to get there is because of a circular reference
+            if ($this->isSimpleInstance($id, $definition)) {
+                throw new ServiceCircularReferenceException($id, array($id));
+            }
+
             $name = (string) $this->definitionVariables->offsetGet($iDefinition);
             $code .= $this->addServiceMethodCalls(null, $iDefinition, $name);
             $code .= $this->addServiceProperties(null, $iDefinition, $name);
@@ -490,7 +496,6 @@ class PhpDumper extends Dumper
      */
     private function addService($id, $definition)
     {
-        $name = Container::camelize($id);
         $this->definitionVariables = new \SplObjectStorage();
         $this->referenceVariables = array();
         $this->variableCount = 0;
@@ -555,7 +560,7 @@ EOF;
      *$lazyInitializationDoc
      * $return
      */
-    {$visibility} function get{$name}Service($lazyInitialization)
+    {$visibility} function get{$this->camelize($id)}Service($lazyInitialization)
     {
 
 EOF;
@@ -595,46 +600,13 @@ EOF;
     }
 
     /**
-     * Adds a service alias.
-     *
-     * @param string $alias
-     * @param string $id
-     *
-     * @return string
-     */
-    private function addServiceAlias($alias, $id)
-    {
-        $name = Container::camelize($alias);
-        $type = 'Object';
-
-        if ($this->container->hasDefinition($id)) {
-            $class = $this->container->getDefinition($id)->getClass();
-            $type = 0 === strpos($class, '%') ? 'Object' : $class;
-        }
-
-        return <<<EOF
-
-    /**
-     * Gets the $alias service alias.
-     *
-     * @return $type An instance of the $id service
-     */
-    protected function get{$name}Service()
-    {
-        return {$this->getServiceCall($id)};
-    }
-
-EOF;
-    }
-
-    /**
      * Adds multiple services
      *
      * @return string
      */
     private function addServices()
     {
-        $publicServices = $privateServices = $aliasServices = $synchronizers = '';
+        $publicServices = $privateServices = $synchronizers = '';
         $definitions = $this->container->getDefinitions();
         ksort($definitions);
         foreach ($definitions as $id => $definition) {
@@ -647,13 +619,7 @@ EOF;
             $synchronizers .= $this->addServiceSynchronizer($id, $definition);
         }
 
-        $aliases = $this->container->getAliases();
-        ksort($aliases);
-        foreach ($aliases as $alias => $id) {
-            $aliasServices .= $this->addServiceAlias($alias, $id);
-        }
-
-        return $publicServices.$aliasServices.$synchronizers.$privateServices;
+        return $publicServices.$synchronizers.$privateServices;
     }
 
     /**
@@ -695,14 +661,12 @@ EOF;
             return;
         }
 
-        $name = Container::camelize($id);
-
         return <<<EOF
 
     /**
      * Updates the '$id' service.
      */
-    protected function synchronize{$name}Service()
+    protected function synchronize{$this->camelize($id)}Service()
     {
 $code    }
 
@@ -799,6 +763,9 @@ EOF;
             $code .= "        \$this->scopeChildren = ".$this->dumpValue($this->container->getScopeChildren()).";\n";
         }
 
+        $code .= $this->addMethodMap();
+        $code .= $this->addAliases();
+
         $code .= <<<EOF
     }
 
@@ -846,19 +813,8 @@ EOF;
             $code .= "        \$this->scopeChildren = array();\n";
         }
 
-        // build method map
-        $code .= "        \$this->methodMap = array(\n";
-        $definitions = $this->container->getDefinitions();
-        ksort($definitions);
-        foreach ($definitions as $id => $definition) {
-            $code .= '            '.var_export($id, true).' => '.var_export('get'.Container::camelize($id).'Service', true).",\n";
-        }
-        $aliases = $this->container->getAliases();
-        ksort($aliases);
-        foreach ($aliases as $alias => $id) {
-            $code .= '            '.var_export($alias, true).' => '.var_export('get'.Container::camelize($id).'Service', true).",\n";
-        }
-        $code .= "        );\n";
+        $code .= $this->addMethodMap();
+        $code .= $this->addAliases();
 
         $code .= <<<EOF
     }
@@ -866,6 +822,54 @@ EOF;
 EOF;
 
         return $code;
+    }
+
+    /**
+     * Adds the methodMap property definition
+     *
+     * @return string
+     */
+    private function addMethodMap()
+    {
+        if (!$definitions = $this->container->getDefinitions()) {
+            return '';
+        }
+
+        $code = "        \$this->methodMap = array(\n";
+        ksort($definitions);
+        foreach ($definitions as $id => $definition) {
+            $code .= '            '.var_export($id, true).' => '.var_export('get'.$this->camelize($id).'Service', true).",\n";
+        }
+
+        return $code . "        );\n";
+    }
+
+    /**
+     * Adds the aliases property definition
+     *
+     * @return string
+     */
+    private function addAliases()
+    {
+        if (!$aliases = $this->container->getAliases()) {
+            if ($this->container->isFrozen()) {
+                return "\n        \$this->aliases = array();\n";
+            } else {
+                return '';
+            }
+        }
+
+        $code = "        \$this->aliases = array(\n";
+        ksort($aliases);
+        foreach ($aliases as $alias => $id) {
+            $id = (string) $id;
+            while (isset($aliases[$id])) {
+                $id = (string) $aliases[$id];
+            }
+            $code .= '            '.var_export($alias, true).' => '.var_export($id, true).",\n";
+        }
+
+        return $code . "        );\n";
     }
 
     /**
@@ -1257,6 +1261,26 @@ EOF;
 
             return sprintf('$this->get(\'%s\')', $id);
         }
+    }
+
+    /**
+     * Convert a service id to a valid PHP method name.
+     *
+     * @param string $id
+     *
+     * @return string
+     *
+     * @throws InvalidArgumentException
+     */
+    private function camelize($id)
+    {
+        $name = Container::camelize($id);
+
+        if (!preg_match('/^[a-zA-Z0-9_\x7f-\xff]+$/', $name)) {
+            throw new InvalidArgumentException(sprintf('Service id "%s" cannot be converted to a valid PHP method name.', $id));
+        }
+
+        return $name;
     }
 
     /**

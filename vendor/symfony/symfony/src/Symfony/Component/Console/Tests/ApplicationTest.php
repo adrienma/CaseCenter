@@ -63,7 +63,7 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
     {
         $application = new Application('foo', 'bar');
         $this->assertEquals('foo', $application->getName(), '__construct() takes the application name as its first argument');
-        $this->assertEquals('bar', $application->getVersion(), '__construct() takes the application version as its first argument');
+        $this->assertEquals('bar', $application->getVersion(), '__construct() takes the application version as its second argument');
         $this->assertEquals(array('help', 'list'), array_keys($application->all()), '__construct() registered the help and list commands by default');
     }
 
@@ -455,6 +455,9 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $tester->run(array('command' => 'foo3:bar'), array('decorated' => false));
         $this->assertStringEqualsFile(self::$fixturesPath.'/application_renderexception3.txt', $tester->getDisplay(true), '->renderException() renders a pretty exceptions with previous exceptions');
 
+        $tester->run(array('command' => 'foo3:bar'), array('decorated' => true));
+        $this->assertStringEqualsFile(self::$fixturesPath.'/application_renderexception3decorated.txt', $tester->getDisplay(true), '->renderException() renders a pretty exceptions with previous exceptions');
+
         $application = $this->getMock('Symfony\Component\Console\Application', array('getTerminalWidth'));
         $application->setAutoExit(false);
         $application->expects($this->any())
@@ -571,6 +574,21 @@ class ApplicationTest extends \PHPUnit_Framework_TestCase
         $exitCode = $application->run(new ArrayInput(array()), new NullOutput());
 
         $this->assertSame(4, $exitCode, '->run() returns integer exit code extracted from raised exception');
+    }
+
+    public function testRunReturnsExitCodeOneForExceptionCodeZero()
+    {
+        $exception = new \Exception('', 0);
+
+        $application = $this->getMock('Symfony\Component\Console\Application', array('doRun'));
+        $application->setAutoExit(false);
+        $application->expects($this->once())
+             ->method('doRun')
+             ->will($this->throwException($exception));
+
+        $exitCode = $application->run(new ArrayInput(array()), new NullOutput());
+
+        $this->assertSame(1, $exitCode, '->run() returns exit code 1 when exception code is 0');
     }
 
     /**

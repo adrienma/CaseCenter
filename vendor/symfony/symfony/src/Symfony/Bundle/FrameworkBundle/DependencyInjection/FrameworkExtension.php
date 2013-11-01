@@ -69,7 +69,7 @@ class FrameworkExtension extends Extension
         }
 
         $container->setParameter('kernel.http_method_override', $config['http_method_override']);
-
+        $container->setParameter('kernel.trusted_hosts', $config['trusted_hosts']);
         $container->setParameter('kernel.trusted_proxies', $config['trusted_proxies']);
         $container->setParameter('kernel.default_locale', $config['default_locale']);
 
@@ -319,7 +319,7 @@ class FrameworkExtension extends Extension
         if (null == $config['handler_id']) {
             // Set the handler class to be null
             $container->getDefinition('session.storage.native')->replaceArgument(1, null);
-            $container->getDefinition('session.storage.php_bridge')->replaceArgument(1, null);
+            $container->getDefinition('session.storage.php_bridge')->replaceArgument(0, null);
         } else {
             $container->setAlias('session.handler', $config['handler_id']);
         }

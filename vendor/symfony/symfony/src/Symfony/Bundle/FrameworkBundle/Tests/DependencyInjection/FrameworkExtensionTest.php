@@ -114,6 +114,15 @@ abstract class FrameworkExtensionTest extends TestCase
         $this->assertEquals('/path/to/sessions', $container->getParameter('session.save_path'));
     }
 
+    public function testNullSessionHandler()
+    {
+        $container = $this->createContainerFromFile('session');
+
+        $this->assertTrue($container->hasDefinition('session'), '->registerSessionConfiguration() loads session.xml');
+        $this->assertNull($container->getDefinition('session.storage.native')->getArgument(1));
+        $this->assertNull($container->getDefinition('session.storage.php_bridge')->getArgument(0));
+    }
+
     public function testTemplating()
     {
         $container = $this->createContainerFromFile('full');
@@ -278,13 +287,12 @@ abstract class FrameworkExtensionTest extends TestCase
     protected function createContainer(array $data = array())
     {
         return new ContainerBuilder(new ParameterBag(array_merge(array(
-            'kernel.bundles'          => array('FrameworkBundle' => 'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle'),
-            'kernel.cache_dir'        => __DIR__,
-            'kernel.compiled_classes' => array(),
-            'kernel.debug'            => false,
-            'kernel.environment'      => 'test',
-            'kernel.name'             => 'kernel',
-            'kernel.root_dir'         => __DIR__,
+            'kernel.bundles'     => array('FrameworkBundle' => 'Symfony\\Bundle\\FrameworkBundle\\FrameworkBundle'),
+            'kernel.cache_dir'   => __DIR__,
+            'kernel.debug'       => false,
+            'kernel.environment' => 'test',
+            'kernel.name'        => 'kernel',
+            'kernel.root_dir'    => __DIR__,
         ), $data)));
     }
 
