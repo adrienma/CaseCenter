@@ -1,0 +1,4 @@
+#CasecenterUserBundle
+CasecenterUserBundle:
+    resource: "@CasecenterUserBundle/Resources/config/routing.yml"
+    prefix: /
