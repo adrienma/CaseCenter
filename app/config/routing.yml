@@ -1,4 +1,8 @@
-#CasecenterUserBundle
-CasecenterUserBundle:
-    resource: "@CasecenterUserBundle/Resources/config/routing.yml"
-    prefix: /
+# Security Routes
+login:
+    pattern: /login
+    defaults: {_controller: CasecenterUserBundle:Security:login}
+login_check:
+    pattern: /login_check
+logout:
+    pattern: /logout
