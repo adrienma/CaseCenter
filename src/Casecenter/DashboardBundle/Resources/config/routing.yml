@@ -1,0 +1,3 @@
+casecenter_dashboard_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: CasecenterDashboardBundle:Default:index }

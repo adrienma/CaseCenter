@@ -1,0 +1,7 @@
+parameters:
+#    casecenter_dashboard.example.class: Casecenter\DashboardBundle\Example
+
+services:
+#    casecenter_dashboard.example:
+#        class: %casecenter_dashboard.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
