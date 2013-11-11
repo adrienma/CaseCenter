@@ -1,6 +1,7 @@
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+        Casecenter\UserBundle\Entity\User: plaintext
 
     role_hierarchy:
         ROLE_ADMIN:       [ROLE_USER, ROLE_MODERATEUR]
@@ -17,7 +18,7 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        
+
         login:
             pattern: ^/login$
             anonymous: true
