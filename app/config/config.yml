@@ -64,3 +64,9 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
+
+# FOS user
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Casecenter\UserBundle\Entity\User
