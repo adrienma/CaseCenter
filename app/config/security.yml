@@ -23,6 +23,10 @@ security:
             pattern: ^/register
             anonymous: true
 
+        resetting:
+            pattern: ^/resetting
+            anonymous: true
+
         main:
             pattern: ^/
             anonymous: false
