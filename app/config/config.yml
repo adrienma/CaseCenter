@@ -30,14 +30,19 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ ]
+    bundles:        [ CasecenterUserBundle ]
     #java: /usr/bin/java
+    java: C:/Progra~1/Java/jre7/bin/java.exe
     filters:
         cssrewrite: ~
         #closure:
         #    jar: %kernel.root_dir%/Resources/java/compiler.jar
-        #yui_css:
-        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+        yui_css:
+            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar
+            #apply_to: "\.css$"
+        yui_js:
+            jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.8.jar
+            #apply_to: "\.js$"
 
 # Doctrine Configuration
 doctrine:
@@ -60,9 +65,12 @@ doctrine:
 # Swiftmailer Configuration
 swiftmailer:
     transport: %mailer_transport%
+    encryption: %mailer_encryption%
+    auth_mode: %mailer_auth_mode%
     host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
+    sender_address: %mailer_sender_address%
     spool:     { type: memory }
 
 # FOS user
@@ -70,3 +78,6 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Casecenter\UserBundle\Entity\User
+    from_email:
+        address: %mailer_sender_address%
+        sender_name: %mailer_sender_name%

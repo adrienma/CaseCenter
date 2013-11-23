@@ -8,8 +8,12 @@ parameters:
     database_password: null
     database_table_prefix: cc_
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
+    mailer_encryption: ssl
+    mailer_auth_mode: login
+    mailer_host: smtp.gmail.com
+    mailer_user: manteletad@gmail.com
+    mailer_password: lettres
+    mailer_sender_address: no-reply@amaurymedias.fr
+    mailer_sender_name: 'Amaury Médias'
     locale: fr
     secret: ThisTokenIsNotSoSecretChangeIt
