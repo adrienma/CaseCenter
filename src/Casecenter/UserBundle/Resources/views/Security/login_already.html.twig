@@ -1,0 +1,8 @@
+{# src/Casecenter/UserBundle/Resources/views/Security/login_already.html.twig #}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div>
+	<p class="text-center">{{ 'You are already logged in.'|trans }}</p>
+	<p class="text-center"><a href="{{ path('dashboard') }}" class="btn btn-primary">{{ 'Back to dashboard'|trans }}</a></p>
+</div>
