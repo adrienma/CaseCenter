@@ -2,10 +2,10 @@
 
 {% extends "::layout.html.twig" %}
 
-{% block body %}
-	{% for key, message in app.session.flashbag.all() %}
-		<div class="alert alert-{{ key }}">{{ message|trans({}, 'FOSUserBundle') }}</div>
-	{% endfor %}
+{% block stylesheets %}
+	{% stylesheets filter='cssrewrite' output='css/user.css' '@CasecenterUserBundle/Resources/public/css/main.css' %}<link rel="stylesheet" type="text/css" href="{{ asset_url }}">{% endstylesheets %}
+{% endblock %}
 
+{% block body %}
 	{% block fos_user_content %}{% endblock fos_user_content %}
 {% endblock %}

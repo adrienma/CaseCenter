@@ -1,0 +1,10 @@
+/* Login */
+#login > div.main {padding: 0;}
+#login > div.main > div {padding: 10px;}
+#login > div.main > div.signon {}
+#login > div.main > div.signin {border-top: 1px solid #e4e4e4;}
+#login > div.main > div.signin form {margin: 0 auto; width: 250px;}
+#login > div.main > div.signin form .checkbox {text-align: left;}
+
+/* Resetting */
+#resetting > div.main form {margin: 0 auto; width: 300px;}
