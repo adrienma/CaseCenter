@@ -7,4 +7,5 @@
 #login > div.main > div.signin form .checkbox {text-align: left;}
 
 /* Resetting */
-#resetting > div.main form {margin: 0 auto; width: 300px;}
+#resetting > div.main form input[type="text"], #resetting > div.main form input[type="password"] {margin: 0 auto; width: 300px;}
+#resetting > div.main p:not([class^="text-"]), #resetting > div.main .alert {text-align: left;}

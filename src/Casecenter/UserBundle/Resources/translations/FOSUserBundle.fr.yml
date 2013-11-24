@@ -1,6 +1,44 @@
 # Security
 "Bad credentials": Adresse e-mail ou mot de passe incorrect
+"Back to dashboard": Retour au tableau de bord
+"You are already logged in.": Vous êtes déjà identifié.
+
 security:
     login:
         username: "Adresse e-mail"
+        password: "Mot de passe"
         submit: Me connecter
+
+# Password resetting
+resetting:
+    request:
+        username: "Mon adresse e-mail"
+    reset:
+        text: "Vous avez demandé une réinitialisation de votre mot de passe. Veuillez en choisir un nouveau :"
+        submit: Modifier mon mot de passe
+    email:
+        message: |
+            Bonjour %username% !
+
+            Vous avez demandé une réinitialisation de votre mot de passe, merci de vous rendre sur %confirmationUrl%
+
+        message_html_part1: Bonjour %username% !
+        message_html_part2: "Vous avez demandé une réinitialisation de votre mot de passe, merci de cliquer ci-dessous pour continuer :"
+        message_html_bouton: Réinitialiser votre mot de passe
+        message_html_part3: "Dans le cas où le lien ne fonctionnerait pas, merci de vous rendre à l'URL suivante : %confirmationUrl%"
+        message_html_part4: "Si vous recevez ce mail sans ne rien n'avoir demandé, merci de l'ignorer."
+        message_salutation: |
+            Cordialement,
+
+            Amaury Médias Digital
+
+# Form field labels
+form:
+    group_name: "Nom du groupe"
+    username: "Nom d'utilisateur"
+    email: "Adresse e-mail"
+    current_password: "Mot de passe actuel"
+    password: "Mot de passe"
+    password_confirmation: "Vérification"
+    new_password: "Nouveau mot de passe"
+    new_password_confirmation: "Vérification"

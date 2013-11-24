@@ -1,0 +1,11 @@
+{# src/Casecenter/UserBundle/Resources/views/Resetting/reset_content.html.twig #}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+    <p>{{ 'resetting.reset.text'|trans() }}</p>
+
+    {{ form_widget(form) }}
+
+    <div class="form-group"><input type="submit"  class="btn btn-primary" value="{{ 'resetting.reset.submit'|trans }}" /></div>
+</form>

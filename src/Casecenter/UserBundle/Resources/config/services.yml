@@ -2,6 +2,12 @@ parameters:
 #    casecenter_user.example.class: Casecenter\UserBundle\Example
 
 services:
+    casecenter_user.password_resetting:
+        class: Casecenter\UserBundle\EventListener\ResettingListener
+        arguments: [@router, %fos_user.resetting.token_ttl%]
+        tags:
+            - { name: kernel.event_subscriber }
+
 #    casecenter_user.example:
 #        class: %casecenter_user.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
