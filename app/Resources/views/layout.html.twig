@@ -2,30 +2,52 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="fr" class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}Amaury M&eacute;dias Digital{% endblock %}</title>
+        <link href="{{ asset('favicon.ico') }}" rel="shortcut icon" />
         <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="{{ asset('css/normalize.css') }}">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        {% stylesheets filter='cssrewrite' output='css/style.css' 'css/normalize.css' '//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css' 'css/main.css' %}<link rel="stylesheet" type="text/css" href="{{ asset_url }}">{% endstylesheets %}
         {% block stylesheets %}{% endblock %}
 
-        <script src="{{ asset('js/vendor/modernizr-2.6.2.min.js') }}"></script>
+        <script src="{{ asset('js/vendor/modernizr-2.6.3.min.js') }}"></script>
     </head>
-    <body>
+    {% set body_id_block = block('body_id') %}
+    {% set body_class_block = block('body_class') %}
+    <body{% if body_id_block is not empty %} id="{{ body_id_block|raw }}"{% endif %}{% if body_class_block is not empty %} class="{{ body_class_block|raw }}"{% endif %}>
         <!--[if lt IE 7]><p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p><![endif]-->
 
-        {% block body %}{% endblock %}
+        <header>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <h1><img src="{{ asset('images/amaurymediasdigital_h.png') }}" alt="Amaury Médias Digital" border="0" /> | Dashboard</h1>
+            {% else %}
+                <h1><img src="{{ asset('images/amaurymediasdigital.png') }}" alt="Amaury Médias Digital" border="0" /></h1>
+            {% endif %}
+        </header>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
-        <script src="{{ asset('css/js/plugins.js') }}"></script>
-        <script src="{{ asset('css/js/main.js') }}"></script>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}<nav>
+            <ul class="list-group">
+                <li><span class="glyphicon glyphicon-user"></span></li>
+                <li><a href="{{ path('fos_user_security_logout') }}" title="Log out"><span class="glyphicon glyphicon-log-out"></span></a></li>
+                <li><a href="" title="Planning"><span class="glyphicon glyphicon-calendar"></span></a></li>
+            </ul>
+        </nav>{% endif %}
+
+        <div class="main">{% block body %}{% endblock %}</div>
+
+        <footer>
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                footer
+            {% else %}
+                Besoin d'aide ?
+            {% endif %}
+        </footer>
+
+        {% javascripts output='js/scripts.js' '//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js' '//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js' 'js/plugins.js' 'js/main.js' %}<script type="text/javascript" src="{{ asset_url }}"></script>{% endjavascripts %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
