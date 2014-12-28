@@ -14,12 +14,17 @@ namespace Symfony\Component\Form\Extension\Csrf\CsrfProvider;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * This provider uses a Symfony2 Session object to retrieve the user's
+ * This provider uses a Symfony Session object to retrieve the user's
  * session ID.
  *
  * @see DefaultCsrfProvider
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
+ *
+ * @deprecated Deprecated since version 2.4, to be removed in Symfony 3.0. Use
+ *             {@link \Symfony\Component\Security\Csrf\CsrfTokenManager} in
+ *             combination with {@link \Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage}
+ *             instead.
  */
 class SessionCsrfProvider extends DefaultCsrfProvider
 {

@@ -47,6 +47,18 @@ class UrlTypeTest extends TypeTestCase
         $this->assertSame('', $form->getViewData());
     }
 
+    public function testSubmitAddsNoDefaultProtocolIfNull()
+    {
+        $form = $this->factory->create('url', null, array(
+            'default_protocol' => 'http',
+        ));
+
+        $form->submit(null);
+
+        $this->assertNull($form->getData());
+        $this->assertSame('', $form->getViewData());
+    }
+
     public function testSubmitAddsNoDefaultProtocolIfSetToNull()
     {
         $form = $this->factory->create('url', null, array(
@@ -57,5 +69,15 @@ class UrlTypeTest extends TypeTestCase
 
         $this->assertSame('www.domain.com', $form->getData());
         $this->assertSame('www.domain.com', $form->getViewData());
+    }
+
+    /**
+     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     */
+    public function testThrowExceptionIfDefaultProtocolIsInvalid()
+    {
+        $this->factory->create('url', null, array(
+            'default_protocol' => array(),
+        ));
     }
 }

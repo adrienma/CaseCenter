@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="fr" class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Amaury M&eacute;dias Digital</title>
+        <link href="{{ asset('favicon.ico') }}" rel="shortcut icon" />
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        {% stylesheets filter='cssrewrite' output='css/insertionorder.css' 'css/lib/normalize.css' 'css/lib/bootstrap.min.css' 'http://fonts.googleapis.com/css?family=Open+Sans|Roboto+Condensed:400,700' 'css/lib/main.css' '@CasecenterPlanningBundle/Resources/public/css/insertionorder.css' %}<link rel="stylesheet" type="text/css" href="{{ asset_url }}">{% endstylesheets %}
+
+        <script src="{{ asset('js/lib/modernizr-2.6.3.min.js') }}"></script>
+    </head>
+
+    <body id="planning" class="insertionorder">
+        <div id="modal" class="modal fade"><div class="modal-dialog"><div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{ 'booking.insertionorder.modal.title'|trans }}</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>{{ 'booking.insertionorder.modal.list1'|trans }}</li>
+                    <li>{{ 'booking.insertionorder.modal.list2'|trans }}</li>
+                    <li>{{ 'booking.insertionorder.modal.list3'|trans }}</li>
+                </ul>
+            </div>
+            <div class="modal-footer"><button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
+        </div></div></div>
+
+        <header><table width="100%" border="0">
+            <tr>
+                <td width="18%" class="small">
+                    <b>AMAURY MEDIAS</b><br />
+                    Siège social: 738 rue Kermen<br />
+                    92658 Boulogne Billancourt Cedex<br />
+                    SAS au capital de 2.430.000 euros<br />
+                    R.C.S. Nanterre B 389 505 850<br />
+                    TVA FR 78 389 505 850
+                </td>
+                <td width="15%"><h1>{{ 'booking.insertionorder.title'|trans }}</h1></td>
+                <td width="33%" class="text-center"><img src="{{ asset('images/amaurymediasdigital.png') }}" alt="Amaury Médias Digital" border="0" /></td>
+                <td width="33%" class="small" style="text-align: right;">
+                        <p>
+                            Vos contacts:<br />
+                            Votre contact commercial habituel<br />
+                            contact@amaurymediasdigital.fr
+                        </p>
+                        <p>Fax : 01 41 04 97 92</p>
+                </td>
+            </tr>
+        </table></header>
+
+        <table width="100%" border="0" class="who">
+            <tr>
+                <td class="label">{{ 'booking.form.advertiser'|trans }}</td>
+                <td>{{ booking.advertiser }}</td>
+                <td class="label">{{ 'datetime.now'|trans }}</td>
+                <td>{{ "now"|date("d/m/Y") }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ 'booking.insertionorder.agency'|trans }}</td>
+                <td>{{ user.company }}</td>
+                <td class="label">{{ 'booking.insertionorder.id'|trans }}</td>
+                <td>{{ booking.id }}</td>
+            </tr>
+            <tr>
+                <td class="label">{{ 'booking.form.campaign'|trans }}</td>
+                <td>{{ booking.campaign }}</td>
+                <td class="label">{{ 'booking.form.creation'|trans }}</td>
+                <td>{{ booking.creation|localizeddate('short', 'short') }}</td>
+            </tr>
+        </table>
+
+        <table width="100%" border="0" class="what">
+            <tr>
+                <th>{{ 'planning.singular'|trans }}</th>
+                <th>{{ 'package.singular'|trans }}</th>
+                <th width="80px">{{ 'booking.insertionorder.forfait'|trans }}</th>
+                <th>{{ 'booking.insertionorder.date'|transchoice(booking.dates|length) }}</th>
+            </tr>
+            <tr>
+                <td>{{ booking.package.planning.namepublic }}</td>
+                <td>{{ booking.package.name }}</td>
+                <td>FRT</td>
+                <td>
+                    {{ 'booking.insertionorder.datechoice'|transchoice(booking.dates|length) }}
+                    {% for date in booking.dates %}
+                        {% if loop.first %}<ul>{% endif %}
+                        <li>
+                        {% if date.status == "confirm" %}<b>
+                        {% elseif date.isAvailable == false %}<del class="noavailable" title="{{ 'booking.cart.date_noavailable'|trans }}">
+                        {% endif %}
+                        <b>{% if date.status == "confirm" %}&otimes;{% else %}&lang;{% endif %}</b> {{ 'booking.insertionorder.date_list'|trans({'%date%': date.date.date|localizeddate('medium', 'none'), '%price%': date.price}) }}
+                        {% if date.status == "confirm" %} (option confirmée)</b>
+                        {% elseif date.isAvailable == false %} ({{ 'booking.cart.date_noavailable'|trans }})</del>
+                        {% endif %}
+                        </li>
+                        {% if loop.last %}</ul>{% endif %}
+                    {% endfor %}
+                </td>
+            </tr>
+            <tr>
+                <th colspan="4">{{ 'booking.insertionorder.tarifs'|trans }}</th>
+            </tr>
+        </table>
+
+        <p>{{ 'booking.insertionorder.cgv'|trans }}</p>
+
+        <p>{{ 'booking.insertionorder.signature'|trans }}</p>
+
+        <footer>{{ 'booking.insertionorder.footer'|trans({'%fullname%': user.fullname, '%now%': "now"|date("d/m/Y H:i:s") }) }}</footer>
+
+        {% javascripts output='js/scripts.js' 'js/lib/jquery-2.1.1.min.js' 'js/lib/bootstrap.min.js' 'js/lib/plugins.js' 'js/lib/main.js' %}<script type="text/javascript" src="{{ asset_url }}"></script>{% endjavascripts %}
+        <script type="text/javascript">
+            if (window.print) {window.print();} else {$('#modal').modal();}
+        </script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-24143025-2', 'amaurymediasdigital.fr');
+            ga('send', 'pageview');
+        </script>
+    </body>
+</html>

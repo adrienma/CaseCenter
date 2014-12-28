@@ -1,0 +1,41 @@
+{# src/Casecenter/SupportBundle/Resources/views/Support/view.html.twig #}
+
+{% extends "CasecenterSupportBundle::layout.html.twig" %}
+
+{% block head_title %}{{ support.name }} - {{ 'support.singular'|trans }} - {{ 'Administration'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}view{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('support_index') }}">{{ 'support.plural'|trans }}</a></li>
+	<li class="active">{{ support.name }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'support.singular'|trans }} <span>:</span> {{ support.name }} 
+	<span class="btn-group">
+		<a href="{{ path('support_page_add', {'slug': support.slug}) }}" title="{{ 'page.new.label'|trans }}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-plus"></span></a>
+		<a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="{{ path('support_edit', {'slug': support.slug}) }}">{{ 'support.edit.label'|trans }}</a></li>
+			<li><a href="{{ path('support_delete', {'slug': support.slug}) }}">{{ 'support.delete.label'|trans }}</a></li>
+		</ul>
+	</span>
+{% endblock %}
+
+{% block body %}
+	<table class="table table-striped">
+		<thead><tr><th>{{ 'support.singular'|trans }}</th><th>{{ 'page.count'|transchoice(pages|length) }}</th></tr></thead>
+		<tbody>
+			{% for page in pages %}
+				<tr>
+					{% if loop.first %}<td rowspan="{{ pages|length }}"><b>{{ support.name }}</b> &rsaquo; </td>{% endif %}
+					<td width='100%'><a href="{{ path('support_page_view', {'slugSupport': support.slug, 'slugPage': page.slug}) }}">{{ page.name }}</a>{% if page.formats|length > 0 %} <em>({{ 'format.counter'|transchoice(page.formats|length) }})</em>{% endif %}</td>
+				</tr>
+			{% else %}
+				<tr><td>{{ 'page.nul'|trans }}</td></tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

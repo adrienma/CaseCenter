@@ -26,9 +26,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class SessionAuthenticationStrategy implements SessionAuthenticationStrategyInterface
 {
-    const NONE         = 'none';
-    const MIGRATE      = 'migrate';
-    const INVALIDATE   = 'invalidate';
+    const NONE = 'none';
+    const MIGRATE = 'migrate';
+    const INVALIDATE = 'invalidate';
 
     private $strategy;
 
@@ -38,7 +38,7 @@ class SessionAuthenticationStrategy implements SessionAuthenticationStrategyInte
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function onAuthentication(Request $request, TokenInterface $token)
     {

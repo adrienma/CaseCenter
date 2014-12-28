@@ -34,20 +34,20 @@ class FunctionExtension extends AbstractExtension
     public function getFunctionTranslators()
     {
         return array(
-            'nth-child'        => array($this, 'translateNthChild'),
-            'nth-last-child'   => array($this, 'translateNthLastChild'),
-            'nth-of-type'      => array($this, 'translateNthOfType'),
+            'nth-child' => array($this, 'translateNthChild'),
+            'nth-last-child' => array($this, 'translateNthLastChild'),
+            'nth-of-type' => array($this, 'translateNthOfType'),
             'nth-last-of-type' => array($this, 'translateNthLastOfType'),
-            'contains'         => array($this, 'translateContains'),
-            'lang'             => array($this, 'translateLang'),
+            'contains' => array($this, 'translateContains'),
+            'lang' => array($this, 'translateLang'),
         );
     }
 
     /**
      * @param XPathExpr    $xpath
      * @param FunctionNode $function
-     * @param boolean      $last
-     * @param boolean      $addNameTest
+     * @param bool         $last
+     * @param bool         $addNameTest
      *
      * @return XPathExpr
      *

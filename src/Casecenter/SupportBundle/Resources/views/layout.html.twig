@@ -1,0 +1,14 @@
+{# src/Casecenter/SupportBundle/Resources/views/layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block stylesheets %}
+	{% stylesheets filter='cssrewrite' output='css/support.css' '@CasecenterSupportBundle/Resources/public/css/main.css' %}<link rel="stylesheet" type="text/css" href="{{ asset_url }}">{% endstylesheets %}
+{% endblock %}
+
+{% block body_id %}support{% endblock %}
+{% block body_class %}{{ parent() }}admin {% endblock %}
+
+{% block breadcrumb %}
+	<li><a href="{{ path('administration_index') }}">{{ 'Administration'|trans }}</a></li>
+{% endblock %}

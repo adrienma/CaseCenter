@@ -1,0 +1,10 @@
+/* Administration */
+/* General */
+#page > header {border-top-color: #ffbe00;}
+#page > header h1 {color: #ffbe00;}
+
+/* Index */
+body.index div.panel div.panel-heading {font-family: 'Roboto Condensed', Arial, sans-serif; font-size: 1.5em; font-weight: bold; text-transform:uppercase; text-align: center;}
+body.index div.panel div.panel-heading a {color: #000;}
+body.index div.panel div.panel-body h1.glyphicon {margin: 0; width: 100%; opacity: 0.5; font-size: 5em; text-align: center; color: #0073C4;}
+body.index div.panel:hover div.panel-body h1.glyphicon {opacity: 0.8;}

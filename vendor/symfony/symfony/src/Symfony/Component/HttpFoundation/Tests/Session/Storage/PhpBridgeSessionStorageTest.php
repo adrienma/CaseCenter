@@ -23,7 +23,7 @@ use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
  *
  * @runTestsInSeparateProcesses
  */
-class PhpSessionStorageTest extends \PHPUnit_Framework_TestCase
+class PhpBridgeSessionStorageTest extends \PHPUnit_Framework_TestCase
 {
     private $savePath;
 
@@ -53,14 +53,14 @@ class PhpSessionStorageTest extends \PHPUnit_Framework_TestCase
     protected function getStorage()
     {
         $storage = new PhpBridgeSessionStorage();
-        $storage->registerBag(new AttributeBag);
+        $storage->registerBag(new AttributeBag());
 
         return $storage;
     }
 
     public function testPhpSession53()
     {
-        if (version_compare(phpversion(), '5.4.0', '>=')) {
+        if (PHP_VERSION_ID >= 50400) {
             $this->markTestSkipped('Test skipped, for PHP 5.3 only.');
         }
 
@@ -84,7 +84,7 @@ class PhpSessionStorageTest extends \PHPUnit_Framework_TestCase
 
     public function testPhpSession54()
     {
-        if (version_compare(phpversion(), '5.4.0', '<')) {
+        if (PHP_VERSION_ID < 50400) {
             $this->markTestSkipped('Test skipped, for PHP 5.4 only.');
         }
 

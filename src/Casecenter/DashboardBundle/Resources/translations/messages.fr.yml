@@ -1,0 +1,6 @@
+# src/Casecenter/DashboardBundle/Resources/translations/messages.fr.yml
+
+dashboard:
+    title: "Tableau de bord"
+    link: "Accéder au tableau de bord"
+    welcome: "Bienvenue %firstname%."

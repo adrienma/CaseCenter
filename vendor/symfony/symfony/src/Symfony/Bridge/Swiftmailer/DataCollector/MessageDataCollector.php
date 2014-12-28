@@ -21,6 +21,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Clément JOBEILI <clement.jobeili@gmail.com>
+ *
+ * @deprecated Deprecated since version 2.4, to be removed in 3.0. Use
+ *             MessageDataCollector of SwiftmailerBundle instead.
  */
 class MessageDataCollector extends DataCollector
 {
@@ -34,7 +37,7 @@ class MessageDataCollector extends DataCollector
      * to avoid the creation of these objects when no emails are sent.
      *
      * @param ContainerInterface $container A ContainerInterface instance
-     * @param Boolean            $isSpool
+     * @param bool               $isSpool
      */
     public function __construct(ContainerInterface $container, $isSpool)
     {
@@ -50,10 +53,10 @@ class MessageDataCollector extends DataCollector
         // only collect when Swiftmailer has already been initialized
         if (class_exists('Swift_Mailer', false)) {
             $logger = $this->container->get('swiftmailer.plugin.messagelogger');
-            $this->data['messages']     = $logger->getMessages();
+            $this->data['messages'] = $logger->getMessages();
             $this->data['messageCount'] = $logger->countMessages();
         } else {
-            $this->data['messages']     = array();
+            $this->data['messages'] = array();
             $this->data['messageCount'] = 0;
         }
 

@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-class RoutingTest extends \PHPUnit_Framework_TestCase
+class RouterTest extends \PHPUnit_Framework_TestCase
 {
     public function testGenerateWithServiceParam()
     {
@@ -24,7 +24,7 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
         $routes->add('foo', new Route(
             ' /{_locale}',
             array(
-                '_locale' => '%locale%'
+                '_locale' => '%locale%',
             ),
             array(
                 '_locale' => 'en|es',
@@ -47,11 +47,11 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
         $routes->add('foo', new Route(
             '/foo',
             array(
-                'foo'    => 'before_%parameter.foo%',
-                'bar'    => '%parameter.bar%_after',
-                'baz'    => '%%escaped%%',
-                'boo'    => array('%parameter%', '%%escaped_parameter%%', array('%bee_parameter%', 'bee')),
-                'bee'    => array('bee', 'bee'),
+                'foo' => 'before_%parameter.foo%',
+                'bar' => '%parameter.bar%_after',
+                'baz' => '%%escaped%%',
+                'boo' => array('%parameter%', '%%escaped_parameter%%', array('%bee_parameter%', 'bee')),
+                'bee' => array('bee', 'bee'),
             ),
             array(
             )
@@ -88,9 +88,9 @@ class RoutingTest extends \PHPUnit_Framework_TestCase
             array(
             ),
             array(
-                'foo'    => 'before_%parameter.foo%',
-                'bar'    => '%parameter.bar%_after',
-                'baz'    => '%%escaped%%',
+                'foo' => 'before_%parameter.foo%',
+                'bar' => '%parameter.bar%_after',
+                'baz' => '%%escaped%%',
             )
         ));
 

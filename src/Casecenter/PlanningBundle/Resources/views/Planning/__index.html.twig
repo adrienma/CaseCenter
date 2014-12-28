@@ -1,0 +1,40 @@
+{# src/Casecenter/PlanningBundle/Resources/views/Planning/index.html.twig #}
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'Administration'|trans }} - {{ 'planning.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}index admin{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('planning_home') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li class="active">{{ 'Administration'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'planning.plural'|trans }}
+{% endblock %}
+
+{% block header_boutons %}
+	<a href="{{ path('planning_add') }}" title="{{ 'planning.new.label'|trans }}" class="btn btn-xs"><span class="glyphicon glyphicon-plus"></span></a>
+{% endblock %}
+
+{% block body %}
+
+<h1>CET ECRAN EST OBSOLETE</h1>
+
+	<table class="table table-striped">
+		<thead><tr><th>{{ 'planning.count'|transchoice(plannings|length) }}</th></tr></thead>
+		<tbody>
+			{% for planning in plannings %}
+				<tr><td>
+					<span class="glyphicon {% if planning.enabled == TRUE %}glyphicon-ok-circle{% else %}glyphicon-remove-circle{% endif %}"></span> 
+					<a href="{{ path('planning_edit', {'slug': planning.slug}) }}">{{ planning.name }}</a>
+					{% if planning.namePublic != planning.name %} <em>({{ planning.namePublic }})</em>{% endif %}
+				</td></tr>
+			{% else %}
+				<tr><td>{{ 'planning.nul'|trans }}</td></tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

@@ -26,6 +26,10 @@ namespace Symfony\Component\Form\Extension\Csrf\CsrfProvider;
  * the same intention string to validate the CSRF token with isCsrfTokenValid().
  *
  * @author Bernhard Schussek <bschussek@gmail.com>
+ *
+ * @deprecated Deprecated since version 2.4, to be removed in Symfony 3.0. Use
+ *             {@link \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface}
+ *             instead.
  */
 interface CsrfProviderInterface
 {
@@ -34,6 +38,8 @@ interface CsrfProviderInterface
      *
      * @param string $intention Some value that identifies the action intention
      *                          (i.e. "authenticate"). Doesn't have to be a secret value.
+     *
+     * @return string The generated token
      */
     public function generateCsrfToken($intention);
 
@@ -43,7 +49,7 @@ interface CsrfProviderInterface
      * @param string $intention The intention used when generating the CSRF token
      * @param string $token     The token supplied by the browser
      *
-     * @return Boolean Whether the token supplied by the browser is correct
+     * @return bool Whether the token supplied by the browser is correct
      */
     public function isCsrfTokenValid($intention, $token);
 }

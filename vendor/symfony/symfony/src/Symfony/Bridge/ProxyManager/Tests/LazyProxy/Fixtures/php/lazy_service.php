@@ -39,7 +39,7 @@ class LazyServiceProjectServiceContainer extends Container
      * This service is shared.
      * This method always returns the same instance of the service.
      *
-     * @param boolean $lazyLoad whether to try lazy-loading the service with a proxy
+     * @param bool $lazyLoad whether to try lazy-loading the service with a proxy
      *
      * @return stdClass A stdClass instance.
      */
@@ -65,7 +65,6 @@ class LazyServiceProjectServiceContainer extends Container
 
 class stdClass_c1d194250ee2e2b7d2eab8b8212368a8 extends \stdClass implements \ProxyManager\Proxy\LazyLoadingInterface, \ProxyManager\Proxy\ValueHolderInterface
 {
-
     /**
      * @var \Closure|null initializer responsible for generating the wrapped object
      */
@@ -98,7 +97,7 @@ class stdClass_c1d194250ee2e2b7d2eab8b8212368a8 extends \stdClass implements \Pr
 
     /**
      * @param string $name
-     * @param mixed $value
+     * @param mixed  $value
      */
     public function __set($name, $value)
     {
@@ -109,6 +108,8 @@ class stdClass_c1d194250ee2e2b7d2eab8b8212368a8 extends \stdClass implements \Pr
 
     /**
      * @param string $name
+     *
+     * @return bool
      */
     public function __isset($name)
     {
@@ -155,7 +156,7 @@ class stdClass_c1d194250ee2e2b7d2eab8b8212368a8 extends \stdClass implements \Pr
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setProxyInitializer(\Closure $initializer = null)
     {
@@ -163,7 +164,7 @@ class stdClass_c1d194250ee2e2b7d2eab8b8212368a8 extends \stdClass implements \Pr
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getProxyInitializer()
     {
@@ -171,7 +172,7 @@ class stdClass_c1d194250ee2e2b7d2eab8b8212368a8 extends \stdClass implements \Pr
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function initializeProxy()
     {
@@ -179,7 +180,7 @@ class stdClass_c1d194250ee2e2b7d2eab8b8212368a8 extends \stdClass implements \Pr
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function isProxyInitialized()
     {
@@ -187,11 +188,10 @@ class stdClass_c1d194250ee2e2b7d2eab8b8212368a8 extends \stdClass implements \Pr
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getWrappedValueHolderValue()
     {
         return $this->valueHolder5157dd96e88c0;
     }
-
 }

@@ -7,6 +7,9 @@ framework:
         strict_requirements: true
     profiler: { only_exceptions: false }
 
+twig:
+    debug: true
+
 web_profiler:
     toolbar: true
     intercept_redirects: false
@@ -29,3 +32,9 @@ assetic:
 
 #swiftmailer:
 #    delivery_address: me@example.com
+
+services:
+    twig.extension.debug:
+        class: Twig_Extension_Debug
+        tags:
+            - { name: 'twig.extension' }

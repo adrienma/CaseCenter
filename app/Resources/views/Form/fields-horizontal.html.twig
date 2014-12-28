@@ -1,0 +1,36 @@
+{# fields-horizontal.html.twig #}
+
+{# Rows #}
+{% block form_row %}
+    <div class="{{ name }} form-group{% if errors|length > 0 %} has-error{% endif %}">
+        {{ form_label(form) }}
+        <div class="col-sm-9">
+            {{ form_widget(form) }}
+            {% if help is not empty %}<span class="help-block">{{ help|trans({}, translation_domain) }}</span>{% endif %}
+        </div>
+        {{ form_errors(form) }}
+    </div>
+{% endblock form_row %}
+
+{# Labels #}
+{% block form_label %}{% spaceless %}
+    {% if label is not sameas(false) %}
+        {% set label_attr = label_attr|merge({'class': ('control-label col-sm-3 ' ~ label_attr.class|default(''))|trim}) %}
+        {% if not compound %}{% set label_attr = label_attr|merge({'for': id}) %}{% endif %}
+        {% if required %}{% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}{% endif %}
+        {% if label is empty %}{% set label = name|humanize %}{% endif %}
+
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
+    {% endif %}
+{% endspaceless %}{% endblock form_label %}
+
+{# Errors #}
+{% block form_errors %}{% spaceless %}
+    {% if errors|length > 0 %}
+    <div class="col-sm-9 col-sm-offset-3"><ul class="list-unstyled alert alert-danger alert-small">
+        {% for error in errors %}
+            <li>{{ error.message }}</li>
+        {% endfor %}
+    </ul></div>
+    {% endif %}
+{% endspaceless %}{% endblock form_errors %}

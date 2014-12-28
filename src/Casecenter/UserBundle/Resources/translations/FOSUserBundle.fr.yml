@@ -2,6 +2,7 @@
 "Bad credentials": Adresse e-mail ou mot de passe incorrect
 "Back to dashboard": Retour au tableau de bord
 "You are already logged in.": Vous êtes déjà identifié.
+"User account is disabled.": "Votre compte n'est pas activé."
 
 security:
     login:
@@ -9,9 +10,14 @@ security:
         password: "Mot de passe"
         submit: Me connecter
 
+# Profile
+profile:
+    myprofil: Mon profil
+
 # Password resetting
 resetting:
     request:
+        title: Mot de passe oublié
         username: "Mon adresse e-mail"
     reset:
         text: "Vous avez demandé une réinitialisation de votre mot de passe. Veuillez en choisir un nouveau :"
@@ -27,10 +33,26 @@ resetting:
         message_html_bouton: Réinitialiser votre mot de passe
         message_html_part3: "Dans le cas où le lien ne fonctionnerait pas, merci de vous rendre à l'URL suivante : %confirmationUrl%"
         message_html_part4: "Si vous recevez ce mail sans ne rien n'avoir demandé, merci de l'ignorer."
-        message_salutation: |
-            Cordialement,
+        message_salutation: "Cordialement,"
 
-            Amaury Médias Digital
+# Registration
+registration:
+    title: Créer mon compte
+    description: "Pour permettre la création de votre compte, merci de saisir l'ensemble des informations. Après soumission, vous recevrez un email de confirmation comprenant l'ensemble des informations nécessaires."
+    myidentity: "Mon identité"
+    mylogin: "Mes accès"
+    submit: Créer mon compte
+    send: "Votre compte vient d'être créé. Vous allez recevoir un mail à l'adresse e-mail précédemment indiquée."
+    flash:
+        user_created: "La demande a bien été enregistrée."
+    email:
+        subject: "Confirmer mon adresse e-mail"
+        message_html_part1: "Bonjour %username%,"
+        message_html_part2: "Vous vous êtes inscrit sur la plateforme d'Amaury Médias Digital. Vous devez confirmer votre adresse email en cliquant sur le bouton ci-dessous."
+        message_html_bouton: "Confirmer mon adresse email"
+        message_html_part3: "Dans le cas où le lien ne fonctionnerait pas, merci de vous rendre à l'URL suivante : %confirmationUrl%"
+        message_html_part4: "Si vous recevez ce mail sans ne rien n'avoir demandé, merci de l'ignorer."
+        message_salutation: "Cordialement,"
 
 # Form field labels
 form:
@@ -40,5 +62,24 @@ form:
     current_password: "Mot de passe actuel"
     password: "Mot de passe"
     password_confirmation: "Vérification"
+    password_regenerate: "Nouveau mot de passe"
+    password_regenerate_help: "En cochant cette option, un nouveau mot de passe va être généré et envoyé à l'utilisateur à son adresse mail."
     new_password: "Nouveau mot de passe"
     new_password_confirmation: "Vérification"
+    name: "Nom"
+    firstname: "Prénom"
+    company: "Société"
+    function: "Fonction"
+    locale:
+        label: "Langue"
+    lastlogin: "Dernière connexion"
+    enabled: "Activer"
+    locked:
+        label: "Verrouiller le compte"
+        help: "En verrouillant le compte, l'utilisateur ne pourra plus se connecter."
+    expired:
+        label: "Date d'expiration du compte"
+        help: "Après la date d'expiration, l'utilisateur ne pourra plus se connecter."
+    credentialsexpired:
+        label: "Expiration des identifiants"
+        help: "En cochant ou indiquant une date, l'utilisateur sera invité à renouveller son mot de passe à sa prochaine connexion."

@@ -28,7 +28,7 @@ class VariableNode extends BaseNode implements PrototypeNodeInterface
     protected $allowEmptyValue = true;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setDefaultValue($value)
     {
@@ -37,7 +37,7 @@ class VariableNode extends BaseNode implements PrototypeNodeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function hasDefaultValue()
     {
@@ -45,7 +45,7 @@ class VariableNode extends BaseNode implements PrototypeNodeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getDefaultValue()
     {
@@ -55,15 +55,15 @@ class VariableNode extends BaseNode implements PrototypeNodeInterface
     /**
      * Sets if this node is allowed to have an empty value.
      *
-     * @param Boolean $boolean True if this entity will accept empty values.
+     * @param bool $boolean True if this entity will accept empty values.
      */
     public function setAllowEmptyValue($boolean)
     {
-        $this->allowEmptyValue = (Boolean) $boolean;
+        $this->allowEmptyValue = (bool) $boolean;
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setName($name)
     {
@@ -71,14 +71,14 @@ class VariableNode extends BaseNode implements PrototypeNodeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function validateType($value)
     {
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function finalizeValue($value)
     {
@@ -88,6 +88,9 @@ class VariableNode extends BaseNode implements PrototypeNodeInterface
                 $this->getPath(),
                 json_encode($value)
             ));
+            if ($hint = $this->getInfo()) {
+                $ex->addHint($hint);
+            }
             $ex->setPath($this->getPath());
 
             throw $ex;
@@ -97,7 +100,7 @@ class VariableNode extends BaseNode implements PrototypeNodeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function normalizeValue($value)
     {
@@ -105,7 +108,7 @@ class VariableNode extends BaseNode implements PrototypeNodeInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function mergeValues($leftSide, $rightSide)
     {

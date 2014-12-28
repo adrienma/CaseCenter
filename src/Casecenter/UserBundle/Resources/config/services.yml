@@ -7,7 +7,16 @@ services:
         arguments: [@router, %fos_user.resetting.token_ttl%]
         tags:
             - { name: kernel.event_subscriber }
-
+    casecenter_user.registration.form.type:
+        class: Casecenter\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: casecenter_user_registration }
+    casecenter_user.security.kernel_request_listener:
+        class: Casecenter\UserBundle\EventListener\UserListener
+        arguments: [@security.context]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: setLocaleUser }
 #    casecenter_user.example:
 #        class: %casecenter_user.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]

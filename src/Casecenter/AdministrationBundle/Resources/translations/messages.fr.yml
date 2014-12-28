@@ -1,0 +1,11 @@
+# src/Casecenter/AdministrationBundle/Resources/translations/messages.fr.yml
+
+"Administration": "Administration"
+
+admin:
+    link: "Accéder à l'administration"
+    index:
+        sentence: "En tant qu'administrateur, vous pouvez :"
+    settings:
+        title: "Réglages généraux"
+        link: "Réglages généraux"

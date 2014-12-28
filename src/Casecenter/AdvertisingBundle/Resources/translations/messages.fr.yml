@@ -1,0 +1,13 @@
+# src/Casecenter/AdvertisingBundle/Resources/translations/messages.fr.yml
+
+campaign:
+    nul: "Pas de campagne enregistrée"
+    singular: Campagne
+    plural: Campagnes
+    count: "Campagne (%count%)|]1,+Inf]Campagnes (%count%)"
+
+partner:
+    nul: "Pas de partenaire enregistré"
+    singular: Partenaire
+    plural: Partenaires
+    count: "Partenaire (%count%)|]1,+Inf]Partenaires (%count%)"

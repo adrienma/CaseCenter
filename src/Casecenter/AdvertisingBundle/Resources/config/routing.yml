@@ -1,0 +1,7 @@
+campaign_index:
+    pattern:  /campaigns/
+    defaults: { _controller: CasecenterAdvertisingBundle:Campaign:index }
+
+partner_index:
+    pattern:  /partners/
+    defaults: { _controller: CasecenterAdvertisingBundle:Partner:index }

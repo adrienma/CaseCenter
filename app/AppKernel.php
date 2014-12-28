@@ -16,10 +16,18 @@ class AppKernel extends Kernel
             new Symfony\Bundle\AsseticBundle\AsseticBundle(),
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new Avanzu\Doctrine\PrefixBundle\AvanzuDoctrinePrefixBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Ornicar\GravatarBundle\OrnicarGravatarBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Casecenter\UserBundle\CasecenterUserBundle(),
+            new Casecenter\AdministrationBundle\CasecenterAdministrationBundle(),
             new Casecenter\DashboardBundle\CasecenterDashboardBundle(),
+            new Casecenter\SupportBundle\CasecenterSupportBundle(),
+            new Casecenter\PlanningBundle\CasecenterPlanningBundle(),
+            new Casecenter\AdvertisingBundle\CasecenterAdvertisingBundle(),
+            new Casecenter\ProjectBundle\CasecenterProjectBundle(),
+            new Casecenter\ReportBundle\CasecenterReportBundle(),
+            new Casecenter\WikiBundle\CasecenterWikiBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -27,6 +35,7 @@ class AppKernel extends Kernel
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+            $bundles[] = new CoreSphere\ConsoleBundle\CoreSphereConsoleBundle();
         }
 
         return $bundles;

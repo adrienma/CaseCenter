@@ -11,7 +11,7 @@
 		{% include "CasecenterUserBundle:Security:login_already.html.twig" %}
 	{% else %}
 		{% if invalid_username is defined %}<div class="alert alert-danger">{{ 'resetting.request.invalid_username'|trans({'%username%': invalid_username}) }}</div>{% endif %}
-
+		
 		<form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
 			<div class="form-group">
 				<label for="username">{{ 'resetting.request.username'|trans }}</label>

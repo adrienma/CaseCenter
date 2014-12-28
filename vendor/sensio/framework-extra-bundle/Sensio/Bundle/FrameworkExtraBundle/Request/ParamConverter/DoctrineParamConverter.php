@@ -1,21 +1,21 @@
 <?php
 
+/*
+ * This file is part of the Symfony package.
+ *
+ * (c) Fabien Potencier <fabien@symfony.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ManagerRegistry;
-
-/*
- * This file is part of the Symfony framework.
- *
- * (c) Fabien Potencier <fabien@symfony.com>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
+use Doctrine\ORM\NoResultException;
 
 /**
  * DoctrineParamConverter.
@@ -35,12 +35,12 @@ class DoctrineParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      *
      * @throws \LogicException       When unable to guess how to get a Doctrine instance from the request information
      * @throws NotFoundHttpException When object not found
      */
-    public function apply(Request $request, ConfigurationInterface $configuration)
+    public function apply(Request $request, ParamConverter $configuration)
     {
         $name    = $configuration->getName();
         $class   = $configuration->getClass();
@@ -89,7 +89,11 @@ class DoctrineParamConverter implements ParamConverterInterface
             $method = 'find';
         }
 
-        return $this->getManager($options['entity_manager'], $class)->getRepository($class)->$method($id);
+        try {
+            return $this->getManager($options['entity_manager'], $class)->getRepository($class)->$method($id);
+        } catch (NoResultException $e) {
+            return null;
+        }
     }
 
     protected function getIdentifier(Request $request, $options, $name)
@@ -111,7 +115,7 @@ class DoctrineParamConverter implements ParamConverterInterface
             return $request->attributes->get($name);
         }
 
-        if ($request->attributes->has('id')) {
+        if ($request->attributes->has('id') && !isset($options['id'])) {
             return $request->attributes->get('id');
         }
 
@@ -130,6 +134,12 @@ class DoctrineParamConverter implements ParamConverterInterface
         }
 
         if (!$options['mapping']) {
+            return false;
+        }
+
+        // if a specific id has been defined in the options and there is no corresponding attribute
+        // return false in order to avoid a fallback to the id which might be of another object
+        if (isset($options['id']) && null === $request->attributes->get($options['id'])) {
             return false;
         }
 
@@ -157,18 +167,18 @@ class DoctrineParamConverter implements ParamConverterInterface
             $method = 'findOneBy';
         }
 
-        return $em->getRepository($class)->$method($criteria);
+        try {
+            return $em->getRepository($class)->$method($criteria);
+        } catch (NoResultException $e) {
+            return null;
+        }
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
-    public function supports(ConfigurationInterface $configuration)
+    public function supports(ParamConverter $configuration)
     {
-        if (!$configuration instanceof ParamConverter) {
-            return false;
-        }
-
         // if there is no manager, this means that only Doctrine DBAL is configured
         if (null === $this->registry || !count($this->registry->getManagers())) {
             return false;
@@ -189,7 +199,7 @@ class DoctrineParamConverter implements ParamConverterInterface
         return ! $em->getMetadataFactory()->isTransient($configuration->getClass());
     }
 
-    protected function getOptions(ConfigurationInterface $configuration)
+    protected function getOptions(ParamConverter $configuration)
     {
         return array_replace(array(
             'entity_manager' => null,

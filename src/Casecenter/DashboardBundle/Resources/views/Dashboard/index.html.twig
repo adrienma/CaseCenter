@@ -1,0 +1,13 @@
+{# src/Casecenter/DashboardBundle/Resources/views/Dashboard/index.html.twig #}
+
+{% extends "CasecenterDashboardBundle::layout.html.twig" %}
+
+{% block head_title %}Dashboard < {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block header_title %} <span>/</span> Dashboard{% endblock %}
+
+{% block body %}
+	<p>{{ 'dashboard.welcome'|trans({'%firstname%': app.user.firstname}) }}</p>
+{% endblock %}

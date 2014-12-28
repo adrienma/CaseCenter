@@ -79,6 +79,28 @@ class AnalyzeServiceReferencesPassTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($ref, $refs[0]->getValue());
     }
 
+    public function testProcessDetectsReferencesFromInlinedFactoryDefinitions()
+    {
+        $container = new ContainerBuilder();
+
+        $container
+            ->register('a')
+        ;
+
+        $factory = new Definition();
+        $factory->setFactoryService('a');
+
+        $container
+            ->register('b')
+            ->addArgument($factory)
+        ;
+
+        $graph = $this->process($container);
+
+        $this->assertTrue($graph->hasNode('a'));
+        $this->assertCount(1, $refs = $graph->getNode('a')->getInEdges());
+    }
+
     public function testProcessDoesNotSaveDuplicateReferences()
     {
         $container = new ContainerBuilder();
@@ -95,6 +117,26 @@ class AnalyzeServiceReferencesPassTest extends \PHPUnit_Framework_TestCase
         $graph = $this->process($container);
 
         $this->assertCount(2, $graph->getNode('a')->getInEdges());
+    }
+
+    public function testProcessDetectsFactoryReferences()
+    {
+        $container = new ContainerBuilder();
+
+        $container
+            ->register('foo', 'stdClass')
+            ->setFactoryClass('stdClass')
+            ->setFactoryMethod('getInstance');
+
+        $container
+            ->register('bar', 'stdClass')
+            ->setFactoryService('foo')
+            ->setFactoryMethod('getInstance');
+
+        $graph = $this->process($container);
+
+        $this->assertTrue($graph->hasNode('foo'));
+        $this->assertCount(1, $graph->getNode('foo')->getInEdges());
     }
 
     protected function process(ContainerBuilder $container)

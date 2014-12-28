@@ -1,0 +1,23 @@
+{# src/Casecenter/AdministrationBundle/Resources/views/Default/index.html.twig #}
+
+{% extends "CasecenterAdministrationBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'Administration'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'Administration'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}{{ parent() }} <span>/</span> {{ 'Administration'|trans }}{% endblock %}
+
+{% block body %}
+<p>{{ 'admin.index.sentence'|trans }}</p>
+<ul>
+	<li><a href="{{ path('fos_user_group_list') }}">{{ 'group.index.link'|trans }}</a></li>
+	<li><a href="{{ path('user_index') }}">{{ 'user.index.link'|trans }}</a></li>
+	<li><a href="{{ path('administration_settings') }}">{{ 'admin.settings.link'|trans }}</a></li>
+</ul>
+{% endblock %}

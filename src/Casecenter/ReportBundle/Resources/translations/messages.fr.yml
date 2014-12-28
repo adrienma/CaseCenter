@@ -1,0 +1,7 @@
+# src/Casecenter/ReportBundle/Resources/translations/messages.fr.yml
+
+report:
+    nul: "Pas de rapport enregistré"
+    singular: Rapport
+    plural: Rapports
+    count: "Rapport (%count%)|]1,+Inf]Rapports (%count%)"

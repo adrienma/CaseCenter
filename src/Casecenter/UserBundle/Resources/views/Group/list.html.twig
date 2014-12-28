@@ -1,0 +1,62 @@
+{# src/Casecenter/UserBundle/Resources/views/Group/index.html.twig #}
+
+{% extends "CasecenterUserBundle:Group:layout.html.twig" %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'group.plural'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'group.plural'|trans }}
+{% endblock %}
+
+{% block header_boutons %}{% endblock %}
+
+{% block header_nav %}
+	<li><a href="{{ path('fos_user_group_new') }}" title="{{ 'group.new.label'|trans }}">+ {{ 'group.new.label'|trans }}</a></li>
+	<li class="divider"></li>
+	<li><a href="{{ path('user_index') }}" title="{{ 'user.index.link'|trans }}">{{ 'user.index.link'|trans }}</a></li>
+{% endblock %}
+
+{% block body %}
+	<form method="post" action="{{ path('user_group_index') }}" name="groups">
+		<table class="table table-condensed table-striped">
+			<caption>
+				{% if groups|length > 0 %}
+				<span class="col-check"><span class="glyphicon glyphicon-arrow-down"></span></span>
+				<select name="action">
+					<option value="">{{ 'Group actions'|trans }}</option>
+					<option value="">Droits</option>
+					<option value="">Supprimer</option>
+				</select>
+				<input type="submit" value="Appliquer" class="btn btn-default btn-xs" />
+				{% endif %}
+			</caption>
+			<thead>
+				<tr>
+					{% if groups|length > 0 %}
+						<th class="col-check"><input type="checkbox" onclick="CheckAllBox(this, 'groups[]');" /></th>
+					{% endif %}
+					<th>{{ 'group.count'|transchoice(groups|length) }}</th>
+					{% if groups|length > 0 %}
+						<th>{{ 'group.count_users_label'|trans }}</th>
+					{% endif %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for group in groups %}
+					<tr>
+						<td class="col-check"><input type="checkbox" name="groups[]" value="{{ group.id }}" /></td>
+						<td><a href="{{ path('fos_user_group_edit', {'groupName': group.name}) }}">{{ group.name }}</a></td>
+						<td>{{ group.archive }}</td>
+					</tr>
+				{% else %}
+					<tr><td>{{ 'group.nul'|trans }}</td></tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</form>
+{% endblock %}

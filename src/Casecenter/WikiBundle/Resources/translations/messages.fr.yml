@@ -1,0 +1,4 @@
+# src/Casecenter/WikiBundle/Resources/translations/messages.fr.yml
+
+wiki:
+    title: "Wiki"

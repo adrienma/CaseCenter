@@ -1,0 +1,13 @@
+{# src/Casecenter/UserBundle/Resources/views/Registration/checkEmail.html.twig #}
+
+{% extends "CasecenterUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body_id %}registration{% endblock %}
+{% block body_class %}{{ parent() }}card{% endblock %}
+
+{% block fos_user_content %}
+	<p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+
+	<p class="text-center"><a href="{{ path('fos_user_security_login') }}">Retour</a><p/>
+{% endblock %}

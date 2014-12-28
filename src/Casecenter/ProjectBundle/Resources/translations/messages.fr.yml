@@ -1,0 +1,7 @@
+# src/Casecenter/ProjectBundle/Resources/translations/messages.fr.yml
+
+project:
+    nul: "Pas de projet enregistré"
+    singular: Projet
+    plural: Projets
+    count: "Projet (%count%)|]1,+Inf]Projets (%count%)"

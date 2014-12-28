@@ -1,0 +1,57 @@
+{# src/Casecenter/PlanningBundle/Resources/views/PlanningFootball2014/overview.html.twig #}
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('bundles/casecenterplanning/css/main_football2014.css') }}" type="text/css" />
+{% endblock %}
+
+{% block head_title %}{{ planning.name }} - {{ 'planning.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}overview football2014{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('planning_index') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li class="active">{{ planning.name }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'planning.singular'|trans }} <span>:</span> {{ planning.name }}
+{% endblock %}
+
+{% block header_nav %}
+	<li><a href="{{ path('planning_cart') }}">{{ 'booking.myown'|trans }}</a></li>
+	{% if is_granted('ROLE_ADMIN') %}
+		<li class="divider"></li>
+		<li><div class="dropdown">
+			<a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+			<ul class="dropdown-menu pull-right">
+				<li><a href="{{ path('planning_football2014_calendar') }}">{{ 'planning.calendar.label'|trans }}</a></li>
+				<li><a href="{{ path('planning_edit', {'slug': planning.slug}) }}">{{ 'planning.edit.label'|trans }}</a></li>
+			</ul>
+		</div></li>
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+	<h4><span class="label etape">{{ 'booking.etape1.label'|trans }}</span> {{ 'booking.etape1.title'|trans }}</h4>
+
+	<div class="row">
+		{% for package in packages %}
+			<div class="col-md-4"><div class="panel panel-default">
+				<div class="panel-heading"><a href="{{ path('planning_schedule', {'slugPlanning': planning.slug, 'slugPackage': package.slug}) }}">{{ package.name }}</a></div>
+				<div class="panel-body"{% if package.vignette %} style="background-image: url('{{ package.vignette }}');"{% endif %}></div>
+				<ul class="list-group">
+					<li class="list-group-item">&rsaquo; <a href="{{ path('planning_schedule', {'slugPlanning': planning.slug, 'slugPackage': package.slug}) }}">{{ 'package.choice'|trans }}</a></li>
+				</ul>
+			</div></div>
+		{% else %}
+			{{ 'package.nul'|trans }}
+		{% endfor %}
+	</div>
+
+	<div class="text-center">
+		<a href="http://amaurymediasdigital.fr/www/amaurymediasdigital_football2014.pdf" target="_blank" class="btn btn-info">{{ 'booking.etape1.btndwnpdf'|trans }}</a>
+	</div>
+{% endblock %}

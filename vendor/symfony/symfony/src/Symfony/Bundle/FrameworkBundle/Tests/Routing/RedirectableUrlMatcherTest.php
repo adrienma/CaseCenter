@@ -27,18 +27,18 @@ class RedirectableUrlMatcherTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array(
                 '_controller' => 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction',
-                'path'        => '/foo/',
-                'permanent'   => true,
-                'scheme'      => null,
-                'httpPort'    => $context->getHttpPort(),
-                'httpsPort'   => $context->getHttpsPort(),
-                '_route'      => null,
+                'path' => '/foo/',
+                'permanent' => true,
+                'scheme' => null,
+                'httpPort' => $context->getHttpPort(),
+                'httpsPort' => $context->getHttpsPort(),
+                '_route' => null,
             ),
             $matcher->match('/foo')
         );
     }
 
-    public function testSchemeRedirect()
+    public function testSchemeRedirectBC()
     {
         $coll = new RouteCollection();
         $coll->add('foo', new Route('/foo', array(), array('_scheme' => 'https')));
@@ -47,12 +47,32 @@ class RedirectableUrlMatcherTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(array(
                 '_controller' => 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction',
-                'path'        => '/foo',
-                'permanent'   => true,
-                'scheme'      => 'https',
-                'httpPort'    => $context->getHttpPort(),
-                'httpsPort'   => $context->getHttpsPort(),
-                '_route'      => 'foo',
+                'path' => '/foo',
+                'permanent' => true,
+                'scheme' => 'https',
+                'httpPort' => $context->getHttpPort(),
+                'httpsPort' => $context->getHttpsPort(),
+                '_route' => 'foo',
+            ),
+            $matcher->match('/foo')
+        );
+    }
+
+    public function testSchemeRedirect()
+    {
+        $coll = new RouteCollection();
+        $coll->add('foo', new Route('/foo', array(), array(), array(), '', array('https')));
+
+        $matcher = new RedirectableUrlMatcher($coll, $context = new RequestContext());
+
+        $this->assertEquals(array(
+                '_controller' => 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction',
+                'path' => '/foo',
+                'permanent' => true,
+                'scheme' => 'https',
+                'httpPort' => $context->getHttpPort(),
+                'httpsPort' => $context->getHttpsPort(),
+                '_route' => 'foo',
             ),
             $matcher->match('/foo')
         );

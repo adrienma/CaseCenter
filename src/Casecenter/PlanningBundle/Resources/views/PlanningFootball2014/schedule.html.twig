@@ -1,0 +1,85 @@
+{# src/Casecenter/PlanningBundle/Resources/views/PlanningFootball2014/schedule.html.twig #}
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('bundles/casecenterplanning/css/main_football2014.css') }}" type="text/css" />
+{% endblock %}
+
+{% block head_title %}{{ package.name }} - {{ planning.name }} - {{ 'planning.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}schedule football2014{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('planning_index') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li><a href="{{ path('planning_overview', {'slug': planning.slug}) }}">{{ planning.name }}</a></li>
+	<li class="active">{{ package.name }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'planning.singular'|trans }} <span>:</span> {{ planning.name }}
+{% endblock %}
+
+{% block header_nav %}
+	<li><a href="{{ path('planning_cart') }}">{{ 'booking.myown'|trans }}</a></li>
+	{% if is_granted('ROLE_ADMIN') %}
+		<li class="divider"></li>
+		<li><a href="{{ path('planning_football2014_calendar') }}">{{ 'planning.calendar.label'|trans }}</a></li>
+		<li><a href="{{ path('planning_edit', {'slug': planning.slug}) }}">{{ 'planning.edit.label'|trans }}</a></li>
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+	<form method="post" action="{{ path('planning_schedule', {'slugPlanning': planning.slug, 'slugPackage': package.slug}) }}">
+	
+	<h4><span class="label etape">{{ 'booking.etape1.label'|trans }}</span> {{ 'booking.etape1.title'|trans }} <b>{{ package.name }}</b></h4>
+
+	<h4><span class="label etape">{{ 'booking.etape2.label'|trans }}</span> {{ 'booking.etape2.title'|trans }}</h4>
+	<p>{{ 'booking.etape2.detail'|trans }}</p>
+
+	<div class="row">{% for date in dates %}
+		<div class="col-md-2"><div class="panel panel-{% if date.enabled and date.bookings|length < 6 %}success{% else %}danger{% endif %}">
+			<div class="panel-heading"><b>{{ date.date|localizeddate('medium', 'none') }}</b>{% if date.enabled and date.bookings|length > 0 and date.bookings|length < 6 %} <span class="badge counter" title="{{ 'planning.schedule.reservation'|trans }}">{{ date.bookings|length }}</span>{% endif %}</div>
+			<div class="panel-body">
+				{% for event in date.events %}- {{ event }}{% if loop.index < loop.length %}<br />{% endif %}{% endfor %}
+			</div>
+			<ul class="list-group">
+				<li class="list-group-item price">{% for pack, price in date.packs if pack == package.id %}{{ 'planning.schedule.price'|trans }} {{ price }}{% else %}-{% endfor %}</li>
+				<li class="list-group-item wish">
+					{% if date.enabled and date.bookings|length < 6 %}
+						<label><input type="checkbox" name="date[]" value="{{ date.id }}" class="date" /> {{ 'planning.schedule.wish'|trans }}</label><input type="hidden" name="{{ date.id }}_price" value="{% for pack, price in date.packs if pack == package.id %}{{ price }}{% endfor %}" />
+					{% else %}
+						{{ 'planning.schedule.dateimposible'|trans }}
+					{% endif %}
+				</li>
+			</ul>
+		</div></div>
+	{% endfor %}</div>
+
+	<p>{{ 'booking.etape2.tarifs'|trans }}</p>
+
+	<div class="row"><div class="col-md-6">
+		<h4><span class="label etape">{{ 'booking.etape3.label'|trans }}</span> {{ 'booking.etape3.title'|trans }}</h4>
+		
+		{{ form_widget(form) }}
+
+		{# <div class="form-group"><label for="cgv"><input type="checkbox" id="cgv" name="cgv" required="required" /> J'accepte les Conditions Générales de Vente.</label></div> #}
+
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary" value="{{ 'form.edit.btn'|trans }}" />
+		</div>
+	</div></div>
+	</form>
+{% endblock %}
+
+{% block javascripts %}<script>
+$(function(){
+    var max = 3;
+    var checkboxes = $('input[type="checkbox"].date');
+    checkboxes.change(function(){
+        var current = checkboxes.filter(':checked').length;
+        checkboxes.filter(':not(:checked)').prop('disabled', current >= max);
+    });
+});
+</script>{% endblock %}

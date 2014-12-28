@@ -1,0 +1,46 @@
+{# src/Casecenter/PlanningBundle/Resources/views/Planning/cart.html.twig #}
+
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'booking.myown'|trans }} - {{ 'planning.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}delete{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('planning_index') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li><a href="{{ path('planning_cart') }}">{{ 'booking.myown'|trans }}</a></li>
+	<li class="active">{{ 'booking.delete.label'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}{{ parent() }} <span>/</span> {{ 'planning.plural'|trans }}{% endblock %}
+
+{% block body %}
+	<h3>{{ 'booking.delete.label'|trans }}</h3>
+	
+	<form method="post" action="{{ path('booking_remove', {'id': booking.id}) }}">
+		<p>{{ 'booking.delete.paragraph'|trans }}</p>
+		<ul>
+			<li>{{ 'booking.form.advertiser'|trans }} : {{ booking.advertiser }}</li>
+			<li>{{ 'booking.form.campaign'|trans }} : {{ booking.campaign }}</li>
+			<li>{{ 'planning.singular'|trans }} : {{ booking.package.planning.name }}</li>
+			<li>{{ 'package.singular'|trans }} : {{ booking.package.name }}</li>
+			{% for date in booking.dates %}
+				{% if loop.first %}<li>{{ 'booking.cart.date'|transchoice(booking.dates|length) }}<ul>{% endif %}
+				<li>
+				{% if date.isAvailable == false %}<del class="noavailable" title="{{ 'booking.cart.date_noavailable'|trans }}">{% endif %}
+				{{ 'booking.cart.date_list'|trans({'%date%': date.date.date|localizeddate('medium', 'none'), '%price%': date.price, '%status%': date.status}) }}
+				{% if date.isAvailable == false %}</del>{% endif %}
+				</li>
+				{% if loop.last %}</ul></li>{% endif %}
+			{% endfor %}
+		</ul>
+
+		<p><b>{{ 'form.delete.irreversible'|trans }}</b></p>
+
+		<div class="checkbox"><label><input type="checkbox" name="delete" value="true" required /> {{ 'form.delete.confirmation'|trans }}</label></div>
+
+		<input type="submit" class="btn btn-danger" value="{{ 'form.delete.btn'|trans }}" /> <a href="{{ path('planning_cart') }}" class="btn btn-sm btn-default">{{ 'form.btn.cancel'|trans }}</a>
+	</form>
+{% endblock %}
+

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Bridge\ProxyManager\LazyProxy\Tests\Instantiator;
+namespace Symfony\Bridge\ProxyManager\Tests\LazyProxy\Instantiator;
 
 use ProxyManager\Proxy\LazyLoadingInterface;
 use Symfony\Bridge\ProxyManager\LazyProxy\Instantiator\RuntimeInstantiator;
@@ -31,7 +31,7 @@ class RuntimeInstantiatorTest extends \PHPUnit_Framework_TestCase
     protected $instantiator;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function setUp()
     {
@@ -40,9 +40,9 @@ class RuntimeInstantiatorTest extends \PHPUnit_Framework_TestCase
 
     public function testInstantiateProxy()
     {
-        $instance     = new \stdClass();
-        $container    = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
-        $definition   = new Definition('stdClass');
+        $instance = new \stdClass();
+        $container = $this->getMock('Symfony\Component\DependencyInjection\ContainerInterface');
+        $definition = new Definition('stdClass');
         $instantiator = function () use ($instance) {
             return $instance;
         };

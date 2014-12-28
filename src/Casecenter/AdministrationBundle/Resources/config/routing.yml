@@ -1,0 +1,7 @@
+administration_index:
+    pattern:  /
+    defaults: { _controller: CasecenterAdministrationBundle:Default:index }
+
+administration_settings:
+    pattern:  /settings
+    defaults: { _controller: CasecenterAdministrationBundle:Settings:index }

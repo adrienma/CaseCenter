@@ -1,0 +1,15 @@
+{# src/Casecenter/UserBundle/Resources/views/Registration/confirmed.html.twig #}
+
+{% extends "CasecenterUserBundle::layout.html.twig" %}
+
+{% block body_id %}registration{% endblock %}
+{% block body_class %}{{ parent() }}card{% endblock %}
+
+{% block fos_user_content %}
+	<p>{{ 'registration.confirmed'|trans({'%username%': user.firstname}, 'FOSUserBundle') }}</p>
+
+    {% if app.session is not empty %}
+        {% set targetUrl = app.session.get('_security.' ~ app.security.token.providerKey ~ '.target_path') %}
+        {% if targetUrl is not empty %}<p><a href="{{ targetUrl }}">{{ 'registration.back'|trans({}, 'FOSUserBundle') }}</a></p>{% endif %}
+    {% endif %}
+{% endblock %}

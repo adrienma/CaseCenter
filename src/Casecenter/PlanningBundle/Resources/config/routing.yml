@@ -1,0 +1,79 @@
+# == PLANNING FOOTBALL 2014 (SPECIAL)
+planning_football2014_overview:
+    pattern:  /football-2014
+    defaults: { _controller: CasecenterPlanningBundle:PlanningFootball2014:overview }
+
+planning_football2014_calendar:
+    pattern:  admin/football-2014/calendar
+    defaults: { _controller: CasecenterPlanningBundle:PlanningFootball2014:calendar }
+
+planning_football2014_dateclose:
+    pattern:  admin/football-2014/calendar/{id}
+    defaults: { _controller: CasecenterPlanningBundle:PlanningFootball2014:dateclose }
+
+planning_football2014_deleteoption:
+    pattern:  admin/football-2014/calendar/{date}/{booking}
+    defaults: { _controller: CasecenterPlanningBundle:PlanningFootball2014:deleteoption }
+
+planning_football2014_schedule:
+    pattern:  /football-2014/{slugPackage}
+    defaults: { _controller: CasecenterPlanningBundle:PlanningFootball2014:schedule }
+
+# == CART
+planning_cart:
+    pattern:  /cart
+    defaults: { _controller: CasecenterPlanningBundle:Planning:cart }
+
+booking_insertionorder:
+    pattern:  /cart/{id}/reservationorder
+    defaults: { _controller: CasecenterPlanningBundle:Planning:insertionorder }
+
+booking_remove:
+    pattern:  /cart/{id}/delete
+    defaults: { _controller: CasecenterPlanningBundle:Planning:remove }
+
+# == PACKAGES ADMIN
+package_add:
+    pattern:  /admin/{slug}/package/add
+    defaults: { _controller: CasecenterPlanningBundle:Package:add }
+
+package_edit:
+    pattern:  /admin/{slugPlanning}/package/{slugPackage}
+    defaults: { _controller: CasecenterPlanningBundle:Package:edit }
+
+package_delete:
+    pattern:  /admin/{slugPlanning}/package/{slugPackage}/delete
+    defaults: { _controller: CasecenterPlanningBundle:Package:delete }
+
+calendar_add:
+    pattern:  /admin/{slug}/calendar/add
+    defaults: { _controller: CasecenterPlanningBundle:Calendar:add }
+
+# == PLANNINGS
+#planning_calendar:
+#    pattern:  /admin/{slug}/calendar
+#    defaults: { _controller: CasecenterPlanningBundle:Planning:calendar }
+
+planning_add:
+    pattern:  /add
+    defaults: { _controller: CasecenterPlanningBundle:Planning:add }
+
+planning_edit:
+    pattern:  /admin/{slug}
+    defaults: { _controller: CasecenterPlanningBundle:Planning:edit }
+
+planning_delete:
+    pattern:  /admin/{slug}/delete
+    defaults: { _controller: CasecenterPlanningBundle:Planning:delete }
+
+planning_view:
+    pattern:  /{slug}
+    defaults: { _controller: CasecenterPlanningBundle:Planning:view }
+
+#planning_schedule:
+#    pattern:  /{slugPlanning}/{slugPackage}
+#    defaults: { _controller: CasecenterPlanningBundle:Planning:schedule }
+
+planning_index:
+    pattern:  /
+    defaults: { _controller: CasecenterPlanningBundle:Planning:index }

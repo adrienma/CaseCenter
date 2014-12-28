@@ -1,0 +1,17 @@
+/* Dashboard */
+#page > header {border-top-color: #482F92;}
+#page > header h1 {color: #482F92;}
+
+/* Index */
+body.index #page > .main div.row {margin-top: 30px;} 
+body.index #page > .main div.box {padding-top: 5px; padding-bottom: 5px; text-align: center; opacity: 0.7;}
+body.index #page > .main div.box:hover {opacity: 1;}
+body.index #page > .main div.box a {color: #000;}
+body.index #page > .main div.box a:hover {font-weight: bold; text-decoration: none;}
+body.index #page > .main div.box h1.glyphicon {margin: 0; width: 100%; font-size: 6em; color: #737373;}
+body.index #page > .main div.box h2 {display: inline-block; border-radius: 5px; padding: 5px 10px; background-color: #737373; font-size: 1.6em; color: #E4E4E4;}
+
+/*  */
+body.card.index h1 {margin-bottom: 40px; text-align: center;}
+body.card.index #page > .main {text-align: left;}
+body.card.index div.panel div.panel-body h1.glyphicon {color: #ddd;}

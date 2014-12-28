@@ -26,13 +26,13 @@ twig:
     debug:            %kernel.debug%
     strict_variables: %kernel.debug%
     form:
-        resources: [':Form:fields.html.twig']
+        resources: [":Form:fields.html.twig"]
 
 # Assetic Configuration
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ CasecenterUserBundle ]
+    bundles:        [ CasecenterDashboardBundle, CasecenterPlanningBundle, CasecenterAdvertisingBundle, CasecenterProjectBundle, CasecenterReportBundle, CasecenterWikiBundle, CasecenterAdministrationBundle, CasecenterSupportBundle, CasecenterUserBundle ]
     #java: /usr/bin/java
     java: C:/Progra~1/Java/jre7/bin/java.exe
     filters:
@@ -63,12 +63,14 @@ doctrine:
     orm:
         auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
 
 # Swiftmailer Configuration
 swiftmailer:
     transport: %mailer_transport%
-    encryption: %mailer_encryption%
-    auth_mode: %mailer_auth_mode%
     host:      %mailer_host%
     username:  %mailer_user%
     password:  %mailer_password%
@@ -80,6 +82,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Casecenter\UserBundle\Entity\User
+    use_username_form_type: false
+    group:
+        group_class: Casecenter\UserBundle\Entity\Group
     service:
         mailer: fos_user.mailer.twig_swift
     from_email:
@@ -88,3 +93,34 @@ fos_user:
     resetting:
         email:
             template: CasecenterUserBundle:Resetting:email.html.twig
+    registration:
+        form:
+            type: casecenter_user_registration
+        confirmation:
+            enabled: true
+            template: CasecenterUserBundle:Registration:email.html.twig
+
+# Gravatar
+ornicar_gravatar:
+    rating: g
+    default: mm
+
+# Stof Doctrine Extension bundle
+stof_doctrine_extensions:
+    orm:
+        default:
+            sluggable: true
+            softdeleteable: true
+            timestampable: true
+            blameable: true
+            tree: true
+
+services:
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+    form.type_extension.help_message:
+        class: Casecenter\UserBundle\Form\Extension\HelpMessageTypeExtension
+        tags:
+            - { name: form.type_extension, alias: form }

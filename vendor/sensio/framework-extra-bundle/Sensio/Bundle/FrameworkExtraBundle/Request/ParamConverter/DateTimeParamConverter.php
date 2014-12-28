@@ -11,7 +11,7 @@
 
 namespace Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ConfigurationInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use DateTime;
@@ -24,11 +24,11 @@ use DateTime;
 class DateTimeParamConverter implements ParamConverterInterface
 {
     /**
-     * @{inheritdoc}
-     * 
+     * {@inheritdoc}
+     *
      * @throws NotFoundHttpException When invalid date given
      */
-    public function apply(Request $request, ConfigurationInterface $configuration)
+    public function apply(Request $request, ParamConverter $configuration)
     {
         $param = $configuration->getName();
 
@@ -39,12 +39,22 @@ class DateTimeParamConverter implements ParamConverterInterface
         $options = $configuration->getOptions();
         $value   = $request->attributes->get($param);
 
-        $date = isset($options['format'])
-            ? DateTime::createFromFormat($options['format'], $value)
-            : new DateTime($value);
+        if (!$value && $configuration->isOptional()) {
+            return false;
+        }
 
-        if (!$date) {
-            throw new NotFoundHttpException('Invalid date given.');
+        if (isset($options['format'])) {
+            $date = DateTime::createFromFormat($options['format'], $value);
+
+            if (!$date) {
+                throw new NotFoundHttpException('Invalid date given.');
+            }
+        } else {
+            if (false === strtotime($value)) {
+                throw new NotFoundHttpException('Invalid date given.');
+            }
+
+            $date = new DateTime($value);
         }
 
         $request->attributes->set($param, $date);
@@ -53,9 +63,9 @@ class DateTimeParamConverter implements ParamConverterInterface
     }
 
     /**
-     * @{inheritdoc}
+     * {@inheritdoc}
      */
-    public function supports(ConfigurationInterface $configuration)
+    public function supports(ParamConverter $configuration)
     {
         if (null === $configuration->getClass()) {
             return false;

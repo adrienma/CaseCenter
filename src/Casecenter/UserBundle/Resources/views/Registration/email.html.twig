@@ -1,0 +1,21 @@
+{# src/Casecenter/UserBundle/Resources/views/Registration/email.html.twig #}
+
+{% extends "::email.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block subject %}{% autoescape false %}{{ 'registration.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}{% endautoescape %}{% endblock %}
+
+{% block body %}
+	<p>{{ 'registration.email.message_html_part1'|trans({'%username%': user.firstname}) }}</p>
+	<br />
+	<p>{{ 'registration.email.message_html_part2'|trans({}) }}</p>
+	<p style="text-align: center;"><a href="{{ confirmationUrl }}" style="border-color: #285e8e; border-radius: 4px; padding: 6px 12px; background-color: #3276b1; color: #fff; text-decoration: none;">{{ 'registration.email.message_html_bouton'|trans({'%confirmationUrl%': confirmationUrl}) }}</a></p>
+	<br />
+	<p>{{ 'registration.email.message_html_part3'|trans({'%confirmationUrl%': confirmationUrl}) }}</p>
+	<br />
+	<p>{{ 'registration.email.message_html_part4'|trans({}) }}</p>
+	<br />
+	<p>{% autoescape %}{{ 'registration.email.message_salutation'|trans({}) }}{% endautoescape %}</p>
+{% endblock %}
+
+{% block body_text %}{% autoescape false %}{{ 'registration.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}{% endautoescape %}{% endblock %}

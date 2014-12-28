@@ -1,0 +1,7 @@
+wiki_index:
+    pattern:  /
+    defaults: { _controller: CasecenterWikiBundle:Wiki:index }
+
+wiki_category_add:
+    pattern: /category/add
+    defaults: { _controller: CasecenterWikiBundle:Category:add }

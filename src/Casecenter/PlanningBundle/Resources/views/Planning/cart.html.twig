@@ -1,0 +1,71 @@
+{# src/Casecenter/PlanningBundle/Resources/views/Planning/cart.html.twig #}
+
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'booking.myown'|trans }} - {{ 'planning.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}cart{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('planning_index') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li class="active">{{ 'booking.myown'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}{{ parent() }} <span>/</span> {{ 'planning.plural'|trans }}{% endblock %}
+
+{% block body %}
+	<p>{{ 'booking.cart.paragraph'|trans }}</p>
+	<p>{{ 'booking.cart.paragraph2'|trans }}</p>
+	<table class="table table-striped">
+		<thead><tr>
+			<th>{{ 'booking.count'|transchoice(bookings|length) }}</th>
+			<th>{{ 'booking.form.advertiser'|trans }}, {{ 'booking.form.campaign'|trans }}</th>
+			<th>{{ 'booking.form.creation'|trans }}</th>
+			<th></th>
+		</tr></thead>
+		<tbody>
+			{% for booking in bookings %}
+				<tr{% if booking.isValid == false or booking.status == 'confirm' %} class="{% if booking.isValid == false %}danger{% elseif booking.status == 'confirm' %}success{% endif %}"{% endif %}>
+					<td>
+						<p><b>{{ booking.package.planning.namepublic }}, {{ booking.package.name }}</b></p>
+						{% for date in booking.dates %}
+							{% if loop.first %}
+								<p>
+								{% if booking.status == "confirm" %}
+									{{ 'booking.cart.date_confirm'|trans }}
+								{% else %}
+									{{ 'booking.cart.date'|transchoice(booking.dates|length) }}
+								{% endif %}
+								{% if loop.length > 1 %}<ul>{% endif %}
+							{% endif %}
+							{% if loop.length > 1 %}<li>{% endif %}
+							{% if date.status == "confirm" %}<b>
+							{% elseif date.isAvailable == false %}<del class="noavailable" title="{{ 'booking.cart.date_noavailable'|trans }}">
+							{% endif %}
+							{{ 'booking.cart.date_list'|trans({'%date%': date.date.date|localizeddate('medium', 'none'), '%price%': date.price, '%status%': date.status}) }}
+							{% if date.status == "confirm" %}</b>
+							{% elseif date.isAvailable == false %}</del>
+							{% endif %}
+							{% if loop.length > 1 %}</li>{% endif %}
+							{% if loop.last %}{% if loop.length > 1 %}</ul>{% endif %}</p>{% endif %}
+						{% endfor %}
+						{% if booking.isValid == false %}<p class="novalid">{{ 'booking.cart.booking_novalid'|trans }}</p>{% endif %}
+					</td>
+					<td>{{ booking.advertiser }}, {{ booking.campaign }}</td>
+					<td>{{ booking.creation|localizeddate('short', 'short') }}</td>
+					<td>
+						{% if booking.status == "confirm" %}
+							{{ 'booking.cart.booking_confirm'|trans }}
+						{% else %}
+							{% if booking.isValid %}<a href="{{ path('booking_insertionorder', {'id': booking.id}) }}" target="_blank" class="btn btn-primary btn-xs">{{ 'booking.insertionorder.link'|trans }}</a> {% endif %}
+						<a href="{{ path('booking_remove', {'id': booking.id}) }}" class="btn btn-default btn-xs">{{ 'booking.delete.link'|trans }}</a>
+						{% endif %}
+					</td>
+				</tr>
+			{% else %}
+				<tr><td colspan="4">{{ 'booking.nul'|trans }}</td></tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

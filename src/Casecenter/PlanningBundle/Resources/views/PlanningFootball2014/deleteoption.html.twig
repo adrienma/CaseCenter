@@ -1,0 +1,44 @@
+{# src/Casecenter/PlanningBundle/Resources/views/PlanningFootball2014/deleteoption.html.twig #}
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('bundles/casecenterplanning/css/main_football2014.css') }}" type="text/css" />
+{% endblock %}
+
+{% block head_title %}{{ planning.name }} - {{ 'planning.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}delete deleteoption football2014{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('planning_index') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li><a href="{{ path('planning_football2014_overview') }}">{{ planning.name }}</a></li>
+	<li><a href="{{ path('planning_football2014_calendar') }}">{{ 'planning.calendar.label'|trans }}</a></li>
+	<li class="active">Supprimer une option</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'planning.singular'|trans }} <span>:</span> {{ planning.name }} <span>:</span> {{ 'planning.calendar.label'|trans }} <span>:</span> Supprimer une option
+{% endblock %}
+
+{% block header_nav %}
+	<li><a href="{{ path('planning_football2014_calendar') }}">Retour au calendrier</a></li>
+{% endblock %}
+
+{% block body %}
+	<form method="post" action="{{ path('planning_football2014_deleteoption', {'date': bd.date.id, 'booking': bd.booking.id}) }}">
+		<p>Vous êtes sur le point de supprimer l'option suivante :</p>
+		<ul>
+			<li>{{ 'booking.form.advertiser'|trans }} : {{ bd.booking.advertiser }}</li>
+			<li>{{ 'booking.form.campaign'|trans }} : {{ bd.booking.campaign }}</li>
+			<li>{{ 'package.singular'|trans }} : {{ bd.booking.package.name }}</li>
+			<li>Date : {{ bd.date.date|localizeddate('medium', 'none') }}</li>
+			<li>Tarif : {{ bd.price }}</li>
+		</ul>
+		
+		<div class="checkbox"><label><input type="checkbox" name="delete" value="true" required /> {{ 'form.delete.confirmation'|trans }}<br /><b>{{ 'form.delete.irreversible'|trans }}</b></label></div>
+
+		<input type="submit" class="btn btn-danger" value="{{ 'form.delete.btn'|trans }}" /> <a href="{{ path('planning_football2014_calendar') }}" class="btn btn-sm btn-default">{{ 'form.btn.cancel'|trans }}</a>
+	</form>
+{% endblock %}

@@ -1,0 +1,64 @@
+{# src/Casecenter/PlanningBundle/Resources/views/Planning/edit.html.twig #}
+
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block head_title %}{{ planning.name }} - {{ 'planning.singular'|trans }} - {{ 'Administration'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}admin edit{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('administration_index') }}">{{ 'Administration'|trans }}</a></li>
+	<li><a href="{{ path('planning_index') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li class="active">{{ planning.name }}</li>
+{% endblock %}
+
+{% block header_title %}{{ parent() }} <span>/</span> {{ 'planning.singular'|trans }} <span>:</span> {{ planning.name }}{% endblock %}
+
+{% block body %}
+	<div class="row">
+		<div class="col-md-5">
+			<h3>{{ 'planning.edit.label'|trans }}</h3>
+
+			<form method="post" action="{{ path('planning_edit', {'slug': planning.slug}) }}" {{ form_enctype(form) }}>
+				{{ form_widget(form) }}
+
+				<div class="form-group">
+					<input type="submit" class="btn btn-primary" value="{{ 'form.edit.btn'|trans }}" />
+					<a href="{{ path('planning_delete', {'slug': planning.slug}) }}" class="btn btn-danger btn-sm">{{ 'form.delete.label'|trans }}</a>
+					<a href="{{ path('planning_index') }}" class="btn btn-default btn-sm">{{ 'form.btn.back'|trans }}</a>
+				</div>
+			</form>
+		</div>
+		<div class="col-md-7">
+			<h3>{{ 'package.plural'|trans }} <a href="{{ path('package_add', {'slug': planning.slug}) }}" title="{{ 'package.new.label'|trans }}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-plus"></span></a></h3>
+			<table class="table table-striped">
+				<thead><tr><th>{{ 'package.count'|transchoice(packages|length) }}</th></tr></thead>
+				<tbody>
+					{% for package in packages %}
+						<tr><td>
+							<a href="{{ path('package_edit', {'slugPlanning': planning.slug, 'slugPackage': package.slug}) }}">{{ package.name }}</a>
+						</td></tr>
+					{% else %}
+						<tr><td>{{ 'package.nul'|trans }}</td></tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<h3>{{ 'calendar.plural'|trans }} <a href="{{ path('calendar_add', {'slug': planning.slug}) }}" title="{{ 'calendar.new.label'|trans }}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-plus"></span></a></h3>
+			<table class="table table-striped">
+				<thead><tr><th>{{ 'calendar.count'|transchoice(calendars|length) }}</th></tr></thead>
+				<tbody>
+					{% for calendar in calendars %}
+						<tr><td>
+							{#<a href="{{ path('planning_edit', {'slug': planning.slug}) }}">{{ planning.name }}</a>
+							{% if planning.namePublic != planning.name %} <em>({{ planning.namePublic }})</em>{% endif %}#}
+						</td></tr>
+					{% else %}
+						<tr><td>{{ 'calendar.nul'|trans }}</td></tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

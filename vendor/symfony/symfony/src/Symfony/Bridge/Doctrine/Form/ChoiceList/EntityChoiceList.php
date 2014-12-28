@@ -59,21 +59,21 @@ class EntityChoiceList extends ObjectChoiceList
     /**
      * Whether to use the identifier for index generation
      *
-     * @var Boolean
+     * @var bool
      */
     private $idAsIndex = false;
 
     /**
      * Whether to use the identifier for value generation
      *
-     * @var Boolean
+     * @var bool
      */
     private $idAsValue = false;
 
     /**
      * Whether the entities have already been loaded.
      *
-     * @var Boolean
+     * @var bool
      */
     private $loaded = false;
 
@@ -91,7 +91,7 @@ class EntityChoiceList extends ObjectChoiceList
      * @param string                    $class             The class name
      * @param string                    $labelPath         The property path used for the label
      * @param EntityLoaderInterface     $entityLoader      An optional query builder
-     * @param array                     $entities          An array of choices
+     * @param array|\Traversable|null   $entities          An array of choices or null to lazy load
      * @param array                     $preferredEntities An array of preferred choices
      * @param string                    $groupPath         A property path pointing to the property used
      *                                                     to group the choices. Only allowed if
@@ -294,6 +294,8 @@ class EntityChoiceList extends ObjectChoiceList
      * @return array
      *
      * @see Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface
+     *
+     * @deprecated Deprecated since version 2.4, to be removed in 3.0.
      */
     public function getIndicesForChoices(array $entities)
     {
@@ -334,6 +336,8 @@ class EntityChoiceList extends ObjectChoiceList
      * @return array
      *
      * @see Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface
+     *
+     * @deprecated Deprecated since version 2.4, to be removed in 3.0.
      */
     public function getIndicesForValues(array $values)
     {
@@ -365,8 +369,8 @@ class EntityChoiceList extends ObjectChoiceList
      *
      * @param mixed $entity The choice to create an index for
      *
-     * @return integer|string A unique index containing only ASCII letters,
-     *                        digits and underscores.
+     * @return int|string A unique index containing only ASCII letters,
+     *                    digits and underscores.
      */
     protected function createIndex($entity)
     {
@@ -386,7 +390,7 @@ class EntityChoiceList extends ObjectChoiceList
      *
      * @param mixed $entity The choice to create a value for
      *
-     * @return integer|string A unique value without character limitations.
+     * @return int|string A unique value without character limitations.
      */
     protected function createValue($entity)
     {
@@ -444,7 +448,7 @@ class EntityChoiceList extends ObjectChoiceList
      *
      * @param object $entity The entity for which to get the identifier
      *
-     * @return array          The identifier values
+     * @return array The identifier values
      *
      * @throws RuntimeException If the entity does not exist in Doctrine's identity map
      */
@@ -452,7 +456,7 @@ class EntityChoiceList extends ObjectChoiceList
     {
         if (!$this->em->contains($entity)) {
             throw new RuntimeException(
-                'Entities passed to the choice field must be managed. Maybe ' .
+                'Entities passed to the choice field must be managed. Maybe '.
                 'persist them in the entity manager?'
             );
         }

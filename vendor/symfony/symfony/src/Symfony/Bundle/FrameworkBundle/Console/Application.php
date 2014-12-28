@@ -63,7 +63,7 @@ class Application extends BaseApplication
      * @param InputInterface  $input  An Input instance
      * @param OutputInterface $output An Output instance
      *
-     * @return integer 0 if everything went fine, or an error code
+     * @return int 0 if everything went fine, or an error code
      */
     public function doRun(InputInterface $input, OutputInterface $output)
     {
@@ -98,9 +98,17 @@ class Application extends BaseApplication
 
     protected function registerCommands()
     {
+        $container = $this->kernel->getContainer();
+
         foreach ($this->kernel->getBundles() as $bundle) {
             if ($bundle instanceof Bundle) {
                 $bundle->registerCommands($this);
+            }
+        }
+
+        if ($container->hasParameter('console.command.ids')) {
+            foreach ($container->getParameter('console.command.ids') as $id) {
+                $this->add($container->get($id));
             }
         }
     }

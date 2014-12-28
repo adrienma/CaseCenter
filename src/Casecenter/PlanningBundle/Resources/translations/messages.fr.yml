@@ -1,0 +1,147 @@
+# src/Casecenter/PlanningBundle/Resources/translations/messages.fr.yml
+
+planning:
+    nul: "Pas de planning enregistré"
+    singular: Planning
+    plural: Plannings
+    count: "Planning (%count%)|]1,+Inf]Plannings (%count%)"
+    reservation:
+        start: "Ouverture des réservations le %date%, à %time%"
+        end: "Fermeture des réservations le %date%, à %time%"
+        timeremaining:
+            days: "Il reste %value% jours"
+            hours: "Il reste %value% heures"
+            minutes: "Il reste %value% minutes"
+        close: "Réservations terminées"
+    index:
+        link: "Gérer les plannings"
+    new:
+        label: "Nouveau planning"
+        flashmessage: "Le planning %name% a bien été crée."
+    edit:
+        label: "Editer ce planning"
+        flashmessage: "Le planning %name% a bien été modifié."
+    delete:
+        label: "Supprimer ce planning"
+        paragraph: "Vous êtes sur le point de supprimer le planning %name%."
+        flashmessage: "Le planning %name% a bien été supprimé."
+    #home:
+    #    link: "Voir les plannings"
+    overview:
+        label: "Accéder au planning"
+    schedule:
+        period: "Planning du %start% au %end%"
+        dateimposible: "Cette date n'est plus disponible."
+        reservation: "Nombre d'options"
+        wish: "Je souhaite cette date."
+        price: "Forfait à la journée :"
+    calendar:
+        label: "Calendrier"
+    form:
+        name: "Intitulé du planning"
+        namePublic: "Intitulé public du planning"
+        enabled: "Activer le planning"
+        scheduleStart: "Début du calendrier"
+        scheduleEnd: "Fin du calendrier"
+        reservationStart: "Début des réservations"
+        reservationEnd: "Fin des réservations"
+        vignette: "Vignette"
+
+package:
+    nul: "Pas de dispositif enregistré"
+    singular: Dispositif
+    plural: Dispositifs
+    count: "Dispositif (%count%)|]1,+Inf]Dispositifs (%count%)"
+    choice: "Choisir ce dispositif"
+    new:
+        label: "Nouveau dispositif"
+        flashmessage: "Le dispositif %name% a bien été crée."
+    form:
+        name: "Intitulé du dispositif"
+        enabled: "Activer le dispositif"
+        vignette: "Vignette"
+
+calendar:
+    nul: "Pas de calendrier lié"
+    singular: Calendrier
+    plural: Calendriers
+    count: "Calendrier (%count%)|]1,+Inf]Calendriers (%count%)"
+    new:
+        label: "Nouveau calendrier"
+        flashmessage: "Le calendrier %name% a bien été crée."
+    form:
+        name: "Intitulé du calendrier"
+
+booking:
+    nul: "Pas de réservation enregistré"
+    singular: "Réservation"
+    plural: "Réservations"
+    myown: "Mes réservations"
+    count: "Réservation (%count%)|]1,+Inf]Réservations (%count%)"
+    new:
+        flashmessage: "La réservation pour %advertiser% (%campaign%) a bien été enregistrée."
+    etape1:
+        label: "Etape 1"
+        title: "Choix du dispositif :"
+        btndwnpdf: "Télécharger l'offre"
+    etape2:
+        label: "Etape 2"
+        title: "Choix d'une date :"
+        detail: "Vous devez choisir la date que vous souhaitez. Vous pouvez faire jusqu'à 3 souhaits possible parmi le calendrier ci-dessous."
+        tarifs: "Les tarifs sont exprimés en net net."
+    etape3:
+        label: "Etape 3"
+        title: "Annonceur, campagne :"
+    mail:
+        object: "Confirmation de réception"
+        message_html_part1: "Bonjour %username% !"
+        message_html_part2: "Vous venez de une réservation sur le planning %planningName%."
+        message_html_part3: "Voici un récapitulatif :"
+        message_html_list_package: "Dispositif : %packageName%;"
+        message_html_list_advertiser: "Annonceur : %advertiser%;"
+        message_html_list_campaign: "Campagne : %campaign%;"
+        message_html_date: "Date souhaitée :|]1,+Inf]Dates souhaitées :"
+        message_html_date_list: "le %date% à %price% net net"
+        message_html_part4: "Pour confirmer cette date, vous devez retourner signé l'ordre de réservation disponible sur la plateforme.|]1,+Inf]Pour confirmer une de ces dates, vous devez retourner signé l'ordre de réservation disponible sur la plateforme."
+        message_html_bouton: "Accéder à la plateforme"
+        message_html_part5: "Le premier ordre de réservation valide et signé remporte la date voulue. La date et l'heure de réception de celui-ci feront foi pour déterminer l'ordre de réception."
+        message_salutation: "Cordialement,"
+    cart:
+        paragraph: "Vous retrouvez ici toutes vos réservations."
+        paragraph2: "Pour confirmer une réservation, vous devez retourner signé l'ordre de réservation correspondant. Le premier ordre de réservation valide et signé remporte la date voulue. La date et l'heure de réception de celui-ci feront foi pour déterminer l'ordre de réception."
+        date: "Souhait :|]1,+Inf]Souhaits :"
+        date_confirm: "Date :"
+        date_list: "le %date% (%price% net net, %status%)"
+        date_noavailable: "Cette date n'est plus disponible."
+        booking_novalid: "Cette réservation n'est plus valable."
+        booking_confirm: "Cette réservation est confirmée."
+    insertionorder:
+        link: "Ordre de réservation"
+        modal:
+            title: "Instructions"
+            list1: "Imprimez cet ordre de réservation;"
+            list2: "Datez et signez le;"
+            list3: "Puis retournez le nous par mail ou fax."
+        title: "Ordre de réservation"
+        agency: "Agence Média"
+        id: "Référence de réservation"
+        forfait: "Type de réservation"
+        date: "Date souhaitée|]1,+Inf]Dates souhaitées"
+        datechoice: "La date souhaitée est :|]1,+Inf]Vous avez exprimé plusieurs souhaits de date. Veuillez cocher celle choisie :"
+        date_list: "le %date% à %price% net net"
+        tarifs: "Les tarifs sont exprimés en net net euros HT. (TVA applicable au taux de 19,6%)"
+        cgv: "La réception par Amaury Médias Digital (par fax ou mail) de cet ordre de réservation signé, confirme votre souhait et fait foi comme ordre d'insertion. Dans le cas où le client souhaiterait ultérieurement annuler son ordre de réservation précédemment validé, il lui sera facturé 100% du montant total de la dite réservation. En signant cet ordre de réservation, vous acceptez les conditions particuliéres ci-dessus et les conditions générales de vente disponible à l'adresse suivante : http://www.amaurymedias.fr/digital/."
+        signature: "Date et signature du client :"
+        footer: "Edité par %fullname%, le %now% - Amaury Médias Digital"
+    delete:
+        link: "Supprimer"
+        label: "Supprimer cette réservation"
+        paragraph: "Vous êtes sur le point de supprimer la réservation suivante :"
+        flashmessage: "Votre réservation a bien été supprimée."
+    form:
+        advertiser: "Annonceur"
+        campaign: "Campagne"
+        date: "Date souhaitée"
+        date1: "Date souhaitée, rang 2"
+        date2: "Date souhaitée, rang 3"
+        creation: "Date de la réservation"

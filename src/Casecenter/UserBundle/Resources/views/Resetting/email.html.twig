@@ -3,10 +3,10 @@
 {% extends "::email.html.twig" %}
 {% trans_default_domain 'FOSUserBundle' %}
 
-{% block subject %}{% autoescape false %}{{ 'resetting.email.subject'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}{% endautoescape %}{% endblock %}
+{% block subject %}{% autoescape false %}{{ 'resetting.email.subject'|trans({'%username%': user.firstname, '%confirmationUrl%': confirmationUrl}) }}{% endautoescape %}{% endblock %}
 
 {% block body %}
-	<p>{{ 'resetting.email.message_html_part1'|trans({'%username%': user.username}) }}</p>
+	<p>{{ 'resetting.email.message_html_part1'|trans({'%username%': user.firstname}) }}</p>
 	<br />
 	<p>{{ 'resetting.email.message_html_part2'|trans({}) }}</p>
 	<p style="text-align: center;"><a href="{{ confirmationUrl }}" style="border-color: #285e8e; border-radius: 4px; padding: 6px 12px; background-color: #3276b1; color: #fff; text-decoration: none;">{{ 'resetting.email.message_html_bouton'|trans({'%confirmationUrl%': confirmationUrl}) }}</a></p>
@@ -19,6 +19,6 @@
 {% endblock %}
 
 {% block body_text %}
-	{% autoescape false %}{{ 'resetting.email.message'|trans({'%username%': user.username, '%confirmationUrl%': confirmationUrl}) }}{% endautoescape %}
+	{% autoescape false %}{{ 'resetting.email.message'|trans({'%username%': user.firstname, '%confirmationUrl%': confirmationUrl}) }}{% endautoescape %}
 	{% autoescape false %}{{ 'resetting.email.message_salutation'|trans({}) }}{% endautoescape %}
 {% endblock %}

@@ -11,11 +11,11 @@
 
 namespace Symfony\Component\Form\Extension\Validator\Constraints;
 
-use Symfony\Component\Form\ClickableInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\Extension\Validator\Util\ServerParams;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * @author Bernhard Schussek <bschussek@gmail.com>
@@ -23,47 +23,25 @@ use Symfony\Component\Validator\ConstraintValidator;
 class FormValidator extends ConstraintValidator
 {
     /**
-     * @var \SplObjectStorage
-     */
-    private static $clickedButtons;
-
-    /**
-     * @var ServerParams
-     */
-    private $serverParams;
-
-    /**
-     * Creates a validator with the given server parameters.
-     *
-     * @param ServerParams $params The server parameters. Default
-     *                             parameters are created if null.
-     */
-    public function __construct(ServerParams $params = null)
-    {
-        $this->serverParams = $params ?: new ServerParams();
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function validate($form, Constraint $constraint)
     {
+        if (!$constraint instanceof Form) {
+            throw new UnexpectedTypeException($constraint, __NAMESPACE__.'\Form');
+        }
+
         if (!$form instanceof FormInterface) {
             return;
         }
 
-        if (null === static::$clickedButtons) {
-            static::$clickedButtons = new \SplObjectStorage();
-        }
-
-        // If the form was previously validated, remove it from the cache in
-        // case the clicked button has changed
-        if (static::$clickedButtons->contains($form)) {
-            static::$clickedButtons->detach($form);
-        }
-
         /* @var FormInterface $form */
         $config = $form->getConfig();
+        $validator = null;
+
+        if ($this->context instanceof ExecutionContextInterface) {
+            $validator = $this->context->getValidator()->inContext($this->context);
+        }
 
         if ($form->isSynchronized()) {
             // Validate the form data only if transformation succeeded
@@ -72,7 +50,12 @@ class FormValidator extends ConstraintValidator
             // Validate the data against its own constraints
             if (self::allowDataWalking($form)) {
                 foreach ($groups as $group) {
-                    $this->context->validate($form->getData(), 'data', $group, true);
+                    if ($validator) {
+                        $validator->atPath('data')->validate($form->getData(), null, $group);
+                    } else {
+                        // 2.4 API
+                        $this->context->validate($form->getData(), 'data', $group, true);
+                    }
                 }
             }
 
@@ -82,7 +65,12 @@ class FormValidator extends ConstraintValidator
             foreach ($constraints as $constraint) {
                 foreach ($groups as $group) {
                     if (in_array($group, $constraint->groups)) {
-                        $this->context->validateValue($form->getData(), $constraint, 'data', $group);
+                        if ($validator) {
+                            $validator->atPath('data')->validate($form->getData(), $constraint, $group);
+                        } else {
+                            // 2.4 API
+                            $this->context->validateValue($form->getData(), $constraint, 'data', $group);
+                        }
 
                         // Prevent duplicate validation
                         continue 2;
@@ -111,47 +99,31 @@ class FormValidator extends ConstraintValidator
                     ? (string) $form->getViewData()
                     : gettype($form->getViewData());
 
-                $this->context->addViolation(
-                    $config->getOption('invalid_message'),
-                    array_replace(array('{{ value }}' => $clientDataAsString), $config->getOption('invalid_message_parameters')),
-                    $form->getViewData(),
-                    null,
-                    Form::ERR_INVALID
-                );
+                $this->buildViolation($config->getOption('invalid_message'))
+                    ->setParameters(array_replace(array('{{ value }}' => $clientDataAsString), $config->getOption('invalid_message_parameters')))
+                    ->setInvalidValue($form->getViewData())
+                    ->setCode(Form::NOT_SYNCHRONIZED_ERROR)
+                    ->setCause($form->getTransformationFailure())
+                    ->addViolation();
             }
         }
 
         // Mark the form with an error if it contains extra fields
-        if (count($form->getExtraData()) > 0) {
-            $this->context->addViolation(
-                $config->getOption('extra_fields_message'),
-                array('{{ extra_fields }}' => implode('", "', array_keys($form->getExtraData()))),
-                $form->getExtraData()
-            );
-        }
-
-        // Mark the form with an error if the uploaded size was too large
-        $length = $this->serverParams->getContentLength();
-
-        if ($form->isRoot() && null !== $length) {
-            $max = $this->serverParams->getPostMaxSize();
-
-            if (!empty($max) && $length > $max) {
-                $this->context->addViolation(
-                    $config->getOption('post_max_size_message'),
-                    array('{{ max }}' => $this->serverParams->getNormalizedIniPostMaxSize()),
-                    $length
-                );
-            }
+        if (!$config->getOption('allow_extra_fields') && count($form->getExtraData()) > 0) {
+            $this->buildViolation($config->getOption('extra_fields_message'))
+                ->setParameter('{{ extra_fields }}', implode('", "', array_keys($form->getExtraData())))
+                ->setInvalidValue($form->getExtraData())
+                ->setCode(Form::NO_SUCH_FIELD_ERROR)
+                ->addViolation();
         }
     }
 
     /**
      * Returns whether the data of a form may be walked.
      *
-     * @param  FormInterface $form The form to test.
+     * @param FormInterface $form The form to test.
      *
-     * @return Boolean Whether the graph walker may walk the data.
+     * @return bool Whether the graph walker may walk the data.
      */
     private static function allowDataWalking(FormInterface $form)
     {
@@ -181,26 +153,21 @@ class FormValidator extends ConstraintValidator
     /**
      * Returns the validation groups of the given form.
      *
-     * @param  FormInterface $form The form.
+     * @param FormInterface $form The form.
      *
      * @return array The validation groups.
      */
     private static function getValidationGroups(FormInterface $form)
     {
-        $root = $form->getRoot();
-
         // Determine the clicked button of the complete form tree
-        if (!static::$clickedButtons->contains($root)) {
-            // Only call findClickedButton() once to prevent an exponential
-            // runtime
-            // https://github.com/symfony/symfony/issues/8317
-            static::$clickedButtons->attach($root, self::findClickedButton($root));
+        $clickedButton = null;
+
+        if (method_exists($form, 'getClickedButton')) {
+            $clickedButton = $form->getClickedButton();
         }
 
-        $button = static::$clickedButtons->offsetGet($root);
-
-        if (null !== $button) {
-            $groups = $button->getConfig()->getOption('validation_groups');
+        if (null !== $clickedButton) {
+            $groups = $clickedButton->getConfig()->getOption('validation_groups');
 
             if (null !== $groups) {
                 return self::resolveValidationGroups($groups, $form);
@@ -218,28 +185,6 @@ class FormValidator extends ConstraintValidator
         } while (null !== $form);
 
         return array(Constraint::DEFAULT_GROUP);
-    }
-
-    /**
-     * Extracts a clicked button from a form tree, if one exists.
-     *
-     * @param FormInterface $form The root form.
-     *
-     * @return ClickableInterface|null The clicked button or null.
-     */
-    private static function findClickedButton(FormInterface $form)
-    {
-        if ($form instanceof ClickableInterface && $form->isClicked()) {
-            return $form;
-        }
-
-        foreach ($form as $child) {
-            if (null !== ($button = self::findClickedButton($child))) {
-                return $button;
-            }
-        }
-
-        return null;
     }
 
     /**

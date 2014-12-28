@@ -121,7 +121,7 @@ class RouteCollection implements \IteratorAggregate, \Countable
      * Adds a route collection at the end of the current set by appending all
      * routes of the added collection.
      *
-     * @param RouteCollection $collection      A RouteCollection instance
+     * @param RouteCollection $collection A RouteCollection instance
      *
      * @api
      */
@@ -174,6 +174,20 @@ class RouteCollection implements \IteratorAggregate, \Countable
             $route->setHost($pattern);
             $route->addDefaults($defaults);
             $route->addRequirements($requirements);
+        }
+    }
+
+    /**
+     * Sets a condition on all routes.
+     *
+     * Existing conditions will be overridden.
+     *
+     * @param string $condition The condition
+     */
+    public function setCondition($condition)
+    {
+        foreach ($this->routes as $route) {
+            $route->setCondition($condition);
         }
     }
 

@@ -12,7 +12,6 @@
 namespace Symfony\Component\HttpFoundation\Session\Storage;
 
 use Symfony\Component\HttpFoundation\Session\SessionBagInterface;
-use Symfony\Component\HttpFoundation\Session\Storage\MetadataBag;
 
 /**
  * StorageInterface.
@@ -29,7 +28,7 @@ interface SessionStorageInterface
      *
      * @throws \RuntimeException If something goes wrong starting the session.
      *
-     * @return boolean True if started.
+     * @return bool True if started.
      *
      * @api
      */
@@ -38,7 +37,7 @@ interface SessionStorageInterface
     /**
      * Checks if the session is started.
      *
-     * @return boolean True if started, false otherwise.
+     * @return bool True if started, false otherwise.
      */
     public function isStarted();
 
@@ -89,13 +88,21 @@ interface SessionStorageInterface
      * Note regenerate+destroy should not clear the session data in memory
      * only delete the session data from persistent storage.
      *
-     * @param Boolean $destroy  Destroy session when regenerating?
-     * @param integer $lifetime Sets the cookie lifetime for the session cookie. A null value
-     *                          will leave the system settings unchanged, 0 sets the cookie
-     *                          to expire with browser session. Time is in seconds, and is
-     *                          not a Unix timestamp.
+     * Care: When regenerating the session ID no locking is involved in PHPs
+     * session design. See https://bugs.php.net/bug.php?id=61470 for a discussion.
+     * So you must make sure the regenerated session is saved BEFORE sending the
+     * headers with the new ID. Symfonys HttpKernel offers a listener for this.
+     * See Symfony\Component\HttpKernel\EventListener\SaveSessionListener.
+     * Otherwise session data could get lost again for concurrent requests with the
+     * new ID. One result could be that you get logged out after just logging in.
      *
-     * @return Boolean True if session regenerated, false if error
+     * @param bool $destroy  Destroy session when regenerating?
+     * @param int  $lifetime Sets the cookie lifetime for the session cookie. A null value
+     *                       will leave the system settings unchanged, 0 sets the cookie
+     *                       to expire with browser session. Time is in seconds, and is
+     *                       not a Unix timestamp.
+     *
+     * @return bool True if session regenerated, false if error
      *
      * @throws \RuntimeException If an error occurs while regenerating this storage
      *

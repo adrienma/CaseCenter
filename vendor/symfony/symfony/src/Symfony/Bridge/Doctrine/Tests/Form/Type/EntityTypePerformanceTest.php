@@ -44,28 +44,12 @@ class EntityTypePerformanceTest extends FormPerformanceTestCase
 
         return array(
             new CoreExtension(),
-            new DoctrineOrmExtension($manager)
+            new DoctrineOrmExtension($manager),
         );
     }
 
     protected function setUp()
     {
-        if (!class_exists('Symfony\Component\Form\Form')) {
-            $this->markTestSkipped('The "Form" component is not available');
-        }
-
-        if (!class_exists('Doctrine\DBAL\Platforms\MySqlPlatform')) {
-            $this->markTestSkipped('Doctrine DBAL is not available.');
-        }
-
-        if (!class_exists('Doctrine\Common\Version')) {
-            $this->markTestSkipped('Doctrine Common is not available.');
-        }
-
-        if (!class_exists('Doctrine\ORM\EntityManager')) {
-            $this->markTestSkipped('Doctrine ORM is not available.');
-        }
-
         $this->em = DoctrineOrmTestCase::createTestEntityManager();
 
         parent::setUp();

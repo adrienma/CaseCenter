@@ -1,14 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<phpunit backupGlobals="false"
-         backupStaticAttributes="false"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
+         backupGlobals="false"
          colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false"
-         syntaxCheck="false"
          bootstrap="autoload.php.dist"
 >
     <php>
@@ -21,6 +16,7 @@
         <testsuite name="Symfony Test Suite">
             <directory>./src/Symfony/Bridge/*/Tests/</directory>
             <directory>./src/Symfony/Component/*/Tests/</directory>
+            <directory>./src/Symfony/Component/*/*/Tests/</directory>
             <directory>./src/Symfony/Bundle/*/Tests/</directory>
         </testsuite>
     </testsuites>
@@ -28,6 +24,7 @@
     <groups>
         <exclude>
             <group>benchmark</group>
+            <group>intl-data</group>
         </exclude>
     </groups>
 
@@ -37,6 +34,7 @@
             <exclude>
                 <directory>./src/Symfony/Bridge/*/Tests</directory>
                 <directory>./src/Symfony/Component/*/Tests</directory>
+                <directory>./src/Symfony/Component/*/*/Tests</directory>
                 <directory>./src/Symfony/Bundle/*/Tests</directory>
                 <directory>./src/Symfony/Bundle/*/Resources</directory>
                 <directory>./src/Symfony/Component/*/Resources</directory>

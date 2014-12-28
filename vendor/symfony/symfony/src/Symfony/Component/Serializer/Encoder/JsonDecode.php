@@ -11,6 +11,8 @@
 
 namespace Symfony\Component\Serializer\Encoder;
 
+use Symfony\Component\Serializer\Exception\UnexpectedValueException;
+
 /**
  * Decodes JSON data
  *
@@ -21,25 +23,26 @@ class JsonDecode implements DecoderInterface
     /**
      * Specifies if the returned result should be an associative array or a nested stdClass object hierarchy.
      *
-     * @var Boolean
+     * @var bool
      */
     private $associative;
 
     /**
      * Specifies the recursion depth.
      *
-     * @var integer
+     * @var int
      */
     private $recursionDepth;
 
     private $lastError = JSON_ERROR_NONE;
+
     protected $serializer;
 
     /**
      * Constructs a new JsonDecode instance.
      *
-     * @param Boolean  $associative True to return the result associative array, false for a nested stdClass hierarchy
-     * @param integer  $depth       Specifies the recursion depth
+     * @param bool $associative True to return the result associative array, false for a nested stdClass hierarchy
+     * @param int  $depth       Specifies the recursion depth
      */
     public function __construct($associative = false, $depth = 512)
     {
@@ -50,7 +53,9 @@ class JsonDecode implements DecoderInterface
     /**
      * Returns the last decoding error (if any).
      *
-     * @return integer
+     * @return int
+     *
+     * @deprecated since 2.5, decode() throws an exception if error found, will be removed in 3.0
      *
      * @see http://php.net/manual/en/function.json-last-error.php json_last_error
      */
@@ -82,23 +87,27 @@ class JsonDecode implements DecoderInterface
      *
      * @return mixed
      *
+     * @throws UnexpectedValueException
+     *
      * @see http://php.net/json_decode json_decode
      */
     public function decode($data, $format, array $context = array())
     {
         $context = $this->resolveContext($context);
 
-        $associative    = $context['json_decode_associative'];
+        $associative = $context['json_decode_associative'];
         $recursionDepth = $context['json_decode_recursion_depth'];
-        $options        = $context['json_decode_options'];
+        $options = $context['json_decode_options'];
 
-        if (version_compare(PHP_VERSION, '5.4.0') >= 0) {
+        if (PHP_VERSION_ID >= 50400) {
             $decodedData = json_decode($data, $associative, $recursionDepth, $options);
         } else {
             $decodedData = json_decode($data, $associative, $recursionDepth);
         }
 
-        $this->lastError = json_last_error();
+        if (JSON_ERROR_NONE !== $this->lastError = json_last_error()) {
+            throw new UnexpectedValueException(JsonEncoder::getLastErrorMessage());
+        }
 
         return $decodedData;
     }
@@ -123,7 +132,7 @@ class JsonDecode implements DecoderInterface
         $defaultOptions = array(
             'json_decode_associative' => $this->associative,
             'json_decode_recursion_depth' => $this->recursionDepth,
-            'json_decode_options' => 0
+            'json_decode_options' => 0,
         );
 
         return array_merge($defaultOptions, $context);

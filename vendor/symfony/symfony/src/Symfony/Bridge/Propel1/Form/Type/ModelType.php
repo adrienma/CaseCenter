@@ -57,7 +57,7 @@ class ModelType extends AbstractType
 
     public function __construct(PropertyAccessorInterface $propertyAccessor = null)
     {
-        $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::getPropertyAccessor();
+        $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -79,21 +79,23 @@ class ModelType extends AbstractType
                 $options['query'],
                 $options['group_by'],
                 $options['preferred_choices'],
-                $propertyAccessor
+                $propertyAccessor,
+                $options['index_property']
             );
         };
 
         $resolver->setDefaults(array(
-            'template'          => 'choice',
-            'multiple'          => false,
-            'expanded'          => false,
-            'class'             => null,
-            'property'          => null,
-            'query'             => null,
-            'choices'           => null,
-            'choice_list'       => $choiceList,
-            'group_by'          => null,
-            'by_reference'      => false,
+            'template' => 'choice',
+            'multiple' => false,
+            'expanded' => false,
+            'class' => null,
+            'property' => null,
+            'query' => null,
+            'choices' => null,
+            'choice_list' => $choiceList,
+            'group_by' => null,
+            'by_reference' => false,
+            'index_property' => null,
         ));
     }
 

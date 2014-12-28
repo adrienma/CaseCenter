@@ -3,8 +3,18 @@ security:
         Casecenter\UserBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_USER, ROLE_MODERATEUR]
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_MODERATEUR, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        #ROLE_USER, ROLE_MODERATEUR
+        ROLE_PLANNING_ADMIN: [ROLE_PLANNING]
+        ROLE_CAMPAIGN_ADMIN: [ROLE_CAMPAIGN]
+        ROLE_PARTNER_ADMIN: [ROLE_PARTNER]
+        ROLE_PROJECT_ADMIN: [ROLE_PROJECT]
+        ROLE_REPORT_ADMIN: [ROLE_REPORT]
+        ROLE_WIKI_ADMIN: [ROLE_WIKI]
+        ROLE_ADMIN: []
+        ROLE_SUPER_ADMIN: [ROLE_PLANNING_ADMIN, ROLE_CAMPAIGN_ADMIN, ROLE_PARTNER_ADMIN, ROLE_PROJECT_ADMIN, ROLE_REPORT_ADMIN, ROLE_WIKI_ADMIN, ROLE_ADMIN]
+
+    acl:
+       connection: default
 
     providers:
         main:
@@ -19,6 +29,7 @@ security:
             pattern: ^/
             anonymous: true
             provider: main
+            switch_user: { role: ROLE_ADMIN }
             form_login:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
@@ -29,5 +40,22 @@ security:
                 key: %secret%
 
     access_control:
+        # PLANNING MODULE
+        #- { path: ^/plannings/admin, roles: ROLE_PLANNING_ADMIN }
+        - { path: ^/plannings/add, roles: ROLE_PLANNING_ADMIN }
+        - { path: ^/plannings, roles: ROLE_PLANNING }
+        # CAMPAIGN MODULE
+        - { path: ^/campaigns, roles: ROLE_CAMPAIGN }
+        # PARTNER MODULE
+        - { path: ^/partners, roles: ROLE_PARTNER }
+        # PROJECT MODULE
+        - { path: ^/projects, roles: ROLE_PROJECT }
+        # REPORT MODULE
+        - { path: ^/reports, roles: ROLE_REPORT }
+        # WIKI MODULE
+        - { path: ^/wiki, roles: ROLE_WIKI }
+        # ADMIN MODULE
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        # GENERAL ACCESS
         - { path: ^/(login$|register|resetting), roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, roles: IS_AUTHENTICATED_REMEMBERED }

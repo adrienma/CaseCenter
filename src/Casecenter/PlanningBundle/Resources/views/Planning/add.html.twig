@@ -1,0 +1,28 @@
+{# src/Casecenter/PlanningBundle/Resources/views/Planning/add.html.twig #}
+
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'planning.new.label'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}add{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('planning_index') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li class="active">{{ 'planning.new.label'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}{{ parent() }} <span>/</span> {{ 'planning.singular'|trans }}{% endblock %}
+
+{% block body %}
+	<h2>{{ 'planning.new.label'|trans }}</h2>
+
+	<form method="post" action="{{ path('planning_add') }}" {{ form_enctype(form) }}>
+		{{ form_widget(form) }}
+
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary" value="{{ 'form.add.btn'|trans }}" />
+			<a href="{{ path('support_index') }}" class="btn btn-default btn-sm">{{ 'form.btn.cancel'|trans }}</a>
+		</div>
+	</form>
+{% endblock %}

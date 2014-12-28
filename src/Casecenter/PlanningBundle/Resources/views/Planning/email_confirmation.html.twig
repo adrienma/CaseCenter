@@ -1,0 +1,26 @@
+{# src/Casecenter/PlanningBundle/Resources/views/Planning/email_confirmation.html.twig #}
+
+{% extends "::email.html.twig" %}
+
+{% block body %}
+	<p>{{ 'booking.mail.message_html_part1'|trans({'%username%': user.firstname}) }}</p>
+	<br />
+	<p>{{ 'booking.mail.message_html_part2'|trans({'%planningName%': planning.name}) }}</p>
+	<p>{{ 'booking.mail.message_html_part3'|trans({}) }}<br />
+	- {{ 'booking.mail.message_html_list_advertiser'|trans({'%advertiser%': booking.advertiser}) }}<br />
+	- {{ 'booking.mail.message_html_list_campaign'|trans({'%campaign%': booking.campaign}) }}<br />
+	- {{ 'booking.mail.message_html_list_package'|trans({'%packageName%': package.name}) }}<br />
+	- {{ 'booking.mail.message_html_date'|transchoice(bookingdate|length) }}<br />
+	{% for date in bookingdate %}
+	-- {{ 'booking.mail.message_html_date_list'|trans({'%date%': date.date.date|localizeddate('medium', 'none'), '%price%': date.price}) }}<br />
+	{% endfor %}
+	</p>
+	<br />
+	<p>{{ 'booking.mail.message_html_part4'|transchoice(bookingdate|length) }}</p>
+	<br />
+	<p style="text-align: center;"><a href="{{ url }}" style="border-color: #285e8e; border-radius: 4px; padding: 6px 12px; background-color: #3276b1; color: #fff; text-decoration: none;">{{ 'booking.mail.message_html_bouton'|trans({}) }}</a></p>
+	<br />
+	<p>{{ 'booking.mail.message_html_part5'|trans({}) }}</p>
+	<br />
+	<p>{{ 'booking.mail.message_salutation'|trans({}) }}</p>
+{% endblock %}

@@ -1,0 +1,43 @@
+{# src/Casecenter/UserBundle/Resources/views/Registration/register.html.twig #}
+
+{% extends "CasecenterUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block body_id %}register{% endblock %}
+{% block body_class %}{{ parent() }}card register{% endblock %}
+
+{% block fos_user_content %}
+	{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+		{% include "CasecenterUserBundle:Security:login_already.html.twig" %}
+	{% else %}
+		<h1>{{ 'registration.title'|trans }}</h1>
+
+		<p>{{ 'registration.description'|trans }}</p>
+
+		<form method="POST" action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} class="fos_user_registration_register">
+		   	<h2>{{ 'registration.myidentity'|trans }}</h2>
+		    <div class="row">
+		    	<div class="col-md-6">{{ form_row(form.name, {'label': false, 'attr': {'placeholder': 'form.name'}}) }}</div>
+		    	<div class="col-md-6">{{ form_row(form.firstname, {'label': false, 'attr': {'placeholder': 'form.firstname'}}) }}</div>
+		    </div>
+		    <div class="row">
+		    	<div class="col-md-6">{{ form_row(form.company, {'label': false, 'attr': {'placeholder': 'form.company'}}) }}</div>
+		    	<div class="col-md-6">{{ form_row(form.function, {'label': false, 'attr': {'placeholder': 'form.function'}}) }}</div>
+		    </div>
+
+		    <h2>{{ 'registration.mylogin'|trans }}</h2>
+		    {{ form_row(form.email, {'label': false, 'attr': {'placeholder': 'form.email'}}) }}
+		   	{{ form_row(form.username, {'label': false, 'attr': {'placeholder': 'form.username'}}) }}
+		    <div class="row">
+		    	<div class="col-md-6">{{ form_row(form.plainPassword.first, {'label': false, 'attr': {'placeholder': 'form.password'}}) }}</div>
+		    	<div class="col-md-6">{{ form_row(form.plainPassword.second, {'label': false, 'attr': {'placeholder': 'form.password_confirmation'}}) }}</div>
+		    </div>
+
+		    {{ form_widget(form) }}
+		    
+		    <div class="form-group"><input type="submit"  class="btn btn-primary" value="{{ 'registration.submit'|trans }}" /></div>
+		</form>
+
+		<p><a href="{{ path('fos_user_security_login') }}">Retour</a></p>
+	{% endif %}
+{% endblock fos_user_content %}

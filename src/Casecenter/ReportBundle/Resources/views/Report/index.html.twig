@@ -1,0 +1,21 @@
+{# src/Casecenter/ReportBundle/Resources/views/Report/index.html.twig #}
+{% extends "CasecenterReportBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'report.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'report.plural'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'report.plural'|trans }}
+{% endblock %}
+
+{% block header_boutons %}{% endblock %}
+
+{% block header_nav %}{% endblock %}
+
+{% block body %}{% endblock %}

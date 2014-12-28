@@ -26,9 +26,9 @@ use Symfony\Component\Security\Core\User\EquatableInterface;
 abstract class AbstractToken implements TokenInterface
 {
     private $user;
-    private $roles;
-    private $authenticated;
-    private $attributes;
+    private $roles = array();
+    private $authenticated = false;
+    private $attributes = array();
 
     /**
      * Constructor.
@@ -39,10 +39,6 @@ abstract class AbstractToken implements TokenInterface
      */
     public function __construct(array $roles = array())
     {
-        $this->authenticated = false;
-        $this->attributes = array();
-
-        $this->roles = array();
         foreach ($roles as $role) {
             if (is_string($role)) {
                 $role = new Role($role);
@@ -74,6 +70,9 @@ abstract class AbstractToken implements TokenInterface
         return (string) $this->user;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getUser()
     {
         return $this->user;
@@ -85,7 +84,8 @@ abstract class AbstractToken implements TokenInterface
      * The user can be a UserInterface instance, or an object implementing
      * a __toString method or the username as a regular string.
      *
-     * @param mixed $user The user
+     * @param string|object $user The user
+     *
      * @throws \InvalidArgumentException
      */
     public function setUser($user)
@@ -128,7 +128,7 @@ abstract class AbstractToken implements TokenInterface
      */
     public function setAuthenticated($authenticated)
     {
-        $this->authenticated = (Boolean) $authenticated;
+        $this->authenticated = (bool) $authenticated;
     }
 
     /**
@@ -146,7 +146,14 @@ abstract class AbstractToken implements TokenInterface
      */
     public function serialize()
     {
-        return serialize(array($this->user, $this->authenticated, $this->roles, $this->attributes));
+        return serialize(
+            array(
+                is_object($this->user) ? clone $this->user : $this->user,
+                $this->authenticated,
+                $this->roles,
+                $this->attributes,
+            )
+        );
     }
 
     /**
@@ -182,7 +189,7 @@ abstract class AbstractToken implements TokenInterface
      *
      * @param string $name The attribute name
      *
-     * @return Boolean true if the attribute exists, false otherwise
+     * @return bool true if the attribute exists, false otherwise
      */
     public function hasAttribute($name)
     {
@@ -208,7 +215,7 @@ abstract class AbstractToken implements TokenInterface
     }
 
     /**
-     * Sets a attribute.
+     * Sets an attribute.
      *
      * @param string $name  The attribute name
      * @param mixed  $value The attribute value
@@ -219,7 +226,7 @@ abstract class AbstractToken implements TokenInterface
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function __toString()
     {
@@ -241,7 +248,7 @@ abstract class AbstractToken implements TokenInterface
         }
 
         if ($this->user instanceof EquatableInterface) {
-            return ! (Boolean) $this->user->isEqualTo($user);
+            return ! (bool) $this->user->isEqualTo($user);
         }
 
         if ($this->user->getPassword() !== $user->getPassword()) {

@@ -1,0 +1,95 @@
+{# src/Casecenter/UserBundle/Resources/views/User/index.html.twig #}
+
+{% extends "CasecenterUserBundle:User:layout.html.twig" %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'user.plural'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }}<span>/</span>{{ 'user.plural'|trans }}
+{% endblock %}
+
+{% block header_boutons %}{% endblock %}
+
+{% block header_nav %}
+	<li><a href="{{ path('user_new') }}" title="{{ 'user.new.label'|trans }}">+ {{ 'user.new.label'|trans }}</a></li>
+	<li class="divider"></li>
+	<li><a href="{{ path('user_group_index') }}" title="{{ 'group.index.link'|trans }}">{{ 'group.index.link'|trans }}</a></li>
+{% endblock %}
+
+{% block body %}
+	<form method="post" action="{{ path('user_index') }}" name="users">
+		<table class="table table-condensed table-striped {{ filter }}">
+			<caption>
+				{% if users|length > 0 %}
+				<span class="col-check"><span class="glyphicon glyphicon-arrow-down"></span></span>
+				<select name="action" class="input-sm selectpicker">
+					<option value="">{{ 'Group actions'|trans }}</option>
+					<option value="">Droits</option>
+					{% if filter == 'locked' %}<option value="">Déverrouiller</option>{% else %}<option value="">Verrouiller</option>{% endif %}
+					<option value="">Supprimer</option>
+				</select>
+				<input type="submit" value="Appliquer" class="btn btn-default btn-xs" />
+				{% endif %}
+				<div class="pull-right">
+					<ul class="list-inline">
+						<li{% if filter == 'all' %} class="on"{% endif %}><a href="{{ path('user_index', {'filter': 'all'}) }}">{{ 'user.index.index_filter'|trans({'%count%': counters.all}) }}</a></li>
+						<li{% if filter == 'enable' %} class="on"{% endif %}><a href="{{ path('user_index', {'filter': 'enable'}) }}">{{ 'user.form.enabled.index_filter_enable'|transchoice(counters.enable) }}</a></li>
+						<li{% if filter == 'expired' %} class="on"{% endif %}><a href="{{ path('user_index', {'filter': 'expired'}) }}"><span class="glyphicon glyphicon-time"></span> {{ 'user.form.expired.index_filter'|transchoice(counters.expired) }}</a></li>
+						<li{% if filter == 'locked' %} class="on"{% endif %}><a href="{{ path('user_index', {'filter': 'locked'}) }}"><span class="glyphicon glyphicon-lock"></span> {{ 'user.form.locked.index_filter'|transchoice(counters.locked) }}</a></li>
+						<li{% if filter == 'disable' %} class="on"{% endif %}><a href="{{ path('user_index', {'filter': 'disable'}) }}"><span class="glyphicon glyphicon-remove"></span> {{ 'user.form.enabled.index_filter_disable'|transchoice(counters.disable) }}</a></li>
+					</ul>
+				</div>
+			</caption>
+			<thead>
+				<tr>
+					{% if users|length > 0 %}
+						<th class="col-check"><input type="checkbox" onclick="CheckAllBox(this, 'users[]');" /></th>
+						<th></th>
+					{% endif %}
+					<th>{{ 'user.count'|transchoice(users|length) }}</th>
+					{% if users|length > 0 %}
+						<th>{{ 'form.company'|trans({}, 'FOSUserBundle') }}, {{ 'form.function'|trans({}, 'FOSUserBundle')|lower }}</th>
+						<th>{{ 'form.email'|trans({}, 'FOSUserBundle') }}</th>
+						<th>{{ 'form.lastlogin'|trans({}, 'FOSUserBundle') }}</th>
+					{% endif %}
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					{% set userClass = {} %}
+					{% if user.id == app.user.id %}{% set userClass = userClass|merge({'me': 'me'}) %}{% endif %}
+					{% if user.isLocked or user.isExpired %}{% set userClass = userClass|merge({'off': 'off'}) %}{% endif %}
+					{% if not user.isEnabled %}{% set userClass = userClass|merge({'enabled': 'disable'}) %}{% endif %}
+					<tr{% for key, class in userClass %}{% if loop.first %} class="{% endif %}{{ class }}{% if loop.last %}"{% else %} {% endif %}{% endfor %}>
+						<td class="col-check">{% if (user.id != app.user.id) and (is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and not user.isSuperAdmin)) %}<input type="checkbox" name="users[]" value="{{ user.id }}" />{% endif %}</td>
+						<td>
+							{% if not user.isEnabled %}<span class="glyphicon glyphicon-remove" title="{{ 'user.form.enabled.disable'|trans }}"></span>
+							{% elseif user.isLocked %}<span class="glyphicon glyphicon-lock" title="{{ 'user.form.locked.label'|trans }}"></span>
+							{% elseif user.isExpired %}<span class="glyphicon glyphicon-time" title="{{ 'user.form.expired.label'|trans }}"></span>
+							{% elseif user.isAccountExpirable %}<span class="glyphicon glyphicon-time" title="{{ 'user.form.expired.index_legend'|trans({'%date%': user.expiresAt|localizeddate('medium', 'short') }) }}"></span>
+							{% endif %}
+						</td>
+						<td>
+							{% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and not user.isSuperAdmin) %}<a href="{% if user.id == app.user.id %}{{ path('fos_user_profile_show') }}{% else %}{{ path('user_edit', {'id': user.id}) }}{% endif %}">{% endif %}{{ user.fullname }}{% if is_granted('ROLE_SUPER_ADMIN') or (is_granted('ROLE_ADMIN') and not user.isSuperAdmin) %}</a>{% endif %}
+							{% if user.isSuperAdmin %} <small><em>{{ 'user.role.superadmin'|trans }}</em></small>{% elseif user.isAdmin %} <small><em>{{ 'user.role.admin'|trans }}</em></small>{% endif %}
+						</td>
+						<td>{{ user.company }}, {{ user.function }}</td>
+						<td>{{ user.email }}</td>
+						<td>
+							{% if not user.isEnabled %}{{ 'user.form.enabled.disable'|trans }}
+							{% elseif user.lastlogin != NULL %}{{ user.lastlogin|localizeddate('medium', 'none', app.request.locale, null, 'EE') }} {{ user.lastlogin|localizeddate('medium', 'short') }}{% else %}{{ 'user.lastlogin.never'|trans }}
+							{% endif %}
+						</td>
+					</tr>
+				{% else %}
+					<tr><td>{{ 'user.nul'|trans }}</td></tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</form>
+{% endblock %}

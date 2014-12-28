@@ -1,0 +1,29 @@
+user_index:
+    pattern:  /{filter}
+    defaults: { _controller: CasecenterUserBundle:User:index, filter: enable }
+    requirements:
+        filter: all|enable|expired|locked|disable
+
+user_new:
+    pattern:  /new
+    defaults: { _controller: CasecenterUserBundle:User:new }
+
+user_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: CasecenterUserBundle:User:edit }
+    requirements:
+        id: \d{1,}
+
+user_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: CasecenterUserBundle:User:delete }
+    requirements:
+        id: \d{1,}
+
+user_group_index:
+    pattern:  /groups
+    defaults: { _controller: CasecenterUserBundle:Group:list }
+
+fos_user_group:
+    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
+    prefix: /groups

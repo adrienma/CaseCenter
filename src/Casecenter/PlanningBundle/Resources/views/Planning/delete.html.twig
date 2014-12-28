@@ -1,0 +1,32 @@
+{# src/Casecenter/PlanningBundle/Resources/views/Planning/delete.html.twig #}
+
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block head_title %}{{ planning.name }} - {{ 'planning.singular'|trans }} - {{ 'Administration'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}admin delete{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('administration_index') }}">{{ 'Administration'|trans }}</a></li>
+	<li><a href="{{ path('planning_index') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li><a href="{{ path('planning_edit', {'slug': planning.slug}) }}">{{ planning.name }}</a></li>
+	<li class="active">{{ 'planning.delete.label'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'planning.singular'|trans }} <span>:</span> {{ planning.name }}
+{% endblock %}
+
+{% block body %}
+	<h3>{{ 'planning.delete.label'|trans }}</h3>
+	
+	<form method="post" action="{{ path('planning_delete', {'slug': planning.slug}) }}">
+		<p>{{ 'planning.delete.paragraph'|trans({'%name%': planning.name}) }}</p>
+		<p><b>{{ 'form.delete.irreversible'|trans }}</b></p>
+
+		<div class="checkbox"><label><input type="checkbox" name="delete" value="true" required /> {{ 'form.delete.confirmation'|trans }}</label></div>
+
+		<input type="submit" class="btn btn-danger" value="{{ 'form.delete.btn'|trans }}" /> <a href="{{ path('planning_edit', {'slug': planning.slug}) }}" class="btn btn-sm btn-default">{{ 'form.btn.cancel'|trans }}</a>
+	</form>
+{% endblock %}

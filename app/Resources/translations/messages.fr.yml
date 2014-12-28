@@ -1,0 +1,34 @@
+# app/Resources/translations/messages.fr.yml
+
+"Not Found": "Désolé, la page que vous cherchez n’existe pas ou plus..."
+
+"immediately": "Immédiatement"
+
+"Group actions": "Actions groupées"
+
+datetime:
+    format: "AAAA-MM-JJ HH:MM"
+    format_inverse: "JJ/MM/AAAA HH:MM"
+    now: "Date"
+
+form:
+    btn:
+       back: "Retour"
+       cancel: "Annuler"
+       save: "Enregistrer"
+       valid: "Valider"
+    new:
+        btn: "Créer"
+    edit:
+        btn: "Enregistrer"
+    delete:
+        label: "Supprimer"
+        irreversible: "Cette action est irréversible."
+        confirmation: "Je confirme mon souhait de suppression."
+        btn: "Supprimer"
+    exit:
+        title: "Quitter sans enregistrer ?"
+        message: "Des modifications ont été apportées sans être enregistrées. Etes-vous sur de vouloir faire cela ?"
+        btn:
+            cancel: "Annuler et continuer"
+            exit: "Quitter sans enregistrer"

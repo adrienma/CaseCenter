@@ -1,0 +1,60 @@
+{# src/Casecenter/PlanningBundle/Resources/views/PlanningFootball2014/dateclose.html.twig #}
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block stylesheets %}
+	{{ parent() }}
+	<link rel="stylesheet" href="{{ asset('bundles/casecenterplanning/css/main_football2014.css') }}" type="text/css" />
+{% endblock %}
+
+{% block head_title %}{{ planning.name }} - {{ 'planning.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}dateclose football2014{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('planning_index') }}">{{ 'planning.plural'|trans }}</a></li>
+	<li><a href="{{ path('planning_football2014_overview') }}">{{ planning.name }}</a></li>
+	<li><a href="{{ path('planning_football2014_calendar') }}">{{ 'planning.calendar.label'|trans }}</a></li>
+	<li class="active">Fermer une date</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'planning.singular'|trans }} <span>:</span> {{ planning.name }} <span>:</span> {{ 'planning.calendar.label'|trans }} <span>:</span> Fermer une date
+{% endblock %}
+
+{% block header_nav %}
+	<li><a href="{{ path('planning_football2014_calendar') }}">Retour au calendrier</a></li>
+{% endblock %}
+
+{% block body %}
+	<p>Vous êtes sur le point de fermer les réservations sur la date du <b>{{ date.date|date("d/m/Y") }}</b> pour le planning {{ planning.name }}.</p>
+
+	<form method="post" action="{{ path('planning_football2014_dateclose', {'id': date.id}) }}">
+		<hr />
+
+		{% for booking in bookings %}
+			{% if loop.first %}
+				<p>Des réservations ont été trouvé sur cette date.<br />Vous avez la possibilité de confirmer la réservation ayant obtenue la date en la sélectionnant parmis la liste ci-dessous :<br /><small><em>(Atttention, si une réservation est déjà validée - surlignée en jaune -, elle est automatiquement sélectionnée. Si vous en choisisez une autre, la réservation validée précédente sera annulée pour être remplacé par la nouvelle.)</em></small></p>
+				<ul class="bookings">
+			{% endif %}
+
+			<li><label class="{% if booking.booking_archive != NULL or booking.bookingdate_archive != NULL %}archive{% elseif booking.bookingdate_status == "confirm" %}confirm{% endif %}"><input type="radio" name="booking" value="{{ booking.id }}"{% if booking.bookingdate_status == "confirm" %} checked{% endif %}{% if booking.booking_archive != NULL or booking.bookingdate_archive != NULL %} disabled{% endif %} /> <b>{{ booking.advertiser }}, {{ booking.campaign }}</b> ({{ booking.bookingdate_status }}, {{ booking.package_name }} pour {{ booking.price }}), par {{ booking.name }} {{ booking.firstname }}, {{ booking.company }} ({% if booking.booking_archive != NULL %}réservation supprimée le {{ booking.booking_archive|date("d/m/Y H:i") }}{% elseif booking.bookingdate_archive != NULL %}option supprimée le {{ booking.bookingdate_archive|date("d/m/Y H:i") }}{% else %}crée le {{ booking.creation|date("d/m/Y H:i") }}{% endif %}).</label></li>
+
+			{% if loop.last %}
+				<li><label><input type="radio" name="booking" value="" /> Aucune de ses réservations.</label></li>
+				</ul>
+			{% endif %}
+		{% else %}
+			<p>Il n'y a pas de réservation pour cette date.</p>
+		{% endfor %}
+
+		<hr />
+
+		<div class="checkbox"><label><input type="checkbox" name="valid" value="true" required /> Je confirme que je souhaite fermer les réservations pour la date du {{ date.date|date("d/m/Y") }}.<br />J'ai pris conscience que les réservation ne pourront plus être prises à cette date et que cette action est irréversible.</label></div>
+
+		<div class="form-group">
+			<input type="submit" class="btn btn-primary" value="{{ 'form.btn.valid'|trans }}" />
+			<a href="{{ path('planning_football2014_calendar') }}" class="btn btn-default btn-sm">{{ 'form.btn.cancel'|trans }}</a>
+		</div>
+	</form>
+{% endblock %}

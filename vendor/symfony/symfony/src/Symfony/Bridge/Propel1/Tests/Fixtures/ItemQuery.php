@@ -14,17 +14,31 @@ namespace Symfony\Bridge\Propel1\Tests\Fixtures;
 class ItemQuery
 {
     private $map = array(
-        'id'            => \PropelColumnTypes::INTEGER,
-        'value'         => \PropelColumnTypes::VARCHAR,
-        'price'         => \PropelColumnTypes::FLOAT,
-        'is_active'     => \PropelColumnTypes::BOOLEAN,
-        'enabled'       => \PropelColumnTypes::BOOLEAN_EMU,
-        'updated_at'    => \PropelColumnTypes::TIMESTAMP,
-
-        'updated_at'    => \PropelColumnTypes::TIMESTAMP,
-        'updated_at'    => \PropelColumnTypes::TIMESTAMP,
-        'updated_at'    => \PropelColumnTypes::TIMESTAMP,
+        'id' => \PropelColumnTypes::INTEGER,
+        'value' => \PropelColumnTypes::VARCHAR,
+        'price' => \PropelColumnTypes::FLOAT,
+        'is_active' => \PropelColumnTypes::BOOLEAN,
+        'slug' => \PropelColumnTypes::VARCHAR,
+        'enabled' => \PropelColumnTypes::BOOLEAN_EMU,
+        'updated_at' => \PropelColumnTypes::TIMESTAMP,
     );
+
+    private $caseInsensitiveMap = array(
+        'isactive' => 'is_active',
+        'updatedat' => 'updated_at',
+    );
+
+    public static $result = array();
+
+    public function find()
+    {
+        return self::$result;
+    }
+
+    public function filterById($id)
+    {
+        return $this;
+    }
 
     public function getTableMap()
     {
@@ -37,6 +51,7 @@ class ItemQuery
     {
         $cm = new \ColumnMap('id', new \TableMap());
         $cm->setType('INTEGER');
+        $cm->setPhpName('Id');
 
         return array('id' => $cm);
     }
@@ -57,8 +72,28 @@ class ItemQuery
         if ($this->hasColumn($column)) {
             return new Column($column, $this->map[$column]);
         }
+    }
 
-        return null;
+    /**
+     * Method from the TableMap API
+     */
+    public function hasColumnByInsensitiveCase($column)
+    {
+        $column = strtolower($column);
+
+        return in_array($column, array_keys($this->caseInsensitiveMap));
+    }
+
+    /**
+     * Method from the TableMap API
+     */
+    public function getColumnByInsensitiveCase($column)
+    {
+        $column = strtolower($column);
+
+        if (isset($this->caseInsensitiveMap[$column])) {
+            return $this->getColumn($this->caseInsensitiveMap[$column]);
+        }
     }
 
     /**
@@ -89,7 +124,7 @@ class ItemQuery
         return array(
             $mainAuthorRelation,
             $authorRelation,
-            $resellerRelation
+            $resellerRelation,
         );
     }
 }

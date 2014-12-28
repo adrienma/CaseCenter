@@ -1,0 +1,33 @@
+{# src/Casecenter/SupportBundle/Resources/views/Format/delete.html.twig #}
+
+{% extends "CasecenterSupportBundle::layout.html.twig" %}
+
+{% block head_title %}{{ format.name }} - {{ format.page.name }} - {{ format.page.support.name }} - {{ 'support.singular'|trans }} - {{ 'Administration'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}delete{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('support_index') }}">{{ 'support.plural'|trans }}</a></li>
+	<li><a href="{{ path('support_view', {'slug': format.page.support.slug}) }}">{{ format.page.support.name }}</a></li>
+	<li><a href="{{ path('support_page_view', {'slugSupport': format.page.support.slug, 'slugPage': format.page.slug}) }}">{{ format.page.name }}</a></li>
+	<li class="active">{{ format.name }}</li>
+	<li class="active">{{ 'format.delete.label'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'support.singular'|trans }} <span>:</span> {{ format.page.support.name }} <span>:</span> {{ format.page.name }} <span>:</span> {{ format.name }}
+{% endblock %}
+
+{% block body %}
+	<h3>{{ 'format.delete.label'|trans }}</h3>
+	
+	<form method="post" action="{{ path('support_format_delete', {'slugSupport': format.page.support.slug, 'slugPage': format.page.slug, 'slugFormat': format.slug}) }}">
+		<p>{{ 'format.delete.paragraph'|trans({'%name%': format.name}) }}</p>
+		<p><b>{{ 'form.delete.irreversible'|trans() }}</b></p>
+
+		<div class="checkbox"><label><input type="checkbox" name="delete" value="true" required /> {{ 'form.delete.confirmation'|trans }}</label></div>
+
+		<input type="submit" class="btn btn-danger" value="{{ 'form.delete.btn'|trans }}" /> <a href="{{ path('support_page_view', {'slugSupport': format.page.support.slug, 'slugPage': format.page.slug}) }}" class="btn btn-default btn-sm">{{ 'form.btn.cancel'|trans }}</a>
+	</form>
+{% endblock %}

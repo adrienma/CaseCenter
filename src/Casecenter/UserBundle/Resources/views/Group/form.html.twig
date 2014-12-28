@@ -1,0 +1,21 @@
+{# src/Casecenter/UserBundle/Resources/views/Group/form.html.twig #}
+
+{% form_theme form with ':Form:fields-horizontal.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+<div class="row">
+	<div class="col-md-9">
+		{{ form_errors(form) }}
+
+		{{ form_row(form.name, {'attr': {'class': 'input-lg'}}) }}
+	</div>
+	<div class="col-md-3"><div class="col-right-affix">
+		<div class="form-actions">
+			<input type="submit" value="{{ 'form.btn.save'|trans }}" class="btn btn-primary btn-block" />
+			<ul>
+				<li><a href="{{ path('user_group_index') }}"><span class="glyphicon glyphicon-chevron-left"></span> {{ 'form.btn.back'|trans }}</a></li>
+			</ul>
+		</div>
+	</div></div>
+</div>
+{{ form_end(form) }}

@@ -1,0 +1,26 @@
+{# src/Casecenter/UserBundle/Resources/views/Group/edit.html.twig #}
+
+{% extends "CasecenterUserBundle:Group:layout.html.twig" %}
+
+{% block head_title %}{{ group_name }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}edit{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('user_group_index') }}">{{ 'group.plural'|trans }}</a></li>
+	<li class="active">{{ group_name }}</li>
+{% endblock %}
+
+{% block header_title %}{{ parent() }} <span>/</span> {{ 'group.singular'|trans }} <span>:</span> {{ group_name }}{% endblock %}
+
+{% block body %}
+	{{ include('CasecenterUserBundle:Group:form.html.twig', {'form': form, 'action': 'edit'}) }}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+	Affix(".col-right-affix", {top: 135});
+	FormExit("form", "{{ 'form.exit.title'|trans }}", "{{ 'form.exit.message'|trans }}", {"cancel":"{{ 'form.exit.btn.cancel'|trans }}", "exit":"{{ 'form.exit.btn.exit'|trans }}"});
+</script>
+{% endblock %}

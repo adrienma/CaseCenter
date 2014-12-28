@@ -46,17 +46,20 @@ class CacheLoader extends Loader
      *
      * @param TemplateReferenceInterface $template A template
      *
-     * @return Storage|Boolean false if the template cannot be loaded, a Storage instance otherwise
+     * @return Storage|bool false if the template cannot be loaded, a Storage instance otherwise
      */
     public function load(TemplateReferenceInterface $template)
     {
-        $key = md5($template->getLogicalName());
+        $key = hash('sha256', $template->getLogicalName());
         $dir = $this->dir.DIRECTORY_SEPARATOR.substr($key, 0, 2);
         $file = substr($key, 2).'.tpl';
         $path = $dir.DIRECTORY_SEPARATOR.$file;
 
         if (is_file($path)) {
-            if (null !== $this->debugger) {
+            if (null !== $this->logger) {
+                $this->logger->debug(sprintf('Fetching template "%s" from cache', $template->get('name')));
+            } elseif (null !== $this->debugger) {
+                // just for BC, to be removed in 3.0
                 $this->debugger->log(sprintf('Fetching template "%s" from cache', $template->get('name')));
             }
 
@@ -75,7 +78,10 @@ class CacheLoader extends Loader
 
         file_put_contents($path, $content);
 
-        if (null !== $this->debugger) {
+        if (null !== $this->logger) {
+            $this->logger->debug(sprintf('Storing template "%s" in cache', $template->get('name')));
+        } elseif (null !== $this->debugger) {
+            // just for BC, to be removed in 3.0
             $this->debugger->log(sprintf('Storing template "%s" in cache', $template->get('name')));
         }
 
@@ -86,9 +92,9 @@ class CacheLoader extends Loader
      * Returns true if the template is still fresh.
      *
      * @param TemplateReferenceInterface $template A template
-     * @param integer                    $time     The last modification time of the cached template (timestamp)
+     * @param int                        $time     The last modification time of the cached template (timestamp)
      *
-     * @return Boolean
+     * @return bool
      */
     public function isFresh(TemplateReferenceInterface $template, $time)
     {

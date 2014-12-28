@@ -1,0 +1,47 @@
+support_index:
+    pattern:  /
+    defaults: { _controller: CasecenterSupportBundle:Support:index }
+
+support_add:
+    pattern:  /add
+    defaults: { _controller: CasecenterSupportBundle:Support:add }
+
+support_view:
+    pattern:  /{slug}
+    defaults: { _controller: CasecenterSupportBundle:Support:view }
+
+support_edit:
+    pattern:  /{slug}/edit
+    defaults: { _controller: CasecenterSupportBundle:Support:edit }
+
+support_delete:
+    pattern:  /{slug}/delete
+    defaults: { _controller: CasecenterSupportBundle:Support:delete }
+
+support_page_add:
+    pattern: /{slug}/add
+    defaults: { _controller: CasecenterSupportBundle:Page:add }
+
+support_page_view:
+    pattern: /{slugSupport}/{slugPage}
+    defaults: { _controller: CasecenterSupportBundle:Page:view }
+
+support_page_edit:
+    pattern: /{slugSupport}/{slugPage}/edit
+    defaults: { _controller: CasecenterSupportBundle:Page:edit }
+
+support_page_delete:
+    pattern: /{slugSupport}/{slugPage}/delete
+    defaults: { _controller: CasecenterSupportBundle:Page:delete }
+
+support_format_add:
+    pattern: /{slugSupport}/{slug}/add
+    defaults: { _controller: CasecenterSupportBundle:Format:add }
+
+support_format_edit:
+    pattern: /{slugSupport}/{slugPage}/{slugFormat}/edit
+    defaults: { _controller: CasecenterSupportBundle:Format:edit }
+
+support_format_delete:
+    pattern: /{slugSupport}/{slugPage}/{slugFormat}/delete
+    defaults: { _controller: CasecenterSupportBundle:Format:delete }

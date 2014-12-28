@@ -1,0 +1,7 @@
+parameters:
+#    casecenter_support.example.class: Casecenter\SupportBundle\Example
+
+services:
+#    casecenter_support.example:
+#        class: %casecenter_support.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

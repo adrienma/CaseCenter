@@ -29,12 +29,15 @@
                     document.getElementById('sfToolbarClearer-{{ token }}').style.display = 'block';
                     document.getElementById('sfMiniToolbar-{{ token }}').style.display = 'none';
                 }
+
+                Sfjs.renderAjaxRequests();
             },
             function(xhr) {
                 if (xhr.status !== 0) {
                     confirm('An error occurred while loading the web debug toolbar (' + xhr.status + ': ' + xhr.statusText + ').\n\nDo you want to open the profiler?') && (window.location = '{{ path("_profiler", { "token": token }) }}');
                 }
-            }
+            },
+            {'maxTries': 5}
         );
     })();
 /*]]>*/</script>

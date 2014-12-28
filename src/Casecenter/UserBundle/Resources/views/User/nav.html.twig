@@ -1,0 +1,50 @@
+{# src/Casecenter/UserBundle/Resources/views/User/nav.html.twig #}
+
+<nav>
+	<ul class="list-group">
+	    <li class="user{% if is_granted('ROLE_SUPER_ADMIN') %} usadmin{% elseif is_granted('ROLE_ADMIN') %} uadmin{% endif %}">
+			<a href="{{ path('fos_user_profile_show') }}"><span class="glyphicon glyphicon-user"></span></a>
+			<ul>
+				<li class="profile"><div class="row">
+					<div class="gravatar col-md-3"><a href="http://gravatar.com" target="_blank"><img src="{{ gravatar(app.user.email) }}" border="0" class="img-responsive img-circle" /></a></div>
+					<div class="col-md-9">
+						<strong class="name">{{ app.user.firstname }} {{ app.user.name }}{% if is_granted('ROLE_SUPER_ADMIN') %} <span class="fa fa-trophy" title="{{ 'user.role.superadmin'|trans }}"></span>{% elseif is_granted('ROLE_ADMIN') %} <span class="fa fa-users" title="{{ 'user.role.admin'|trans }}"></span>{% endif %}</strong>
+						<p class="email">{{ app.user.email }}</p>
+						<p class="company">{{ app.user.company }}</p>
+					</div>
+				</div></li>
+				<li class="notifications new">[ NOTIFICATIONS ] <span class="badge">3</span></li>
+				<li><a href="{{ path('fos_user_profile_show') }}">{{ 'profile.myprofil'|trans({}, 'FOSUserBundle') }}</a></li>
+				{% if is_granted('ROLE_ADMIN') %}<li><a href="{{ path('administration_index') }}">{{ 'Administration'|trans() }}</a></li>{% endif %}
+				{% if is_granted('ROLE_PREVIOUS_ADMIN') %}<li class="switchuser"><a href="{{ path('dashboard', {'_switch_user': '_exit'}) }}">{{ 'switch_user.exit'|trans() }}</a></li>{% endif %}
+				<li><a href="{{ path('fos_user_security_logout') }}">{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}</a></li>
+			</ul>
+	    </li>
+	    <li class="separator"></li>
+	    <li class="dashboard{% if current == 'dashboard' %} active{% endif %}"><a href="{{ path('dashboard') }}"><span class="glyphicon glyphicon-home"></span><span class="label">{{ 'dashboard.title'|trans() }}</span></a></li>
+	    {% if is_granted('ROLE_PLANNING') %}
+	    	<li class="planning{% if current == 'planning' %} active{% endif %}"><a href="{{ path('planning_index') }}"><span class="glyphicon glyphicon-calendar"></span><span class="label">{{ 'planning.plural'|trans() }}</span></a></li>
+	    {% endif %}
+	    {% if is_granted('ROLE_CAMPAIGN') %}
+	    	<li class="campaign{% if current == 'campaign' %} active{% endif %}"><a href="{{ path('campaign_index') }}"><span class="glyphicon glyphicon-inbox"></span><span class="label">{{ 'campaign.plural'|trans() }}</span></a></li>
+	    {% endif %}
+	    {% if is_granted('ROLE_PARTNER') %}
+	    	<li class="partner{% if current == 'partner' %} active{% endif %}"><a href="{{ path('partner_index') }}"><span class="glyphicon glyphicon-briefcase"></span><span class="label">{{ 'partner.plural'|trans() }}</span></a></li>
+	    {% endif %}
+	    {% if is_granted('ROLE_PROJECT') %}
+	    	<li class="project{% if current == 'project' %} active{% endif %}"><a href="{{ path('project_index') }}"><span class="glyphicon glyphicon-tasks"></span><span class="label">{{ 'project.plural'|trans() }}</span></a></li>
+	    {% endif %}
+	    {% if is_granted('ROLE_REPORT') %}
+	    	<li class="report{% if current == 'report' %} active{% endif %}"><a href="{{ path('report_index') }}"><span class="glyphicon glyphicon-stats"></span><span class="label">{{ 'report.plural'|trans() }}</span></a></li>
+	    {% endif %}
+	    {% if is_granted('ROLE_WIKI') %}
+	    	<li class="wiki{% if current == 'wiki' %} active{% endif %}"><a href="{{ path('wiki_index') }}"><span class="glyphicon glyphicon-book"></span><span class="label">{{ 'wiki.title'|trans() }}</span></a></li>
+	    {% endif %}
+        <li class="separator"></li>
+        <li><a href="http://amaurymediasdigital.fr" target="_blank"><span class="glyphicon glyphicon-picture"></span><span class="label">Galerie & Recos</span></a></li>
+	    {% if is_granted('ROLE_ADMIN') %}
+	    	<li class="separator"></li>
+	        <li class="admin{% if current == 'admin' %} active{% endif %}"><a href="{{ path('administration_index') }}"><span class="glyphicon glyphicon-wrench"></span><span class="label">{{ 'Administration'|trans() }}</span></a></li>
+	    {% endif %}
+	</ul>
+</nav>

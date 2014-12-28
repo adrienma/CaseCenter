@@ -1,0 +1,38 @@
+/* PLANNING FOOTBALL 2014 */
+/* Overview */
+body.football2014.overview div.panel div.panel-heading {min-height: 75px; font-family: "Roboto Condensed", Arial, sans-serif; font-size: 1.5em; font-weight: bold; text-transform:uppercase; text-align: center;}
+body.football2014.overview div.panel div.panel-heading a {color: #000;}
+body.football2014.overview div.panel div.panel-body {min-height: 150px; background-position: center; background-size: cover;}
+
+/* Schedule */
+body.football2014.schedule div.panel div.panel-body {overflow-y: auto; height: 70px; background-color: #fafafa; font-size: 0.9em;}
+body.football2014.schedule div.panel ul.list-group li.wish {height: 38px; font-size: 0.9em;}
+body.football2014.schedule div.panel ul.list-group li.wish label {margin: 0; font-weight: normal;}
+body.football2014.schedule div.panel ul.list-group li.wish label input {margin: 0;}
+
+/* Calendar */
+body.football2014.calendar table.bookings tr th, body.football2014.calendar table.bookings tr td {white-space: normal;}
+body.football2014.calendar table.bookings thead tr th {text-align: center; vertical-align: middle;}
+body.football2014.calendar table.bookings tbody tr:hover {border-left: 10px solid #E91C2A; border-right: 10px solid #E91C2A;}
+body.football2014.calendar table.bookings tbody tr td {border-top: 0;}
+body.football2014.calendar table.bookings tbody tr.inactivate td {background-color: #9CEF6C;}
+body.football2014.calendar table.bookings tbody tr td:nth-child(n+2) {width: 30%;}
+
+body.football2014.calendar table.bookings ul li {margin: 5px 2px;}
+body.football2014.calendar table.bookings ul li.booking {list-style: none; border: 1px solid #ddd; padding: 2px 5px;}
+body.football2014.calendar table.bookings ul li.booking:hover {background-color: #ddd;}
+body.football2014.calendar table.bookings ul li.booking.confirm {background-color: #58A72A; color: #fff;}
+body.football2014.calendar table.bookings ul li.booking.confirm:hover {background-color: #58A72A;}
+body.football2014.calendar table.bookings tr.inactivate ul li.booking, body.football2014.calendar table.bookings tr.inactivate ul li.archive {opacity: 0.75; color: #aaa;} body.football2014.calendar table.bookings tr.inactivate ul li.booking.confirm {opacity: 1; color: #000;}
+body.football2014.calendar table.bookings ul li.booking p {margin: 0;}
+body.football2014.calendar table.bookings ul li.booking p.who {font-size: 0.8em;}
+body.football2014.calendar table.bookings ul li.booking p.date {font-size: 0.7em;}
+body.football2014.calendar table.bookings ul li.booking p.links {font-size: 0.8em;}
+body.football2014.calendar table.bookings ul li.archive {list-style: square inside; font-size: 0.8em; color: #555; text-decoration: line-through;}
+body.football2014.calendar table.bookings ul li.archive:hover {text-decoration: none;}
+
+/* Dateclose */
+body.football2014.dateclose ul.bookings {list-style: none;}
+body.football2014.dateclose ul.bookings li label {margin: 0; font-weight: normal;}
+body.football2014.dateclose ul.bookings li label.confirm {background-color: #FFFF00;}
+body.football2014.dateclose ul.bookings li label.archive {opacity: 0.5; font-size: 0.9em; text-decoration: line-through;}

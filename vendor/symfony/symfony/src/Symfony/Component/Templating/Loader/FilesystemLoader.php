@@ -43,7 +43,7 @@ class FilesystemLoader extends Loader
      *
      * @param TemplateReferenceInterface $template A template
      *
-     * @return Storage|Boolean false if the template cannot be loaded, a Storage instance otherwise
+     * @return Storage|bool false if the template cannot be loaded, a Storage instance otherwise
      *
      * @api
      */
@@ -63,20 +63,25 @@ class FilesystemLoader extends Loader
         $logs = array();
         foreach ($this->templatePathPatterns as $templatePathPattern) {
             if (is_file($file = strtr($templatePathPattern, $replacements)) && is_readable($file)) {
-                if (null !== $this->debugger) {
+                if (null !== $this->logger) {
+                    $this->logger->debug(sprintf('Loaded template file "%s"', $file));
+                } elseif (null !== $this->debugger) {
+                    // just for BC, to be removed in 3.0
                     $this->debugger->log(sprintf('Loaded template file "%s"', $file));
                 }
 
                 return new FileStorage($file);
             }
 
-            if (null !== $this->debugger) {
+            if (null !== $this->logger || null !== $this->debugger) {
                 $logs[] = sprintf('Failed loading template file "%s"', $file);
             }
         }
 
-        if (null !== $this->debugger) {
-            foreach ($logs as $log) {
+        foreach ($logs as $log) {
+            if (null !== $this->logger) {
+                $this->logger->debug($log);
+            } elseif (null !== $this->debugger) {
                 $this->debugger->log($log);
             }
         }
@@ -88,9 +93,9 @@ class FilesystemLoader extends Loader
      * Returns true if the template is still fresh.
      *
      * @param TemplateReferenceInterface $template A template
-     * @param integer                    $time     The last modification time of the cached template (timestamp)
+     * @param int                        $time     The last modification time of the cached template (timestamp)
      *
-     * @return Boolean true if the template is still fresh, false otherwise
+     * @return bool true if the template is still fresh, false otherwise
      *
      * @api
      */
@@ -108,7 +113,7 @@ class FilesystemLoader extends Loader
      *
      * @param string $file A path
      *
-     * @return Boolean true if the path exists and is absolute, false otherwise
+     * @return bool true if the path exists and is absolute, false otherwise
      */
     protected static function isAbsolutePath($file)
     {

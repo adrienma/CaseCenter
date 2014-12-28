@@ -1,0 +1,91 @@
+{# src/Casecenter/UserBundle/Resources/views/User/form.html.twig #}
+
+{% form_theme form with ':Form:fields-horizontal.html.twig' %}
+
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+<div class="row">
+	<div class="col-md-9">
+		{{ form_errors(form) }}
+
+		<fieldset>
+			<legend>{{ 'user.form.fieldset.identity'|trans }}</legend>
+			{{ form_row(form.name, {'attr': {'class': 'input-lg'}}) }}
+			{{ form_row(form.firstname, {'attr': {'class': 'input-lg'}}) }}
+			{{ form_row(form.company) }}
+			{{ form_row(form.function) }}
+		</fieldset>
+		<fieldset>
+			<legend>{{ 'user.form.fieldset.login'|trans }}</legend>
+			{{ form_row(form.email) }}
+			{% if form.username is defined %}{{ form_row(form.username, {'attr': {'class': 'medium'}}) }}{% endif %}
+			{# {{ form_row(form.password) }} #}
+			{# <div class="credentialsexpire form-group{% if (form.credentialsExpireAt.vars.errors|length > 0) or (form.credentialsExpired.vars.errors|length > 0) %} has-error{% endif %}">
+				{{ form_label(form.credentialsExpireAt) }}
+				<div class="col-sm-9">{{ form_widget(form.credentialsExpireAt, {'attr': {'class': 'small inline', 'placeholder': 'datetime.format_inverse'|trans }}) }} {{ form_widget(form.credentialsExpired) }} <label for="{{ form.credentialsExpired.vars.id }}" class="inline">{{ 'immediately'|trans }}</label></div>
+				<div class="col-sm-9 col-sm-offset-3 help-block">{{ form.credentialsExpireAt.vars.help|trans({}, 'FOSUserBundle') }}</div>
+				{{ form_errors(form.credentialsExpireAt) }}
+				{{ form_errors(form.credentialsExpired) }}
+			</div> #}
+		</fieldset>
+		<fieldset>
+			<legend>{{ 'user.form.fieldset.connexion'|trans }}</legend>
+			{{ form_row(form.locked) }}
+			{{ form_row(form.expiresAt, {'attr': {'class': 'small inline datetimepicker', 'data-date-language': app.request.locale}}) }}
+		</fieldset>
+		<fieldset>
+			<legend>{{ 'user.form.fieldset.roles'|trans }}</legend>
+			{% if form.superadmin is defined %}{{ form_row(form.superadmin) }}{% endif %}
+			{# , {'attr': {'class': 'input-sm small'}} #}
+			{% if form.roleplanning is defined %}{{ form_row(form.roleplanning) }}{% endif %}
+			{% if form.rolecampaign is defined %}{{ form_row(form.rolecampaign) }}{% endif %}
+			{% if form.rolepartner is defined %}{{ form_row(form.rolepartner) }}{% endif %}
+			{% if form.roleproject is defined %}{{ form_row(form.roleproject) }}{% endif %}
+			{% if form.rolereport is defined %}{{ form_row(form.rolereport) }}{% endif %}
+			{% if form.rolewiki is defined %}{{ form_row(form.rolewiki) }}{% endif %}
+			{{ form_row(form.admin) }}
+		</fieldset>
+		{#
+		{% if groups|length > 0 %}<fieldset>
+			<legend>{{ 'user.form.fieldset.groups'|trans }}</legend>
+			<div class="form-group">
+				<label class="control-label col-sm-3" for="user_groups">{{ 'user.form.group.message'|trans }}</label>
+				<div class="col-sm-9"><select name="groups" id="user_groups" multiple size="5" class="form-control">
+					{% for group in groups %}<option value="{{ group.id }}">{{ group.name }}</option>{% endfor %}
+				</select></div>
+			</div>
+		</fieldset>{% endif %}
+		#}
+		<fieldset>
+			<legend>{{ 'user.form.fieldset.params'|trans }}</legend>
+			{{ form_row(form.locale, {'attr': {'data-live-search': 'true', 'data-size': '5'}}) }}
+		</fieldset>
+	</div>
+	<div class="col-md-3"><div class="col-right-affix">
+		<div class="form-actions">
+			{{ form_row(form.save, {'attr': {'class': 'btn btn-primary btn-block'}}) }}
+			<ul>
+				{% if action == 'edit' %}
+					<li><a href="{{ path('dashboard') }}?_switch_user={{ user.username }}"><span class="glyphicon glyphicon-eye-open"></span> {{ 'switch_user.link'|trans }}</a></li>
+					<li><a href="{{ path('user_delete', {'id': user.id}) }}" class="warning"><span class="glyphicon glyphicon-remove"></span> {{ 'form.delete.label'|trans }}</a></li>
+				{% endif %}
+				<li><a href="{{ path('user_index') }}"><span class="glyphicon glyphicon-chevron-left"></span> {{ 'form.btn.back'|trans }}</a></li>
+			</ul>
+		</div>
+		<ul class="sidebar">
+			{% if action == 'edit' %}
+				<li>
+					<h4>{{ 'user.avatar'|trans }}</h4>
+					<p><img src="{{ gravatar(user.email) }}" border="0" class="img-responsive" /></p>
+				</li>
+				{% if not user.isEnabled %}<li><h4>{{ 'user.form.enabled.inactive'|trans }}</h4></li>
+				{% elseif user.lastlogin != NULL %}<li><h4>{{ 'form.lastlogin'|trans({}, 'FOSUserBundle') }}</h4><p>{{ user.lastlogin|localizeddate('medium', 'none', app.request.locale, null, 'EE') }} {{ user.lastlogin|localizeddate('medium', 'short') }}</p></li>
+				{% else %}<li><h4>{{ 'form.lastlogin'|trans({}, 'FOSUserBundle') }}</h4><p>{{ 'user.lastlogin.never'|trans }}</p></li>
+				{% endif %}
+				<li>
+					<h4>[-History-]</h4>
+				</li>
+			{% endif %}
+		</ul>
+	</div></div>
+</div>
+{{ form_end(form) }}

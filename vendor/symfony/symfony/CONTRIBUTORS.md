@@ -1,114 +1,130 @@
 CONTRIBUTORS
 ============
 
-Symfony2 is the result of the work of many people who made the code better
+Symfony is the result of the work of many people who made the code better
 (see http://symfony.com/contributors for more information):
 
  - Fabien Potencier (fabpot)
  - Bernhard Schussek (bschussek)
  - Victor Berchet (victor)
  - Jordi Boggiano (seldaek)
+ - Tobias Schultze (tobion)
  - Johannes S (johannes)
  - Kris Wallsmith (kriswallsmith)
- - Tobias Schultze (tobion)
  - Christophe Coevoet (stof)
  - Pascal Borreli (pborreli)
+ - Jakub Zalas (jakubzalas)
  - Karma Dordrak (drak)
+ - Joseph Bielawski (stloyd)
  - Ryan Weaver (weaverryan)
  - Lukas Kahwe Smith (lsmith)
- - Joseph Bielawski (stloyd)
- - Jakub Zalas (jakubzalas)
+ - Romain Neutron (romain)
  - Jeremy Mikola (jmikola)
  - Jean-François Simon (jfsimon)
  - Benjamin Eberlei (beberlei)
  - Igor Wiedler (igorw)
- - Eriksen Costa (eriksencosta)
- - Martin Hasoň (hason)
  - Hugo Hamon (hhamon)
+ - Nicolas Grekas (nicolas-grekas)
+ - Martin Hasoň (hason)
+ - Eriksen Costa (eriksencosta)
+ - Christian Flothmann (xabbuh)
  - Jonathan Wage (jwage)
+ - Grégoire Pineau (lyrixx)
  - Alexandre Salomé (alexandresalome)
- - William DURAND
+ - William Durand (couac)
  - ornicar
- - Romain Neutron (romain)
  - stealth35 ‏ (stealth35)
  - Alexander Mols (asm89)
  - Bulat Shakirzyanov (avalanche123)
  - Francis Besset (francisbesset)
+ - Saša Stamenković (umpirsky)
  - Miha Vrhovnik
  - Henrik Bjørnskov (henrikbjorn)
+ - Wouter De Jong (wouterj)
  - Konstantin Kudryashov (everzet)
- - Florin Patan (florinpatan)
  - Bilal Amarni (bamarni)
- - Saša Stamenković (umpirsky)
- - Grégoire Pineau (lyrixx)
- - hhamon
+ - Florin Patan (florinpatan)
  - Eric Clemmons (ericclemmons)
+ - Andrej Hudec (pulzarraider)
  - Deni
  - Henrik Westphal (snc)
  - Dariusz Górecki (canni)
+ - Christian Raue
  - Arnout Boks (aboks)
- - Andrej Hudec (pulzarraider)
+ - Michel Weimerskirch (mweimerskirch)
  - Lee McDermott
  - Brandon Turner
+ - Douglas Greenshields (shieldo)
  - Daniel Holmes (dholmes)
+ - Bart van den Burg (burgov)
  - Jordan Alliot (jalliot)
  - John Wards (johnwards)
  - Fran Moreno (franmomu)
- - Bart van den Burg (burgov)
  - Antoine Hérault (herzult)
- - Michel Weimerskirch (mweimerskirch)
  - Toni Uebernickel (havvg)
- - Christian Raue
- - Douglas Greenshields (shieldo)
+ - Luis Cordova (cordoval)
  - Arnaud Le Blanc (arnaud-lb)
- - marc.weistroff
- - Brice BERNARD (brikou)
- - lenar
+ - Kevin Bond (kbond)
+ - Ait Boudad Abdellatif (aitboudad)
  - Tim Nagel (merk)
+ - Brice BERNARD (brikou)
+ - marc.weistroff
+ - lenar
  - Włodzimierz Gajda (gajdaw)
  - Colin Frei
  - excelwebzone
- - Fabien Pennequin (fabienpennequin)
  - Jacob Dreesen (jdreesen)
- - Kevin Bond (kbond)
- - Wouter De Jong (wouterj)
+ - Florian Voutzinos (florianv)
  - Adrien Brault (adrienbrault)
+ - Gábor Egyed (1ed)
+ - Fabien Pennequin (fabienpennequin)
+ - Jérôme Tamarelle (gromnan)
  - Michal Piotrowski (eventhorizon)
+ - Gordon Franke (gimler)
  - Robert Schönthal (digitalkaoz)
  - Juti Noppornpitak (shiroyuki)
  - Sebastian Hörl (blogsh)
- - Hidenori Goto (hidenorigoto)
- - Gábor Egyed (1ed)
- - David Buchmann (dbu)
  - Daniel Gomes (danielcsgomes)
+ - Hidenori Goto (hidenorigoto)
+ - Peter Kokot (maastermedia)
+ - David Buchmann (dbu)
+ - Pablo Godel (pgodel)
+ - Eric GELOEN (gelo)
  - Jérémie Augustin (jaugustin)
+ - Rafael Dohms (rdohms)
+ - Jérémy DERUSSÉ (jderusse)
  - Tigran Azatyan (tigranazatyan)
- - Richard Shank (iampersistent)
- - Gordon Franke (gimler)
- - Helmer Aaviksoo
  - Javier Eguiluz (javier.eguiluz)
+ - Richard Shank (iampersistent)
+ - Kévin Dunglas (dunglas)
+ - Clemens Tolboom
+ - Helmer Aaviksoo
+ - Sebastiaan Stok (sstok)
+ - Hiromi Hishida (77web)
  - Matthieu Ouellette-Vachon (maoueh)
  - Michał Pipa (michal.pipa)
  - Amal Raghav (kertz)
  - Jonathan Ingram (jonathaningram)
  - Artur Kotyrba
- - Pablo Godel (pgodel)
- - Sebastiaan Stok (sstok)
+ - Guilherme Blanco (guilhermeblanco)
+ - Rouven Weßling (realityking)
+ - Stefano Sala (stefano.sala)
  - Dmitrii Chekaliuk (lazyhammer)
  - Clément JOBEILI (dator)
- - Hiromi Hishida (77web)
+ - Dorian Villet (gnutix)
  - Richard Miller (mr_r_miller)
  - Arnaud Kleinpeter (nanocom)
- - Rafael Dohms (rdohms)
  - Mario A. Alvarez Garcia (nomack84)
  - Dennis Benkert (denderello)
- - Eric GELOEN (gelo)
  - Benjamin Dulau (dbenjamin)
  - Andreas Hucks (meandmymonkey)
+ - Andréia Bohner (andreia)
  - Noel Guilbert (noel)
+ - Peter Rehm (rpet)
+ - Charles Sarrazin (csarrazi)
+ - bronze1man
+ - sun (sun)
  - Larry Garfield (crell)
- - Dorian Villet (gnutix)
- - Guilherme Blanco (guilhermeblanco)
  - Martin Schuhfuß (usefulthink)
  - Thomas Rabaix (rande)
  - Matthieu Bontemps (mbontemps)
@@ -116,112 +132,139 @@ Symfony2 is the result of the work of many people who made the code better
  - fivestar
  - Dominique Bongiraud
  - Leszek Prabucki (l3l0)
+ - François Zaninotto (fzaninotto)
  - Dustin Whittle (dustinwhittle)
  - jeff
- - Clemens Tolboom
- - Peter Kokot (maastermedia)
  - Justin Hileman (bobthecow)
  - Sven Paulus (subsven)
+ - Lars Strojny (lstrojny)
  - Joel Wurtz (brouznouf)
  - Rui Marinho (ruimarinho)
- - Jérôme Tamarelle (gromnan)
+ - Matthias Pigulla (mpdude)
  - Julien Brochet (mewt)
+ - Tugdual Saunier (tucksaun)
  - Sergey Linnik (linniksa)
  - Marcel Beerta (mazen)
+ - hacfi (hifi)
  - Francois Zaninotto
  - Alexander Kotynia (olden)
- - François Zaninotto (fzaninotto)
+ - Daniel Tschinder
+ - Elnur Abdurrakhimov (elnur)
+ - Manuel Reinhard (sprain)
  - Danny Berger (dpb587)
+ - Roman Marintšenko (inori)
  - Xavier Montaña Carreras (xmontana)
+ - Michele Orselli (orso)
  - Xavier Perez
  - Arjen Brouwer (arjenjb)
  - Katsuhiro OGAWA
- - Andréia Bohner (andreia)
  - Alif Rachmawadi
+ - Pierre-Yves LEBECQ (pylebecq)
+ - Eugene Leonovich (rybakit)
  - Joseph Rouff (rouffj)
  - Félix Labrecque (woodspire)
  - GordonsLondon
+ - Issei Murasawa (issei_m)
  - Jan Sorgalla (jsor)
  - Ray
- - Ait Boudad Abdellatif (aitboudad)
+ - Chekote
  - Thomas Adam
  - Albert Casademont (acasademont)
  - jdhoek
+ - Nikita Konstantinov
  - Wodor Wodorski
- - Elnur Abdurrakhimov (elnur)
+ - Iltar van der Berg
+ - julien pauli (jpauli)
  - Beau Simensen (simensen)
  - Robert Kiss (kepten)
- - Kim Hemsø Rasmussen
+ - Kim Hemsø Rasmussen (kimhemsoe)
+ - Tom Van Looy (tvlooy)
  - Wouter Van Hecke
+ - Peter Kruithof (pkruithof)
  - Michael Holm (hollo)
  - Marc Weistroff (futurecat)
- - bronze1man
- - Roman Marintšenko (inori)
+ - Chris Smith (cs278)
  - Florian Klein (docteurklein)
- - Matthias Pigulla (mpdude)
  - Manuel Kiessling (manuelkiessling)
- - Christian Flothmann (xabbuh)
+ - Daniel Wehner
+ - Atsuhiro KUBO (iteman)
+ - Andrew Moore (finewolf)
  - Bertrand Zuchuat (garfield-fr)
+ - Gabor Toth (tgabi333)
+ - realmfoo
+ - Thomas Tourlourat (armetiz)
+ - Andrey Esaulov (andremaha)
  - Grégoire Passault (gregwar)
  - Uwe Jäger (uwej711)
  - Aurelijus Valeiša (aurelijus)
+ - Jan Decavele (jandc)
  - Gustavo Piltcher
  - Stepan Tanasiychuk (stfalcon)
+ - Tiago Ribeiro (fixe)
+ - Bob den Otter (bopp)
  - Adrian Rudnik (kreischweide)
  - Francesc Rosàs (frosas)
+ - Julien Galenski (ruian)
  - Bongiraud Dominique
  - janschoenherr
+ - Marco Pivetta (ocramius)
  - Ricard Clau (ricardclau)
  - Erin Millard
+ - John Kary (johnkary)
  - Matthew Lewinski (lewinski)
- - Manuel Reinhard (sprain)
+ - alquerci
  - Francesco Levorato
  - Vitaliy Zakharov (zakharovvi)
  - Gyula Sallai (salla)
- - Michele Orselli (orso)
- - Tom Van Looy (tvlooy)
- - Peter Kruithof (pkruithof)
+ - Inal DJAFAR (inalgnu)
+ - Christian Gärtner (dagardner)
  - Felix Labrecque
  - Yaroslav Kiliba
- - Pierre-Yves LEBECQ (pylebecq)
+ - Sébastien Lavoie (lavoiesl)
  - Terje Bråten
  - Kristen Gilden (kgilden)
+ - Robbert Klarenbeek (robbertkl)
  - hossein zolfi (ocean)
+ - Clément Gautier (clementgautier)
+ - Eduardo Gulias (egulias)
+ - giulio de donato (liuggio)
+ - Stéphane PY (steph_py)
  - Philipp Kräutli (pkraeutli)
+ - Kirill chEbba Chebunin (chebba)
  - Greg Thornton (xdissent)
- - Atsuhiro KUBO (iteman)
- - sun (sun)
- - Lars Strojny
- - Gabor Toth (tgabi333)
+ - Grégoire Paris (greg0ire)
+ - Chris Wilkinson (thewilkybarkid)
  - Costin Bereveanu (schniper)
- - realmfoo
+ - Loïc Chardonnet (gnusat)
+ - Marek Kalnik (marekkalnik)
+ - Vyacheslav Salakhutdinov (megazoll)
+ - Alex Pott
  - Tamas Szijarto
  - Pavel Volokitin (pvolok)
+ - Endre Fejes
  - Tobias Naumann (tna)
  - Ismael Ambrosi (iambrosi)
  - Shein Alexey
  - Joe Lencioni
- - Chekote
  - Kai
+ - Karoly Negyesi (chx)
  - Xavier HAUSHERR
  - Albert Jessurum (ajessu)
- - Luis Cordova (cordoval)
  - Laszlo Korte
- - Tiago Ribeiro (fixe)
+ - Miha Vrhovnik
  - Alessandro Desantis
  - hubert lecorche (hlecorche)
- - Eugene Leonovich (rybakit)
  - Oscar Cubo Medina (ocubom)
  - Karel Souffriau
  - Christophe L. (christophelau)
- - Julien Galenski (ruian)
+ - Anthon Pang (robocoder)
  - Jáchym Toušek
+ - Jannik Zschiesche (apfelbox)
  - Emanuele Gaspari (inmarelibero)
  - Brian King
  - Michel Salib (michelsalib)
  - geoffrey
- - Marco Pivetta (ocramius)
- - Nikita Konstantinov
+ - Matthieu Auger (matthieuauger)
  - Jeanmonod David (jeanmonod)
  - Jan Schumann
  - Niklas Fiekas
@@ -229,112 +272,150 @@ Symfony2 is the result of the work of many people who made the code better
  - lancergr
  - Antonio J. García Lagar (ajgarlag)
  - Olivier Dolbeau (odolbeau)
- - alquerci
+ - Roumen Damianoff (roumen)
+ - Tobias Sjösten (tobiassjosten)
  - vagrant
- - Christian Gärtner (dagardner)
  - Asier Illarramendi (doup)
+ - Chris Sedlmayr (catchamonkey)
+ - Seb Koelen
  - Christoph Mewes (xrstf)
  - Vitaliy Tverdokhlib (vitaliytv)
  - Dirk Pahl (dirkaholic)
+ - cedric lombardot (cedriclombardot)
  - Jonas Flodén (flojon)
  - Marcin Sikoń (marphi)
+ - franek (franek)
  - Adam Harvey
+ - Alex Bakhturin
+ - François-Xavier de Guillebon (de-gui_f)
  - boombatower
  - Fabrice Bernhard (fabriceb)
  - Fabian Lange (codingfabian)
  - Yoshio HANAWA
+ - Baptiste Clavié (talus)
  - Sebastian Bergmann
  - Pablo Díez (pablodip)
  - Kevin McBride
+ - Philipp Rieber (bicpi)
  - Manuel de Ruiter (manuel)
  - Jérémy Romey (jeremyfreeagent)
  - Eduardo Oliveira (entering)
- - Loïc Chardonnet (gnusat)
  - Iker Ibarguren (ikerib)
  - Ricardo Oliveira (ricardolotr)
  - ondrowan
- - Stéphane PY (steph_py)
  - Evan S Kaufman (evanskaufman)
  - mcben
  - Maks Slesarenko
- - Grégoire Paris (greg0ire)
+ - mmoreram
  - Markus Lanthaler (lanthaler)
  - Vicent Soria Durá (vicentgodella)
+ - Ioan Negulescu
+ - Jakub Škvára (jskvara)
  - Andrew Udvare (audvare)
+ - Sarah Khalil (saro0h)
  - alexpods
  - Erik Trapman (eriktrapman)
  - De Cock Xavier (xdecock)
+ - Norbert Orzechowicz (norzechowicz)
  - Matthijs van den Bos (matthijs)
  - Nils Adermann (naderman)
  - Gábor Fási
  - Benjamin Leveque (benji07)
  - sasezaki
+ - Florian Rey (nervo)
  - Denis Gorbachev (starfall)
  - Steven Surowiec
- - Marek Kalnik (marekkalnik)
- - Chris Smith
- - Anthon Pang
+ - Daniel Tschinder
  - Ryan
  - Alexander Deruwe (aderuwe)
  - François Pluchino (francoispluchino)
  - Ivan Rey (ivanrey)
  - Marcin Chyłek (songoq)
  - Ned Schwartz
- - Thomas Tourlourat (armetiz)
  - Ziumin
  - Lenar Lõhmus
  - Zach Badgett (zachbadgett)
  - Aurélien Fredouelle
- - Karoly Negyesi (chx)
  - Pavel Campr (pcampr)
- - Miha Vrhovnik
+ - Disquedur
  - Geoffrey Tran (geoff)
+ - Jan Behrens
+ - Sebastian Krebs
+ - Christopher Davis (chrisguitarguy)
  - Thomas Lallement (raziel057)
+ - alcaeus
  - vitaliytv
  - Markus Bachmann (baachi)
+ - Sebastian Blum
  - aubx
+ - Ricky Su (ricky)
+ - Gildas Quéméner (gquemener)
  - Max Rath (drak3)
  - Stéphane Escandell (sescandell)
  - Sinan Eldem
  - Konstantin Myakshin (koc)
  - Nahuel Cuesta (ncuesta)
  - Chris Boden (cboden)
- - Roumen Damianoff (roumen)
+ - Asmir Mustafic (goetas)
  - Pierre du Plessis (pierredup)
  - Josip Kruslin
+ - Hany el-Kerdany
+ - Wang Jingyu
  - Åsmund Garfors
+ - Maxime Douailin
  - Javier López (loalf)
- - Tobias Sjösten (tobiassjosten)
  - Dustin Dobervich (dustin10)
+ - Warnar Boekkooi
+ - Alexander M. Turek (derrabus)
  - Sebastian Marek (proofek)
  - Erkhembayar Gantulga (erheme318)
+ - Kamil Kokot (pamil)
+ - Florian Lonqueu-Brochard (florianlb)
  - Rostyslav Kinash
+ - Daisuke Ohata
  - Vincent Simonin
+ - Christian Schmidt
  - Stefan Warman
+ - Tristan Maindron (tmaindron)
  - Ke WANG (yktd26)
  - Jakub Kucharovic
  - Miquel Rodríguez Telep (mrtorrent)
+ - Sergey Kolodyazhnyy (skolodyazhnyy)
  - umpirski
  - Chris Heng (gigablah)
+ - Ulumuddin Yunus (joenoez)
+ - Johann Saunier (prophet777)
  - Antoine Corcy
- - cedric lombardot (cedriclombardot)
- - franek (franek)
- - John Kary (johnkary)
- - François-Xavier de Guillebon (de-gui_f)
+ - Arturs Vonda
+ - Sascha Grossenbacher
+ - Ben Davies (bendavies)
+ - Simon Schick (simonsimcity)
+ - redstar504
  - Hossein Bukhamsin
+ - Paweł Wacławczyk (pwc)
  - Oleg Zinchenko (cystbear)
  - Diego Saint Esteben (dii3g0)
  - Johannes Klauss (cloppy)
+ - Evan Villemez
  - fzerorubigd
+ - Thomas Ploch
+ - Benjamin Grandfond (benjamin)
  - Tiago Brito (blackmx)
+ - Richard van den Brand (ricbra)
  - develop
+ - Vincent AUBERT (vincent)
  - Tomasz Kowalczyk (thunderer)
  - Mark Sonnabaum
+ - Mathieu Lemoine
+ - jochenvdv
  - Filippo Tessarotto
+ - Arturas Smorgun (asarturas)
+ - Alexander Volochnev (exelenz)
  - Michael Piecko
  - yclian
  - Pascal Helfenstein
  - Baldur Rensch (brensch)
+ - Barry vd. Heuvel (barryvdh)
  - Alex Xandra Albert Sim
  - Yuen-Chi Lian
  - Besnik Br
@@ -343,66 +424,75 @@ Symfony2 is the result of the work of many people who made the code better
  - Venu
  - Lars Vierbergen
  - Mark Challoner
+ - Dennis Hotson
  - Andrew Tchircoff (andrewtch)
  - michaelwilliams
+ - 1emming
  - Leevi Graham (leevigraham)
  - Casper Valdemar Poulsen
- - Eduardo Gulias (egulias)
  - Josiah (josiah)
- - Peter Rehm
+ - Marek Štípek (maryo)
  - John Bohn (jbohn)
  - Andrew Hilobok (hilobok)
  - Christian Soronellas (theunic)
+ - Yosmany Garcia (yosmanyga)
+ - Daniel Beyer
  - Jérôme Vieilledent (lolautruche)
  - Degory Valentine
- - hacfi (hifi)
+ - Benoit Lévêque (benoit_leveque)
+ - Jeroen Fiege (fieg)
  - Krzysiek Łabuś
  - Xavier Lacot (xavier)
  - Olivier Maisonneuve (olineuve)
  - Francis Turmel (fturmel)
+ - Loick Piera (pyrech)
  - cgonzalez
+ - Ben
+ - Lee Rowlands
  - Jayson Xu (superjavason)
+ - Tobias Nyholm (tobias)
  - Jaik Dean (jaikdean)
+ - Harm van Tilborg
  - Jan Prieser
  - James Michael DuPont
  - Tom Klingenberg
  - Christopher Hall (mythmakr)
  - Paul Kamer (pkamer)
- - Thomas Ploch (tploch)
+ - Rafał Wrzeszcz (rafalwrzeszcz)
  - Reen Lokum
  - Martin Parsiegla (spea)
- - Stefano Sala (stefano.sala)
+ - Quentin Schuler
  - Pierre Vanliefland (pvanliefland)
  - frost-nzcr4
  - Abhoryo
  - Fabian Vogler (fabian)
  - Maksim Kotlyar (makasim)
- - Tugdual Saunier (tucksaun)
  - Neil Ferreira
+ - Dmitry Parnas (parnas)
+ - DQNEO
+ - Emanuele Iannone
  - Tony Malzhacker
  - Cyril Quintin (cyqui)
  - Gerard van Helden (drm)
  - Patrick Allaert
- - Kirill chEbba Chebunin (chebba)
  - Gustavo Falco (gfalco)
  - Aleksey Podskrebyshev
- - Bob den Otter (bopp)
  - David Marín Carreño (davefx)
  - Jörn Lang (j.lang)
- - julien pauli (jpauli)
  - mwsaz
  - Benoît Bourgeois
  - corphi
  - grizlik
  - Derek ROTH
  - Shin Ohno (ganchiku)
+ - Geert De Deckere (geertdd)
  - Jan Kramer (jankramer)
  - abdul malik ikhsan (samsonasik)
- - Sarah Khalil (saro0h)
  - Timothée Barray (tyx)
+ - Benjamin Laugueux (yzalis)
  - Christian Morgan
  - Alexander Miehe (engerim)
- - giulio de donato (liuggio)
+ - Morgan Auchede (mauchede)
  - Titouan Galopin (tgalopin)
  - Don Pinkster
  - Maksim Muruev
@@ -410,42 +500,59 @@ Symfony2 is the result of the work of many people who made the code better
  - Thibault Duplessis
  - Marc Abramowitz
  - Martijn Evers
+ - Jacques Moati
  - Harry Walter (haswalt)
  - Michael Roterman (wtfzdotnet)
  - Arno Geurts
  - Adán Lobato (adanlobato)
+ - Matthew Davis (mdavis1982)
  - Maks
+ - Gábor Tóth
  - Daniel Cestari
  - Magnus Nordlander (magnusnordlander)
  - Mikhail Yurasov (mym)
- - Florian Rey (nervo)
  - LOUARDI Abdeltif (ouardisoft)
  - Robert Gruendler (pulse00)
  - Simon Terrien (sterrien)
  - Benoît Merlet (trompette)
- - Jan Behrens
+ - Koen Kuipers
+ - datibbaw
  - Raul Fraile (raulfraile)
  - sensio
  - Patrick Kaufmann
- - alcaeus
+ - Matthieu Napoli (mnapoli)
  - Ben Ramsey (ramsey)
  - Christian Jul Jensen
  - The Whole Life to Learn
+ - Liverbool (liverbool)
+ - Sam Malone
+ - Phan Thanh Ha (haphan)
  - Chris Jones (leek)
+ - Colin O&#039;Dell (colinodell)
  - xaav
  - Mahmoud Mostafa (mahmoud)
+ - Michael Tibben
+ - Sander Marechal
  - Radosław Benkel
  - ttomor
  - Mei Gwilym (meigwilym)
+ - Michael H. Arieli (excelwebzone)
  - Luciano Mammino (loige)
+ - fabios
  - Sander Coolen (scoolen)
  - Nicolas Le Goff (nlegoff)
+ - Ariel Ferrandini (aferrandini)
  - Manuele Menozzi
  - Anton Babenko (antonbabenko)
  - Irmantas Šiupšinskas (irmantas)
+ - Danilo Silva
+ - Stepan Anchugov (kix)
+ - Zachary Tong (polyfractal)
+ - Hryhorii Hrebiniuk
  - dantleech
  - Tero Alén (tero)
  - DerManoMann
+ - Guillaume Royer
  - Artem (digi)
  - dantleech
  - Vadim Tyukov (vatson)
@@ -454,25 +561,32 @@ Symfony2 is the result of the work of many people who made the code better
  - Wojciech Sznapka
  - Máximo Cuadros (mcuadros)
  - Alex Bogomazov
+ - tamirvs
  - julien.galenski
- - Sébastien Lavoie (lavoiesl)
+ - Christian Neff
  - Per Sandström (per)
+ - Goran Juric
+ - Laurent Ghirardotti (laurentg)
  - Lin Clark
  - Jeremy David (jeremy.david)
  - Troy McCabe
  - Ville Mattila
- - Ben Davies
+ - Boris Vujicic (boris.vujicic)
  - Max Beutel
+ - Catalin Dan
  - Piotr Antosik (antek88)
  - Artem Lopata
  - Marcos Quesada (marcos_quesada)
+ - Matthew Vickery (mattvick)
  - Dan Finnie
  - Ken Marfilla (marfillaster)
+ - benatespina (benatespina)
  - jfcixmedia
  - Martijn Evers
  - Benjamin Paap (benjaminpaap)
  - Christian
  - Sergii Smertin (nfx)
+ - Artur Eshenbrener
  - Eddie Jaoude
  - Haritz Iturbe (hizai)
  - Nerijus Arlauskas (nercury)
@@ -484,75 +598,129 @@ Symfony2 is the result of the work of many people who made the code better
  - Daniel Mecke (daniel_mecke)
  - Matteo Giachino (matteosister)
  - Alex Demchenko (pilot)
- - Vincent AUBERT (vincent)
+ - Tadas Gliaubicas (tadcka)
  - Benoit Garret
+ - Thomas Royer (cydonia7)
  - DerManoMann
+ - Julien Bianchi (jubianchi)
+ - Marcin Chwedziak
  - Roland Franssen (ro0)
+ - Maciej Malarz
+ - Rodrigo Díez Villamuera (rodrigodiez)
+ - e-ivanov
  - Jochen Bayer (jocl)
  - Jeremy Bush
- - Evan Villemez
+ - rpg600
  - Péter Buri (burci)
  - Davide Borsatto (davide.borsatto)
  - kaiwa
+ - Charles Sanquer (csanquer)
  - Albert Ganiev (helios-ag)
  - Neil Katin
+ - David Otton
  - peter
+ - Jérémy Jourdin (jjk801)
+ - Artem Kolesnikov (tyomo4ka)
  - Gustavo Adrian
- - Clément Gautier (clementgautier)
+ - Yannick
+ - Luc Vieillescazes (iamluc)
+ - Eduardo García Sanz (coma)
+ - Roy Van Ginneken
+ - David de Boer (ddeboer)
+ - Gilles Doge (gido)
  - Brooks Boyd
  - Roger Webb
+ - Dmitriy Simushev
+ - Max Voloshin (maxvoloshin)
  - Nicolas Fabre (nfabre)
  - Raul Rodriguez (raul782)
+ - Patrick Landolt (scube)
+ - WybrenKoelmans
+ - Derek Lambert
+ - MightyBranch
+ - Kacper Gunia (cakper)
  - Felicitus
+ - Krzysztof Przybyszewski
  - Paul Matthews
  - Juan Traverso
+ - Jerzy Zawadzki (jzawadzki)
  - Philipp Strube
  - Christian Sciberras
  - Clement Herreman (clemherreman)
+ - Trent Steel (trsteel88)
  - Marco
+ - Marc Torres
  - Alberto Aldegheri
  - heccjj
  - Alexandre Melard
- - endroid
  - Sergey Yuferev
+ - Tobias Stöckler
+ - Mario Young
+ - Jakub Kulhan
  - Mo Di (modi)
- - Richard van den Brand (ricbra)
+ - Jeroen van den Enden (stoefke)
  - Quique Porta (quiqueporta)
+ - Tomasz Szymczyk (karion)
+ - ConneXNL
  - Aharon Perkel
+ - Abdul.Mohsen B. A. A
+ - BenoÃ®t Burnichon
  - Malaney J. Hill
  - Cédric Girard (enk_)
+ - Oriol Mangas Abellan (oriolman)
  - Sebastian Göttschkes (sgoettschkes)
+ - Ross Tuck
  - Kévin Gomez (kevin)
- - Pierre Tachoire
- - marcj
  - Ludek Stepan
+ - Geoffrey Brier
+ - Aaron Stephens (astephens)
  - Balázs Benyó (duplabe)
  - Erika Heidi Reinaldo (erikaheidi)
+ - Pierre Tachoire (krichprollsch)
+ - Marc J. Schmidt (marcjs)
  - Marc Morera (mmoreram)
- - Daniel Wehner
+ - Marco Jantke
  - Saem Ghani
  - Sebastian Utz
+ - Adrien Gallou (agallou)
+ - Karol Sójko (karolsojko)
+ - sl_toto (sl_toto)
  - Sébastien HOUZÉ
+ - steveYeah
  - Samy Dindane (dinduks)
  - Keri Henare (kerihenare)
  - Cédric Lahouste (rapotor)
  - Samuel Vogel (samuelvogel)
+ - Berat Doğan
  - Anthony Ferrara
  - ShiraNai7
  - Janusz Jabłoński (yanoosh)
  - George Giannoulopoulos
- - Chris Wilkinson (thewilkybarkid)
+ - Daniel Richter (richtermeister)
+ - ChrisC
  - Ilya Biryukov
  - Jason Desrosiers
  - m.chwedziak
  - Lance McNearney
+ - Giorgio Premi
  - caponica
  - Matt Daum (daum)
  - Alberto Pirovano (geezmo)
+ - Pete Mitchell (peterjmit)
+ - Tom Corrigan (tomcorrigan)
  - Martin Pärtel
+ - Evgeniy (ewgraf)
+ - Patrick Daley (padrig)
  - Xavier Briand (xavierbriand)
+ - Max Summe
+ - WedgeSama
+ - Felds Liscia
+ - James Halsall (jaitsu)
+ - Maxime Veber (nek-)
+ - Tadcka
+ - Beth Binkovitz
  - Romain Geissler
- - Charles Sarrazin (csarrazi)
+ - Benjamin Cremer (bcremer)
  - Marcus Stöhr (dafish)
  - Emmanuel Vella (emmanuel.vella)
  - Carsten Nielsen (phreaknerd)
@@ -561,64 +729,82 @@ Symfony2 is the result of the work of many people who made the code better
  - Nathaniel Catchpole
  - Adrien Samson (adriensamson)
  - Samuel Gordalina (gordalina)
+ - Max Romanovsky (maxromanovsky)
+ - Mathieu Morlon
+ - Rafał Muszyński (rafmus90)
  - Timothy Anido (xanido)
- - Sebastian Krebs
  - Rick Prent
  - Martin Eckhardt
+ - Damien Tournoud
+ - Jon Gotlin (jongotlin)
  - Michael Dowling (mtdowling)
  - BilgeXA
+ - r1pp3rj4ck
  - Robert Queck
  - mlively
- - Dennis Hotson
  - Fabian Steiner (fabstei)
+ - Klaus Silveira (klaussilveira)
  - Thomas Chmielowiec (chmielot)
  - Jānis Lukss
+ - Vladyslav Petrovych
  - Matthew J Mucklo
  - fdgdfg (psampaz)
  - Maxwell Vandervelde
  - kaywalker
+ - Mike Meier
  - Sebastian Ionescu
+ - Thomas Ploch
  - Simon Neidhold
  - Kevin Dew
  - James Cowgill
  - Jeremy Livingston (jeremylivingston)
  - Nicolas Schwartz (nicoschwartz)
  - Patrik Gmitter (patie)
+ - Jonathan Gough
  - Benjamin Bender
  - Konrad Mohrfeldt
- - Benoit Lévêque (benoit_leveque)
+ - kor3k kor3k (kor3k)
  - Stelian Mocanita (stelian)
  - Flavian (2much)
  - mike
+ - Keith Maika
  - Mephistofeles
  - Hoffmann András
  - Olivier
  - pscheit
+ - Dan Harper
+ - moldcraft
  - Ramon Kleiss (akathos)
- - Jakub Škvára (jskvara)
  - Nicolas Badey (nico-b)
+ - Shane Preece (shane)
  - povilas
+ - Diego Agulló
+ - Alexander Obuhovich
  - Alessandro Tagliapietra (alex88)
  - Gunnar Lium (gunnarlium)
  - Tiago Garcia (tiagojsag)
- - Lars Strojny
  - Bouke Haarsma
- - Harm van Tilborg
  - Martin Eckhardt
- - Leonid Terentyev
+ - Denis Zunke
+ - Jonathan Poston
+ - Adrian Olek (adrianolek)
  - Przemysław Piechota (kibao)
+ - Leonid Terentyev (li0n)
  - Adam Prager (padam87)
  - Francisco Facioni (fran6co)
  - Iwan van Staveren (istaveren)
  - Povilas S. (povilas)
- - Paweł Wacławczyk (pwc)
  - pborreli
  - Eric Caron
  - 2manypeople
+ - Wing
  - Thomas Bibb
+ - catch
+ - Alexandre Segura
  - Josef Cech
- - Andrey Esaulov (andremaha)
+ - Nate (frickenate)
  - Matthew Foster (mfoster)
+ - Maximilian Reichel (phramz)
  - Paul Seiffert (seiffert)
  - Vasily Khayrulin (sirian)
  - Stefan Koopmanschap (skoop)
@@ -626,72 +812,111 @@ Symfony2 is the result of the work of many people who made the code better
  - stloyd
  - Chris Tickner
  - Andrew Coulton
+ - Michal Gebauer
+ - Gleb Sidora
+ - David Stone
+ - Javier Spagnoletti (phansys)
+ - Pablo Maria Martelletti (pmartelletti)
+ - Yassine Guedidi (yguedidi)
  - Luis Muñoz
+ - Andreas
  - Strate
  - Thomas Chmielowiec
+ - Andrey Ryaguzov
+ - Manatsawin Hanmongkolchai
  - Gunther Konig
+ - Maciej Schmidt
+ - flack
  - František Bereň
- - Benjamin Grandfond (benjamin)
  - Christoph Nissle (derstoffel)
+ - Ionel Scutelnicu (ionelscutelnicu)
  - Johnny Peck (johnnypeck)
  - Nicolas Tallefourtané (nicolab)
+ - Thierry Marianne (thierrymarianne)
+ - Nick Stemerdink
  - jjanvier
  - Romain Dorgueil
  - Grayson Koonce (breerly)
  - Benjamin Zikarsky (bzikarsky)
  - Matt Robinson (inanimatt)
+ - Karim Cassam Chenaï (ka)
  - Nicolas Bastien (nicolas_bastien)
  - Andy Stanberry
+ - Luiz “Felds” Liscia
  - Thomas Rothe
  - alefranz
+ - avi123
  - alsar
  - Mike Meier
  - Warwick
+ - Chris
  - efeen
+ - Michał Dąbrowski (defrag)
  - Dominik Zogg (dominik.zogg)
  - Simone Fumagalli (hpatoio)
+ - Kevin Vergauwen (innocenzo)
  - Alessio Baglio (ioalessio)
  - John Bafford (jbafford)
  - Jérôme Macias (jeromemacias)
  - Jordi Llonch (jordillonch)
  - Cédric Dugat (ph3nol)
  - Philip Dahlstrøm (phidah)
+ - Milos Colakovic (project2481)
  - Rénald Casagraude (rcasagraude)
  - Robin Duval (robin-duval)
  - Artem Lopata (bumz)
- - Iltar van der Berg
  - Alexey Popkov
  - Artyom Protaskin
  - Nathanael d. Noblet
  - helmer
+ - Daan van Renterghem
  - Bram Van der Sype (brammm)
  - Julien Moulin (lizjulien)
+ - Yannick Warnier (ywarnier)
+ - Kevin Decherf
  - dened
+ - Sam Ward
+ - Walther Lalk
+ - Adam
  - devel
+ - Trevor Suarez
  - gedrox
  - dropfen
  - Andrey Chernykh
  - Drew Butler
+ - J Bruni
  - Alexey Prilipko
+ - bertillon
+ - Hans Nilsson (hansnilsson)
  - Jan Marek (janmarek)
+ - Mark de Haan (markdehaan)
  - Dan Patrick (mdpatrick)
  - Rares Vlaseanu (raresvla)
  - tante kinast (tante)
+ - Vincent LEFORT (vlefort)
  - Alexander Zogheb
- - Florian Pfitzer
+ - Joel Marcey
  - David Christmann
  - root
+ - James Hudson
  - Tom Maguire
  - David Zuelke
  - Pierre Rineau
+ - adenkejawen
  - Ari Pringle (apringle)
  - Dan Ordille (dordille)
  - Jan Eichhorn (exeu)
+ - John Nickell (jrnickell)
  - Julien DIDIER (juliendidier)
+ - Florian Pfitzer (marmelatze)
  - Martin Mayer (martin)
  - Grzegorz Łukaszewicz (newicz)
+ - grifx
  - Robert Campbell
  - Matt Lehner
+ - Hein Zaw Htet™
+ - Ruben Kruiswijk
+ - Michael J
  - Alex Pods
  - timaschew
  - Ian Phillips
@@ -702,10 +927,12 @@ Symfony2 is the result of the work of many people who made the code better
  - Rowan Manning
  - David Windell
  - Gabriel Birke
+ - Steffen Roßkamp
+ - skafandri
  - Alan Chen
  - Maerlyn
  - Even André Fiskvik
- - Franz Liedke
+ - Diego Agulló
  - Lenar Lõhmus
  - Cristian Gonzalez
  - Juan M Martínez
@@ -714,50 +941,71 @@ Symfony2 is the result of the work of many people who made the code better
  - Alex
  - Klaas Naaijkens
  - Rafał
+ - Adria Lopez (adlpz)
+ - Rosio (ben-rosio)
  - Masao Maeda (brtriver)
+ - Darius Leskauskas (darles)
+ - Dave Hulbert (dave1010)
  - Dave Marshall (davedevelopment)
+ - David Joos (djoos)
  - Denis Klementjev (dklementjev)
- - Kévin Dunglas (dunglas)
+ - Tomáš Polívka (draczris)
  - Vincent Composieux (eko)
+ - Franz Liedke (franzliedke)
+ - gondo (gondo)
+ - Gusakov Nikita (hell0w0rd)
  - Osman Üngür (import)
+ - Jelle Bekker (jbekker)
+ - Ian Jenkins (jenkoian)
  - Jorge Martin (jorgemartind)
  - Kevin Herrera (kherge)
- - Matthew Davis (mdavis1982)
  - Muriel (metalmumu)
  - Michaël Perrin (michael.perrin)
  - Pablo Monterde Perez (plebs)
- - Rafał Wrzeszcz (rafalwrzeszcz)
  - Jimmy Leger (redpanda)
- - Baptiste Clavié (talus)
  - Cyrille Jouineau (tuxosaurus)
  - Yorkie Chadwick (yorkie76)
  - Yanick Witschi
+ - Ondrej Mirtes
+ - akimsko
+ - Youpie
  - srsbiz
  - Nicolas A. Bérard-Nault
  - Gladhon
  - Saem Ghani
  - Stefan Oderbolz
+ - Curtis
  - Alexey Popkov
+ - Joseph Deray
+ - Damian Sromek
  - Arnaud Buathier (arnapou)
  - chesteroni (chesteroni)
- - Alexander M. Turek (derrabus)
  - Mauricio Lopez (diaspar)
  - Daniele Cesarini (ijanki)
+ - Ismail Asci (ismailasci)
  - Simon CONSTANS (kosssi)
+ - Kristof Van Cauwenbergh (kristofvc)
  - Ramon Henrique Ornelas (ramonornela)
  - Till Klampaeckel (till)
  - Tobias Weinert (tweini)
+ - Ulf Reimers (ureimers)
  - Wotre
  - goohib
  - Xavier HAUSHERR
+ - Cas
  - Myke79
  - Brian Debuire
  - Sylvain Lorinet
+ - klyk50
+ - Andreas Lutro
  - jc
  - BenjaminBeck
+ - Aurelijus Rožėnas
+ - znerol
  - Christian Eikermann
  - Antonio Angelino
  - Vladimir Sazhin
+ - lol768
  - jamogon
  - Vyacheslav Slinko
  - Johannes
@@ -765,87 +1013,105 @@ Symfony2 is the result of the work of many people who made the code better
  - wesleyh
  - Michael Genereux
  - patrick-mcdougle
+ - Dariusz Czech
  - Anonymous User
+ - Eric J. Duran
+ - cmfcmf
  - Drew Butler
  - Steve Müller
+ - Andras Ratz
  - andreabreu98
  - Thomas Schulz
  - Michael Schneider
+ - n-aleha
  - Kaipi Yann
  - Sam Williams
  - James Michael DuPont
- - Gábor Tóth
  - Tammy D
  - Ondrej Slinták
  - vlechemin
  - Brian Corrigan
+ - Brian Freytag
  - Skorney
  - mieszko4
- - datibbaw
- - Norbert Orzechowicz
+ - Markus Staab
  - Pierre-Louis LAUNAY
  - djama
+ - Eduardo Conceição
  - Jon Cave
  - Sébastien HOUZE
  - Abdulkadir N. A.
+ - Yevgen Kovalienia
  - Sema
  - Thorsten Hallwas
  - Michael Squires
- - Chris Smith
+ - Matt Janssen
+ - Peter Gribanov
  - kwiateusz
  - David Soria Parra
  - Sergiy Sokolenko
  - dinitrol
  - Penny Leach
+ - g123456789l
  - oscartv
- - Philipp Rieber
  - DanSync
  - Peter Zwosta
  - parhs
+ - TeLiXj
  - Oncle Tom
  - Christian Stocker
+ - Karolis Daužickas
  - tirnanog06
  - phc
+ - ilyes kooli
+ - Michaël VEROUX
  - sualko
  - Nicolas Roudaire
- - Lee Rowlands
  - Andreas Forsblom (aforsblo)
+ - Alaattin Kahramanlar (alaattin)
  - Alex Olmos (alexolmos)
- - Jannik Zschiesche (apfelbox)
  - Juan Ases García (ases)
  - Daniel Basten (axhm3a)
+ - Bill Hance (billhance)
  - Bernd Matzner (bmatzner)
- - Chris Sedlmayr (catchamonkey)
+ - Choong Wei Tjeng (choonge)
  - Kousuke Ebihara (co3k)
- - Cas Leentfaar (codeklopper)
+ - Loïc Vernet (coil)
  - Christoph Schaefer (cvschaefer)
  - Damien Alexandre (damienalexandre)
  - Damon Jones (damon__jones)
  - Daniel Londero (dlondero)
  - Adel ELHAIBA (eadel)
+ - Damián Nohales (eagleoneraptor)
  - Elliot Anderson (elliot)
  - Fabien D. (fabd)
- - Andrew Moore (finewolf)
  - Sorin Gitlan (forapathy)
  - Yohan Giarelli (frequence-web)
  - Massimiliano Arione (garak)
  - Ghazy Ben Ahmed (ghazy)
+ - Arash Tabriziyan (ghost098)
+ - ibasaw (ibasaw)
  - Vladislav Krupenkin (ideea)
  - joris de wit (jdewit)
  - Jérémy CROMBEZ (jeremy)
+ - Jose Manuel Gonzalez (jgonzalez)
  - Jorge Maiden (jorgemaiden)
  - Justin Rainbow (jrainbow)
  - JuntaTom (juntatom)
+ - Johnson Page (jwpage)
  - Sébastien Armand (khepin)
  - Krzysztof Menżyk (krymen)
  - samuel laulhau (lalop)
  - Laurent Bachelier (laurentb)
+ - Jérôme Parmentier (lctrs)
  - Matthieu Moquet (mattketmo)
  - Moritz Borgmann (mborgmann)
  - Matt Drollette (mdrollette)
  - Adam Monsen (meonkeys)
+ - Ala Eddine Khefifi (nayzo)
  - ollie harridge (ollietb)
  - Paweł Szczepanek (pauluz)
+ - Christian López Espínola (penyaskito)
  - Petr Jaroš (petajaros)
  - Philipp Hoffmann (philipphoffmann)
  - Alex Carol (picard89)
@@ -856,14 +1122,18 @@ Symfony2 is the result of the work of many people who made the code better
  - Sebastian Busch (sebu)
  - André Filipe Gonçalves Neves (seven)
  - Andrea Giuliano (shark)
+ - Volker (skydiablo)
  - Julien Sanchez (sumbobyboys)
+ - Guillermo Gisinger (t3chn0r)
  - Markus Tacker (tacker)
  - Tyler Stroud (tystr)
  - Víctor Mateo (victormateo)
  - Vincent (vincent1870)
  - Eugene Babushkin (warl)
  - Xavier Amado (xamado)
+ - Dawid Pakuła (zulusx)
  - Florent Cailhol
+ - szymek
  - craigmarvelley
  - Stano Turza
  - simpson
@@ -871,16 +1141,19 @@ Symfony2 is the result of the work of many people who made the code better
  - Andreas Streichardt
  - smokeybear87
  - Gustavo Adrian
- - Anthon Pang
  - Michael
  - fh-github@fholzhauer.de
+ - Mark Topper
  - Xavier REN
  - Philipp Scheit
  - max
  - Mohamed Karnichi (amiral)
+ - Jeroen De Dauw (jeroendedauw)
  - Muharrem Demirci (mdemirci)
  - Evgeny Z (meze)
+ - Michiel Boeckaert (milio)
  - Nicolas de Marqué (nicola)
+ - Kevin (oxfouzer)
  - Pierre Geyer (ptheg)
  - Erik Saunier (snickers)
  - Matej Žilák (teo_sk)

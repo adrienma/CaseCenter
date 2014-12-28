@@ -16,7 +16,6 @@ use Symfony\Component\Form\Util\InheritDataAwareIterator;
 use Symfony\Component\PropertyAccess\PropertyPathIterator;
 use Symfony\Component\PropertyAccess\PropertyPathBuilder;
 use Symfony\Component\PropertyAccess\PropertyPathIteratorInterface;
-use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationPathIterator;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Validator\ConstraintViolation;
 
@@ -26,7 +25,7 @@ use Symfony\Component\Validator\ConstraintViolation;
 class ViolationMapper implements ViolationMapperInterface
 {
     /**
-     * @var Boolean
+     * @var bool
      */
     private $allowNonSynchronized;
 
@@ -129,7 +128,8 @@ class ViolationMapper implements ViolationMapperInterface
                 $violation->getMessage(),
                 $violation->getMessageTemplate(),
                 $violation->getMessageParameters(),
-                $violation->getMessagePluralization()
+                $violation->getMessagePluralization(),
+                $violation
             ));
         }
     }
@@ -173,7 +173,7 @@ class ViolationMapper implements ViolationMapperInterface
         // Make the path longer until we find a matching child
         while (true) {
             if (!$it->valid()) {
-                return null;
+                return;
             }
 
             if ($it->isIndex()) {
@@ -224,15 +224,13 @@ class ViolationMapper implements ViolationMapperInterface
                 return $foundChild;
             }
         }
-
-        return null;
     }
 
     /**
      * Reconstructs a property path from a violation path and a form tree.
      *
-     * @param  ViolationPath $violationPath The violation path.
-     * @param  FormInterface $origin        The root form of the tree.
+     * @param ViolationPath $violationPath The violation path.
+     * @param FormInterface $origin        The root form of the tree.
      *
      * @return RelativePath The reconstructed path.
      */
@@ -290,10 +288,13 @@ class ViolationMapper implements ViolationMapperInterface
     /**
      * @param FormInterface $form
      *
-     * @return Boolean
+     * @return bool
      */
     private function acceptsErrors(FormInterface $form)
     {
-        return $this->allowNonSynchronized || $form->isSynchronized();
+        // Ignore non-submitted forms. This happens, for example, in PATCH
+        // requests.
+        // https://github.com/symfony/symfony/pull/10567
+        return $form->isSubmitted() && ($this->allowNonSynchronized || $form->isSynchronized());
     }
 }

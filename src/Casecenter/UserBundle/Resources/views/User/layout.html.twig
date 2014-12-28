@@ -1,0 +1,12 @@
+{# src/Casecenter/UserBundle/Resources/views/User/layout.html.twig #}
+
+{% extends "CasecenterUserBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'user.plural'|trans }} - {{ 'Administration'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_id %}user{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('administration_index') }}">{{ 'Administration'|trans }}</a></li>
+{% endblock %}

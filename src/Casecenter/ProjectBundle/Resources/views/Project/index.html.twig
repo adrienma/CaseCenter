@@ -1,0 +1,21 @@
+{# src/Casecenter/ProjectBundle/Resources/views/Project/index.html.twig #}
+{% extends "CasecenterProjectBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'project.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'project.plural'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'project.plural'|trans }}
+{% endblock %}
+
+{% block header_boutons %}{% endblock %}
+
+{% block header_nav %}{% endblock %}
+
+{% block body %}{% endblock %}

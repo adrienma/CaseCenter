@@ -22,6 +22,16 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    private $debug;
+
+    /**
+     * @param bool $debug Whether debugging is enabled or not
+     */
+    public function __construct($debug)
+    {
+        $this->debug = (bool) $debug;
+    }
+
     /**
      * Generates the configuration tree builder.
      *
@@ -36,17 +46,17 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('secret')->end()
                 ->scalarNode('http_method_override')
-                    ->info("Set true to enable support for the '_method' request parameter to determine the intended HTTP method on POST requests.")
+                    ->info("Set true to enable support for the '_method' request parameter to determine the intended HTTP method on POST requests. Note: When using the HttpCache, you need to call the method in your front controller instead")
                     ->defaultTrue()
                 ->end()
                 ->arrayNode('trusted_proxies')
                     ->beforeNormalization()
-                        ->ifTrue(function($v) { return !is_array($v) && !is_null($v); })
-                        ->then(function($v) { return is_bool($v) ? array() : preg_split('/\s*,\s*/', $v); })
+                        ->ifTrue(function ($v) { return !is_array($v) && null !== $v; })
+                        ->then(function ($v) { return is_bool($v) ? array() : preg_split('/\s*,\s*/', $v); })
                     ->end()
                     ->prototype('scalar')
                         ->validate()
-                            ->ifTrue(function($v) {
+                            ->ifTrue(function ($v) {
                                 if (empty($v)) {
                                     return false;
                                 }
@@ -70,27 +80,48 @@ class Configuration implements ConfigurationInterface
                 ->scalarNode('default_locale')->defaultValue('en')->end()
                 ->arrayNode('trusted_hosts')
                     ->beforeNormalization()
-                        ->ifTrue(function($v) { return is_string($v); })
-                        ->then(function($v) { return array($v); })
+                        ->ifTrue(function ($v) { return is_string($v); })
+                        ->then(function ($v) { return array($v); })
                     ->end()
                     ->prototype('scalar')->end()
                 ->end()
             ->end()
         ;
 
+        $this->addCsrfSection($rootNode);
         $this->addFormSection($rootNode);
         $this->addEsiSection($rootNode);
+        $this->addSsiSection($rootNode);
         $this->addFragmentsSection($rootNode);
         $this->addProfilerSection($rootNode);
         $this->addRouterSection($rootNode);
         $this->addSessionSection($rootNode);
+        $this->addRequestSection($rootNode);
         $this->addTemplatingSection($rootNode);
         $this->addTranslatorSection($rootNode);
         $this->addValidationSection($rootNode);
         $this->addAnnotationsSection($rootNode);
         $this->addSerializerSection($rootNode);
+        $this->addPropertyAccessSection($rootNode);
 
         return $treeBuilder;
+    }
+
+    private function addCsrfSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('csrf_protection')
+                    ->canBeEnabled()
+                    ->children()
+                        ->scalarNode('field_name')
+                            ->defaultValue('_token')
+                            ->info('Deprecated since 2.4, to be removed in 3.0. Use form.csrf_protection.field_name instead')
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
     }
 
     private function addFormSection(ArrayNodeDefinition $rootNode)
@@ -100,11 +131,17 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('form')
                     ->info('form configuration')
                     ->canBeEnabled()
-                ->end()
-                ->arrayNode('csrf_protection')
-                    ->canBeDisabled()
                     ->children()
-                        ->scalarNode('field_name')->defaultValue('_token')->end()
+                        ->arrayNode('csrf_protection')
+                            ->treatFalseLike(array('enabled' => false))
+                            ->treatTrueLike(array('enabled' => true))
+                            ->treatNullLike(array('enabled' => true))
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->booleanNode('enabled')->defaultNull()->end() // defaults to framework.csrf_protection.enabled
+                                ->scalarNode('field_name')->defaultNull()->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end()
@@ -121,6 +158,17 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
         ;
+    }
+
+    private function addSsiSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('ssi')
+                    ->info('ssi configuration')
+                    ->canBeEnabled()
+                ->end()
+            ->end();
     }
 
     private function addFragmentsSection(ArrayNodeDefinition $rootNode)
@@ -156,13 +204,17 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('matcher')
                             ->canBeUnset()
                             ->performNoDeepMerging()
+                            ->fixXmlConfig('ip')
                             ->children()
-                                ->scalarNode('ip')->end()
                                 ->scalarNode('path')
                                     ->info('use the urldecoded format')
                                     ->example('^/path to resource/')
                                 ->end()
                                 ->scalarNode('service')->end()
+                                ->arrayNode('ips')
+                                    ->beforeNormalization()->ifString()->then(function ($v) { return array($v); })->end()
+                                    ->prototype('scalar')->end()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()
@@ -215,9 +267,42 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('cookie_secure')->end()
                         ->booleanNode('cookie_httponly')->end()
                         ->scalarNode('gc_divisor')->end()
-                        ->scalarNode('gc_probability')->end()
+                        ->scalarNode('gc_probability')->defaultValue(1)->end()
                         ->scalarNode('gc_maxlifetime')->end()
                         ->scalarNode('save_path')->defaultValue('%kernel.cache_dir%/sessions')->end()
+                        ->integerNode('metadata_update_threshold')
+                            ->defaultValue('0')
+                            ->info('seconds to wait between 2 session metadata updates, it will also prevent the session handler to write if the session has not changed')
+                        ->end()
+                    ->end()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addRequestSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('request')
+                    ->info('request configuration')
+                    ->canBeUnset()
+                    ->fixXmlConfig('format')
+                    ->children()
+                        ->arrayNode('formats')
+                            ->useAttributeAsKey('name')
+                            ->prototype('array')
+                                ->beforeNormalization()
+                                    ->ifTrue(function ($v) { return is_array($v) && isset($v['mime_type']); })
+                                    ->then(function ($v) { return $v['mime_type']; })
+                                ->end()
+                                ->beforeNormalization()
+                                    ->ifTrue(function ($v) { return !is_array($v); })
+                                    ->then(function ($v) { return array($v); })
+                                ->end()
+                                ->prototype('scalar')->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end()
@@ -226,10 +311,10 @@ class Configuration implements ConfigurationInterface
 
     private function addTemplatingSection(ArrayNodeDefinition $rootNode)
     {
-        $organizeUrls = function($urls) {
+        $organizeUrls = function ($urls) {
             $urls += array(
                 'http' => array(),
-                'ssl'  => array(),
+                'ssl' => array(),
             );
 
             foreach ($urls as $i => $url) {
@@ -263,8 +348,8 @@ class Configuration implements ConfigurationInterface
                                     ->addDefaultChildrenIfNoneSet()
                                     ->prototype('scalar')->defaultValue('FrameworkBundle:Form')->end()
                                     ->validate()
-                                        ->ifTrue(function($v) {return !in_array('FrameworkBundle:Form', $v); })
-                                        ->then(function($v){
+                                        ->ifTrue(function ($v) {return !in_array('FrameworkBundle:Form', $v); })
+                                        ->then(function ($v) {
                                             return array_merge(array('FrameworkBundle:Form'), $v);
                                         })
                                     ->end()
@@ -278,8 +363,8 @@ class Configuration implements ConfigurationInterface
                             ->performNoDeepMerging()
                             ->addDefaultsIfNotSet()
                             ->beforeNormalization()
-                                ->ifTrue(function($v) { return !is_array($v); })
-                                ->then(function($v) { return array($v); })
+                                ->ifTrue(function ($v) { return !is_array($v); })
+                                ->then(function ($v) { return array($v); })
                             ->end()
                             ->beforeNormalization()
                                 ->always()
@@ -303,8 +388,8 @@ class Configuration implements ConfigurationInterface
                             ->isRequired()
                             ->requiresAtLeastOneElement()
                             ->beforeNormalization()
-                                ->ifTrue(function($v){ return !is_array($v); })
-                                ->then(function($v){ return array($v); })
+                                ->ifTrue(function ($v) { return !is_array($v); })
+                                ->then(function ($v) { return array($v); })
                             ->end()
                             ->prototype('scalar')->end()
                         ->end()
@@ -313,8 +398,8 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->arrayNode('loaders')
                             ->beforeNormalization()
-                                ->ifTrue(function($v){ return !is_array($v); })
-                                ->then(function($v){ return array($v); })
+                                ->ifTrue(function ($v) { return !is_array($v); })
+                                ->then(function ($v) { return array($v); })
                              ->end()
                             ->prototype('scalar')->end()
                         ->end()
@@ -332,8 +417,8 @@ class Configuration implements ConfigurationInterface
                                         ->performNoDeepMerging()
                                         ->addDefaultsIfNotSet()
                                         ->beforeNormalization()
-                                            ->ifTrue(function($v) { return !is_array($v); })
-                                            ->then(function($v) { return array($v); })
+                                            ->ifTrue(function ($v) { return !is_array($v); })
+                                            ->then(function ($v) { return array($v); })
                                         ->end()
                                         ->beforeNormalization()
                                             ->always()
@@ -366,6 +451,7 @@ class Configuration implements ConfigurationInterface
                     ->canBeEnabled()
                     ->children()
                         ->scalarNode('fallback')->defaultValue('en')->end()
+                        ->booleanNode('logging')->defaultValue($this->debug)->end()
                     ->end()
                 ->end()
             ->end()
@@ -382,9 +468,42 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('cache')->end()
                         ->booleanNode('enable_annotations')->defaultFalse()->end()
+                        ->arrayNode('static_method')
+                            ->defaultValue(array('loadValidatorMetadata'))
+                            ->prototype('scalar')->end()
+                            ->treatFalseLike(array())
+                            ->validate()
+                                ->ifTrue(function ($v) { return !is_array($v); })
+                                ->then(function ($v) { return (array) $v; })
+                            ->end()
+                        ->end()
                         ->scalarNode('translation_domain')->defaultValue('validators')->end()
+                        ->booleanNode('strict_email')->defaultFalse()->end()
+                        ->enumNode('api')
+                            ->values(array('2.4', '2.5', '2.5-bc', 'auto'))
+                            ->beforeNormalization()
+                                // XML/YAML parse as numbers, not as strings
+                                ->ifTrue(function ($v) { return is_scalar($v); })
+                                ->then(function ($v) { return (string) $v; })
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
+            ->end()
+            ->validate()
+                ->ifTrue(function ($v) { return !isset($v['validation']['api']) || 'auto' === $v['validation']['api']; })
+                ->then(function ($v) {
+                    // This condition is duplicated in ValidatorBuilder. This
+                    // duplication is necessary in order to know the desired
+                    // API version already during container configuration
+                    // (to adjust service classes etc.)
+                    // See https://github.com/symfony/symfony/issues/11580
+                    $v['validation']['api'] = PHP_VERSION_ID < 50309
+                        ? '2.4'
+                        : '2.5-bc';
+
+                    return $v;
+                })
             ->end()
         ;
     }
@@ -413,6 +532,22 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('serializer')
                     ->info('serializer configuration')
                     ->canBeEnabled()
+                ->end()
+            ->end()
+        ;
+    }
+
+    private function addPropertyAccessSection(ArrayNodeDefinition $rootNode)
+    {
+        $rootNode
+            ->children()
+                ->arrayNode('property_access')
+                    ->addDefaultsIfNotSet()
+                    ->info('Property access configuration')
+                    ->children()
+                        ->booleanNode('magic_call')->defaultFalse()->end()
+                        ->booleanNode('throw_exception_on_invalid_index')->defaultFalse()->end()
+                    ->end()
                 ->end()
             ->end()
         ;

@@ -1,0 +1,30 @@
+{# src/Casecenter/UserBundle/Resources/views/User/delete.html.twig #}
+
+{% extends "CasecenterUserBundle:User:layout.html.twig" %}
+
+{% block head_title %}{{ user.fullname }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}delete{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('user_index') }}">{{ 'user.plural'|trans }}</a></li>
+	<li class="active">{{ user.fullname }}</li>
+{% endblock %}
+
+{% block header_title %}{{ parent() }} <span>/</span> {{ 'user.plural'|trans }}{% endblock %}
+
+{% block body %}
+	<h3>{{ 'user.delete.label'|trans }}</h3>
+
+	{{ form_start(form) }}
+		<p>{{ 'user.delete.paragraph'|trans({'%name%': user.fullname}) }}</p>
+		<p><b>{{ 'form.delete.irreversible'|trans }}</b></p>
+
+		{{ form_errors(form) }}
+		
+		<div class="{{ form.delete.vars.name }} form-group inline">{{ form_widget(form.delete) }} {{ form_label(form.delete) }}</div>
+
+		{{ form_row(form.save, {'attr': {'class': 'btn btn-danger'}}) }} <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-sm btn-default">{{ 'form.btn.cancel'|trans }}</a>
+	{{ form_end(form) }}
+{% endblock %}

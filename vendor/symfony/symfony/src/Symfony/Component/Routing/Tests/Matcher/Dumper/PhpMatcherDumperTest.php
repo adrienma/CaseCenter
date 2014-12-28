@@ -251,11 +251,14 @@ class PhpMatcherDumperTest extends \PHPUnit_Framework_TestCase
         $rootprefixCollection->add('static', new Route('/test'));
         $rootprefixCollection->add('dynamic', new Route('/{var}'));
         $rootprefixCollection->addPrefix('rootprefix');
+        $route = new Route('/with-condition');
+        $route->setCondition('context.getMethod() == "GET"');
+        $rootprefixCollection->add('with-condition', $route);
 
         return array(
            array($collection, 'url_matcher1.php', array()),
            array($redirectCollection, 'url_matcher2.php', array('base_class' => 'Symfony\Component\Routing\Tests\Fixtures\RedirectableUrlMatcher')),
-           array($rootprefixCollection, 'url_matcher3.php', array())
+           array($rootprefixCollection, 'url_matcher3.php', array()),
         );
     }
 }

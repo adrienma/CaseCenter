@@ -1,0 +1,56 @@
+{# src/Casecenter/PlanningBundle/Resources/views/Planning/index.html.twig #}
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'planning.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'planning.plural'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'planning.plural'|trans }}
+{% endblock %}
+
+{% block header_boutons %}
+{% endblock %}
+
+{% block header_nav %}
+	<li><a href="{{ path('planning_cart') }}">{{ 'booking.myown'|trans }}</a></li>
+	{% if is_granted('ROLE_ADMIN') %}
+		<li class="divider"></li>
+		<li><div class="dropdown">
+			<a href="#" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+			<ul class="dropdown-menu pull-right">
+				<li><a href="{{ path('planning_add') }}" title="{{ 'planning.new.label'|trans }}">{{ 'planning.new.label'|trans }}</a></li>
+				<li><a href="{{ path('planning_index') }}">{{ 'planning.index.link'|trans }}</a></li>
+			</ul>
+		</div></li>
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+	{% for planning in plannings %}
+		{% if loop.first %}<div class="row">{% endif %}
+		<div class="planning-thumb planning-{{ planning.slug }} col-md-3"><div>
+			<a href="{{ path('planning_overview', {'slug': planning.slug}) }}" class="thumb"{% if planning.vignette %} style="background-image: url('{{ planning.vignette }}');"{% endif %}></a>
+			<div class="info">
+				<p class="title">{{ planning.namePublic }}</p>
+				{% if planning.isOpen %}<a href="{{ path('planning_overview', {'slug': planning.slug}) }}">{{ 'planning.overview.label'|trans }}</a>{% endif %}
+				<p class="date">
+					{% if planning.isOpen %}
+						{{ 'planning.schedulePeriod'|trans({'%start%': planning.scheduleStart|date("d/m/Y"), '%end%': planning.scheduleEnd|date("d/m/Y")}) }}
+					{% else %}
+						{{ 'planning.reservationStart'|trans({'%date%': planning.reservationStart|date("d/m/Y"), '%time%': planning.reservationStart|date("H:i")}) }}
+					{% endif %}
+					
+				</p>
+			</div>
+		</div></div>
+		{% if loop.last %}</div>{% endif %}
+	{% else %}
+		{{ 'planning.nul'|trans }}
+	{% endfor %}
+{% endblock %}

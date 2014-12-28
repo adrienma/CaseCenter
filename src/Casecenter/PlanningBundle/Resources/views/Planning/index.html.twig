@@ -1,0 +1,77 @@
+{# src/Casecenter/PlanningBundle/Resources/views/Planning/index.html.twig #}
+
+{% extends "CasecenterPlanningBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'planning.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'planning.plural'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'planning.plural'|trans }}
+{% endblock %}
+
+{% block header_boutons %}
+{% endblock %}
+
+{% block header_nav %}
+	<li><a href="{{ path('planning_cart') }}" class="btn btn-default">{{ 'booking.myown'|trans }}</a></li>
+	{% if is_granted('ROLE_PLANNING_ADMIN') %}
+		<li class="divider"></li>
+		<li><a href="{{ path('planning_add') }}" title="{{ 'planning.new.label'|trans }}" class="btn btn-default">{{ 'planning.new.label'|trans }}</a></li>
+	{% endif %}
+{% endblock %}
+
+{% block body %}
+	{% for planning in plannings %}
+		{#
+		{% if loop.first %}<div class="row">{% endif %}
+		<div class="planning-thumb planning-{{ planning.slug }} {% if planning.enabled == 0 %}planning-inactivate {% endif %}col-md-3"><div>
+			<a {% if planning.status.open %}href="{{ path('planning_overview', {'slug': planning.slug}) }}"{% endif %} class="thumb"{% if planning.vignette %} style="background-image: url('{{ planning.vignette }}');"{% endif %}>
+				{% if planning.status.type == "inactivate" %}
+					<span class="inactivate">Désactivé</span>
+				{% elseif planning.status.type == "opening" %}
+					<span class="opening">{{ 'planning.reservation.start'|trans({'%date%': planning.reservationStart|date("d/m/Y"), '%time%': planning.reservationStart|date("H:i")}) }}</span>
+				{% elseif planning.status.type == "closing" %}
+					<span class="closing">{{ 'planning.reservation.end'|trans({'%date%': planning.reservationEnd|date("d/m/Y"), '%time%': planning.reservationEnd|date("H:i")}) }}</span>
+					{% if planning.reservationTimeRemaining.seconds < 259200 %}<span class="timeremaining">{{ planning.reservationTimeRemaining.trans|trans({'%value%': planning.reservationTimeRemaining.value}) }}</span>{% endif %}
+				{% elseif planning.status.type == "close" %}
+					<span class="closeoff">{{ 'planning.reservation.close'|trans }}</span>
+				{% endif %}
+			</a>
+
+			{% if is_granted('ROLE_ADMIN') %}
+			<div class="admin">
+				<a href="#"><span class="glyphicon glyphicon-cog"></span></a>
+				<ul>
+					<li><a href="{{ path('planning_calendar', {'slug': planning.slug}) }}">{{ 'planning.calendar.label'|trans }}</a></li>
+					<li><a href="{{ path('planning_edit', {'slug': planning.slug}) }}">{{ 'planning.edit.label'|trans }}</a></li>
+					<li><a href="{{ path('planning_delete', {'slug': planning.slug}) }}">{{ 'planning.delete.label'|trans }}</a></li>
+				</ul>
+			</div>
+			{% endif %}
+
+			<div class="info">
+				<p class="title">{{ planning.namePublic }}</p>
+
+				{% if planning.status.open %}<a href="{{ path('planning_overview', {'slug': planning.slug}) }}">{{ 'planning.overview.label'|trans }}</a>{% endif %}
+
+				<p class="date">{{ 'planning.schedule.period'|trans({'%start%': planning.scheduleStart|date("d/m/Y"), '%end%': planning.scheduleEnd|date("d/m/Y")}) }}</p>
+			</div>
+		</div></div>
+		{% if loop.last %}</div>{% endif %}
+		#}
+		
+		{% if loop.first %}<ul>{% endif %}
+		
+		<li><a href="{{ path('planning_view', {'slug': planning.slug}) }}">{{ planning.namePublic }}</a></li>
+		
+		{% if loop.last %}</ul>{% endif %}
+	{% else %}
+		{{ 'planning.nul'|trans }}
+	{% endfor %}
+{% endblock %}

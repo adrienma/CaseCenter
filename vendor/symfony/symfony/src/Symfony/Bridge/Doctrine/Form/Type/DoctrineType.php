@@ -45,7 +45,7 @@ abstract class DoctrineType extends AbstractType
     public function __construct(ManagerRegistry $registry, PropertyAccessorInterface $propertyAccessor = null)
     {
         $this->registry = $registry;
-        $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::getPropertyAccessor();
+        $this->propertyAccessor = $propertyAccessor ?: PropertyAccess::createPropertyAccessor();
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -60,7 +60,7 @@ abstract class DoctrineType extends AbstractType
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $choiceListCache =& $this->choiceListCache;
+        $choiceListCache = & $this->choiceListCache;
         $registry = $this->registry;
         $propertyAccessor = $this->propertyAccessor;
         $type = $this;
@@ -69,8 +69,6 @@ abstract class DoctrineType extends AbstractType
             if (null !== $options['query_builder']) {
                 return $type->getLoader($options['em'], $options['query_builder'], $options['class']);
             }
-
-            return null;
         };
 
         $choiceList = function (Options $options) use (&$choiceListCache, $propertyAccessor) {
@@ -89,6 +87,13 @@ abstract class DoctrineType extends AbstractType
                 array_walk_recursive($choiceHashes, function (&$value) {
                     $value = spl_object_hash($value);
                 });
+            } elseif ($choiceHashes instanceof \Traversable) {
+                $hashes = array();
+                foreach ($choiceHashes as $value) {
+                    $hashes[] = spl_object_hash($value);
+                }
+
+                $choiceHashes = $hashes;
             }
 
             $preferredChoiceHashes = $options['preferred_choices'];
@@ -109,14 +114,14 @@ abstract class DoctrineType extends AbstractType
                 ? spl_object_hash($options['group_by'])
                 : $options['group_by'];
 
-            $hash = md5(json_encode(array(
+            $hash = hash('sha256', json_encode(array(
                 spl_object_hash($options['em']),
                 $options['class'],
                 $propertyHash,
                 $loaderHash,
                 $choiceHashes,
                 $preferredChoiceHashes,
-                $groupByHash
+                $groupByHash,
             )));
 
             if (!isset($choiceListCache[$hash])) {
@@ -138,6 +143,10 @@ abstract class DoctrineType extends AbstractType
         $emNormalizer = function (Options $options, $em) use ($registry) {
             /* @var ManagerRegistry $registry */
             if (null !== $em) {
+                if ($em instanceof ObjectManager) {
+                    return $em;
+                }
+
                 return $registry->getManager($em);
             }
 
@@ -145,7 +154,7 @@ abstract class DoctrineType extends AbstractType
 
             if (null === $em) {
                 throw new RuntimeException(sprintf(
-                    'Class "%s" seems not to be a managed Doctrine entity. ' .
+                    'Class "%s" seems not to be a managed Doctrine entity. '.
                     'Did you forget to map it?',
                     $options['class']
                 ));
@@ -155,13 +164,13 @@ abstract class DoctrineType extends AbstractType
         };
 
         $resolver->setDefaults(array(
-            'em'                => null,
-            'property'          => null,
-            'query_builder'     => null,
-            'loader'            => $loader,
-            'choices'           => null,
-            'choice_list'       => $choiceList,
-            'group_by'          => null,
+            'em' => null,
+            'property' => null,
+            'query_builder' => null,
+            'loader' => $loader,
+            'choices' => null,
+            'choice_list' => $choiceList,
+            'group_by' => null,
         ));
 
         $resolver->setRequired(array('class'));
@@ -171,6 +180,7 @@ abstract class DoctrineType extends AbstractType
         ));
 
         $resolver->setAllowedTypes(array(
+            'em' => array('null', 'string', 'Doctrine\Common\Persistence\ObjectManager'),
             'loader' => array('null', 'Symfony\Bridge\Doctrine\Form\ChoiceList\EntityLoaderInterface'),
         ));
     }

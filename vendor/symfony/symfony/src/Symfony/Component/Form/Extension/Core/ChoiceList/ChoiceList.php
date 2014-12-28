@@ -41,14 +41,14 @@ class ChoiceList implements ChoiceListInterface
      *
      * @var array
      */
-    private $choices = array();
+    protected $choices = array();
 
     /**
      * The choice values with the indices of the matching choices as keys.
      *
      * @var array
      */
-    private $values = array();
+    protected $values = array();
 
     /**
      * The preferred view objects as hierarchy containing also the choice groups
@@ -69,16 +69,16 @@ class ChoiceList implements ChoiceListInterface
     /**
      * Creates a new choice list.
      *
-     * @param array|\Traversable $choices The array of choices. Choices may also be given
-     *                                    as hierarchy of unlimited depth. Hierarchies are
-     *                                    created by creating nested arrays. The title of
-     *                                    the sub-hierarchy can be stored in the array
-     *                                    key pointing to the nested array. The topmost
-     *                                    level of the hierarchy may also be a \Traversable.
-     * @param array $labels The array of labels. The structure of this array
-     *                      should match the structure of $choices.
-     * @param array $preferredChoices A flat array of choices that should be
-     *                                presented to the user with priority.
+     * @param array|\Traversable $choices          The array of choices. Choices may also be given
+     *                                             as hierarchy of unlimited depth. Hierarchies are
+     *                                             created by creating nested arrays. The title of
+     *                                             the sub-hierarchy can be stored in the array
+     *                                             key pointing to the nested array. The topmost
+     *                                             level of the hierarchy may also be a \Traversable.
+     * @param array              $labels           The array of labels. The structure of this array
+     *                                             should match the structure of $choices.
+     * @param array              $preferredChoices A flat array of choices that should be
+     *                                             presented to the user with priority.
      *
      * @throws UnexpectedTypeException If the choices are not an array or \Traversable.
      */
@@ -198,6 +198,8 @@ class ChoiceList implements ChoiceListInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated Deprecated since version 2.4, to be removed in 3.0.
      */
     public function getIndicesForChoices(array $choices)
     {
@@ -222,6 +224,8 @@ class ChoiceList implements ChoiceListInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @deprecated Deprecated since version 2.4, to be removed in 3.0.
      */
     public function getIndicesForValues(array $values)
     {
@@ -255,7 +259,7 @@ class ChoiceList implements ChoiceListInterface
      * @param array              $labels             The labels corresponding to the choices.
      * @param array              $preferredChoices   The preferred choices.
      *
-     * @throws InvalidArgumentException     If the structures of the choices and labels array do not match.
+     * @throws InvalidArgumentException      If the structures of the choices and labels array do not match.
      * @throws InvalidConfigurationException If no valid value or index could be created for a choice.
      */
     protected function addChoices(array &$bucketForPreferred, array &$bucketForRemaining, $choices, array $labels, array $preferredChoices)
@@ -377,7 +381,7 @@ class ChoiceList implements ChoiceListInterface
      * @param mixed $choice           The choice to test.
      * @param array $preferredChoices An array of preferred choices.
      *
-     * @return Boolean Whether the choice is preferred.
+     * @return bool Whether the choice is preferred.
      */
     protected function isPreferred($choice, array $preferredChoices)
     {
@@ -391,8 +395,8 @@ class ChoiceList implements ChoiceListInterface
      *
      * @param mixed $choice The choice to create an index for
      *
-     * @return integer|string A unique index containing only ASCII letters,
-     *                        digits and underscores.
+     * @return int|string A unique index containing only ASCII letters,
+     *                    digits and underscores.
      */
     protected function createIndex($choice)
     {
@@ -451,7 +455,7 @@ class ChoiceList implements ChoiceListInterface
      *
      * @param mixed $index The choice index.
      *
-     * @return integer|string The index as PHP array key.
+     * @return int|string The index as PHP array key.
      */
     protected function fixIndex($index)
     {
@@ -485,9 +489,9 @@ class ChoiceList implements ChoiceListInterface
      * Extension point. In this implementation, choices are guaranteed to
      * always maintain their type and thus can be typesafely compared.
      *
-     * @param mixed $choice The choice.
+     * @param mixed $choice The choice
      *
-     * @return mixed The fixed choice.
+     * @return mixed The fixed choice
      */
     protected function fixChoice($choice)
     {
@@ -495,14 +499,14 @@ class ChoiceList implements ChoiceListInterface
     }
 
     /**
-    * Fixes the data type of the given choices to avoid comparison problems.
+     * Fixes the data type of the given choices to avoid comparison problems.
      *
-    * @param array $choices The choices.
-    *
-    * @return array The fixed choices.
-    *
-    * @see fixChoice
-    */
+     * @param array $choices The choices.
+     *
+     * @return array The fixed choices.
+     *
+     * @see fixChoice
+     */
     protected function fixChoices(array $choices)
     {
         return $choices;

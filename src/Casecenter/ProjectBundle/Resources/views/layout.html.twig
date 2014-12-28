@@ -1,0 +1,12 @@
+{# src/Casecenter/ProjectBundle/Resources/views/layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block stylesheets %}
+	{% stylesheets filter='cssrewrite' output='css/project.css' '@CasecenterProjectBundle/Resources/public/css/main.css' %}<link rel="stylesheet" type="text/css" href="{{ asset_url }}">{% endstylesheets %}
+{% endblock %}
+
+{% block body_id %}project{% endblock %}
+{% block body_class %}{{ parent() }}{% endblock %}
+
+{% block breadcrumb %}{% endblock %}

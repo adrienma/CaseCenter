@@ -48,9 +48,9 @@ class TemplateManagerTest extends TestCase
         $profiler = $this->mockProfiler();
         $twigEnvironment = $this->mockTwigEnvironment();
         $templates = array(
-            'data_collector.foo'=>array('foo','FooBundle:Collector:foo'),
-            'data_collector.bar'=>array('bar','FooBundle:Collector:bar'),
-            'data_collector.baz'=>array('baz','FooBundle:Collector:baz')
+            'data_collector.foo' => array('foo','FooBundle:Collector:foo'),
+            'data_collector.bar' => array('bar','FooBundle:Collector:bar'),
+            'data_collector.baz' => array('baz','FooBundle:Collector:baz'),
             );
 
         $this->templateManager = new TemplateManager($profiler, $twigEnvironment, $templates);
@@ -100,9 +100,9 @@ class TemplateManagerTest extends TestCase
             ->will($this->returnCallback(array($this, 'profileHasCollectorCallback')));
 
         $result = $this->templateManager->getTemplates($profile);
-        $this->assertArrayHasKey('foo',$result);
-        $this->assertArrayNotHasKey('bar',$result);
-        $this->assertArrayNotHasKey('baz',$result);
+        $this->assertArrayHasKey('foo', $result);
+        $this->assertArrayNotHasKey('bar', $result);
+        $this->assertArrayNotHasKey('baz', $result);
     }
 
     public function profilerHasCallback($panel)

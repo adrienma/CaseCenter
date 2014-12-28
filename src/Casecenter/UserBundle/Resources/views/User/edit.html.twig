@@ -1,0 +1,29 @@
+{# src/Casecenter/UserBundle/Resources/views/User/edit.html.twig #}
+
+{% extends "CasecenterUserBundle:User:layout.html.twig" %}
+
+{% block head_title %}{{ user.fullname }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}edit{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('user_index') }}">{{ 'user.plural'|trans }}</a></li>
+	<li class="active">{{ user.fullname('firstname-name') }}</li>
+{% endblock %}
+
+{% block header_title %}{{ parent() }} <span>/</span> {{ 'user.singular'|trans }} <span>:</span> {{ user.fullname('firstname-name') }}{% endblock %}
+
+{% block body %}
+	{% if not user.isEnabled %}<div class="alert alert-warning"><span class="glyphicon glyphicon-exclamation-sign"></span> {{ 'user.form.enabled.alert'|trans }}</div>{% endif %}
+	{% if user.isLocked %}<div class="alert alert-warning"><span class="glyphicon glyphicon-exclamation-sign"></span> {{ 'user.form.locked.alert'|trans }}</div>{% endif %}
+
+	{{ include('CasecenterUserBundle:User:form.html.twig', {'user': user, 'form': form, 'action': 'edit'}) }}
+{% endblock %}
+
+{% block javascripts %}
+<script>
+	Affix(".col-right-affix", {top: 135});
+	FormExit("form", "{{ 'form.exit.title'|trans }}", "{{ 'form.exit.message'|trans }}", {"cancel":"{{ 'form.exit.btn.cancel'|trans }}", "exit":"{{ 'form.exit.btn.exit'|trans }}"});
+</script>
+{% endblock %}

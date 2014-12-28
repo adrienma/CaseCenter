@@ -1,0 +1,9 @@
+{# src/Casecenter/DashboardBundle/Resources/views/layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block stylesheets %}
+	{% stylesheets filter='cssrewrite' output='css/dashboard.css' '@CasecenterDashboardBundle/Resources/public/css/main.css' %}<link rel="stylesheet" type="text/css" href="{{ asset_url }}">{% endstylesheets %}
+{% endblock %}
+
+{% block body_id %}dashboard{% endblock %}

@@ -29,19 +29,6 @@ class FormHelperDivLayoutTest extends AbstractDivLayoutTest
      */
     protected $engine;
 
-    protected function setUp()
-    {
-        if (!class_exists('Symfony\Bundle\FrameworkBundle\Templating\Helper\TranslatorHelper')) {
-            $this->markTestSkipped('The "FrameworkBundle" is not available');
-        }
-
-        if (!class_exists('Symfony\Component\Templating\PhpEngine')) {
-            $this->markTestSkipped('The "Templating" component is not available');
-        }
-
-        parent::setUp();
-    }
-
     protected function getExtensions()
     {
         // should be moved to the Form component once absolute file paths are supported
@@ -59,7 +46,7 @@ class FormHelperDivLayoutTest extends AbstractDivLayoutTest
         ));
 
         return array_merge(parent::getExtensions(), array(
-            new TemplatingExtension($this->engine, $this->csrfProvider, array(
+            new TemplatingExtension($this->engine, $this->csrfTokenManager, array(
                 'FrameworkBundle:Form',
             )),
         ));
@@ -125,14 +112,14 @@ class FormHelperDivLayoutTest extends AbstractDivLayoutTest
     public static function themeBlockInheritanceProvider()
     {
         return array(
-            array(array('TestBundle:Parent'))
+            array(array('TestBundle:Parent')),
         );
     }
 
     public static function themeInheritanceProvider()
     {
         return array(
-            array(array('TestBundle:Parent'), array('TestBundle:Child'))
+            array(array('TestBundle:Parent'), array('TestBundle:Child')),
         );
     }
 }

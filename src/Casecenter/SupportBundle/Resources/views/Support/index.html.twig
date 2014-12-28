@@ -1,0 +1,27 @@
+{# src/Casecenter/SupportBundle/Resources/views/Support/index.html.twig #}
+
+{% extends "CasecenterSupportBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'support.plural'|trans }} - {{ 'Administration'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'support.plural'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}{{ parent() }} <span>/</span> {{ 'support.plural'|trans }} <a href="{{ path('support_add') }}" title="{{ 'support.new.label'|trans }}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-plus"></span></a>{% endblock %}
+
+{% block body %}
+	<table class="table table-striped">
+		<thead><tr><th>{{ 'support.count'|transchoice(supports|length) }}</th></tr></thead>
+		<tbody>
+			{% for support in supports %}
+				<tr><td><a href="{{ path('support_view', {'slug': support.slug}) }}">{{ support.name }}</a>{% if support.pages|length > 0 %} <em>({{ 'page.counter'|transchoice(support.pages|length) }})</em>{% endif %}</td></tr>
+			{% else %}
+				<tr><td>{{ 'support.nul'|trans }}</td></tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

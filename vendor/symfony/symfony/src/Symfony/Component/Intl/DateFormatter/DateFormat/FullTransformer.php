@@ -13,7 +13,6 @@ namespace Symfony\Component\Intl\DateFormatter\DateFormat;
 
 use Symfony\Component\Intl\Exception\NotImplementedException;
 use Symfony\Component\Intl\Globals\IntlGlobals;
-use Symfony\Component\Intl\DateFormatter\DateFormat\MonthTransformer;
 
 /**
  * Parser and formatter for date formats
@@ -85,13 +84,13 @@ class FullTransformer
      *
      * @param \DateTime $dateTime A DateTime object to be used to generate the formatted value
      *
-     * @return string               The formatted value
+     * @return string The formatted value
      */
     public function format(\DateTime $dateTime)
     {
         $that = $this;
 
-        $formatted = preg_replace_callback($this->regExp, function($matches) use ($that, $dateTime) {
+        $formatted = preg_replace_callback($this->regExp, function ($matches) use ($that, $dateTime) {
             return $that->formatReplace($matches[0], $dateTime);
         }, $this->pattern);
 
@@ -101,12 +100,12 @@ class FullTransformer
     /**
      * Return the formatted ICU value for the matched date characters
      *
-     * @param string   $dateChars The date characters to be replaced with a formatted ICU value
-     * @param DateTime $dateTime  A DateTime object to be used to generate the formatted value
+     * @param string    $dateChars The date characters to be replaced with a formatted ICU value
+     * @param \DateTime $dateTime  A DateTime object to be used to generate the formatted value
      *
-     * @return string                   The formatted value
+     * @return string The formatted value
      *
-     * @throws NotImplementedException  When it encounters a not implemented date character
+     * @throws NotImplementedException When it encounters a not implemented date character
      */
     public function formatReplace($dateChars, $dateTime)
     {
@@ -132,11 +131,11 @@ class FullTransformer
      * Parse a pattern based string to a timestamp value
      *
      * @param \DateTime $dateTime A configured DateTime object to use to perform the date calculation
-     * @param string   $value    String to convert to a time value
+     * @param string    $value    String to convert to a time value
      *
-     * @return int                       The corresponding Unix timestamp
+     * @return int The corresponding Unix timestamp
      *
-     * @throws \InvalidArgumentException  When the value can not be matched with pattern
+     * @throws \InvalidArgumentException When the value can not be matched with pattern
      */
     public function parse(\DateTime $dateTime, $value)
     {
@@ -172,8 +171,8 @@ class FullTransformer
      *
      * @param string $pattern The pattern to create the reverse matching regular expression
      *
-     * @return string            The reverse matching regular expression with named captures being formed by the
-     *                           transformer index in the $transformer array
+     * @return string The reverse matching regular expression with named captures being formed by the
+     *                transformer index in the $transformer array
      */
     public function getReverseMatchingRegExp($pattern)
     {
@@ -185,7 +184,7 @@ class FullTransformer
         // when parsing a date/time value
         $escapedPattern = preg_replace('/\\\[\-|\/]/', '[\/\-]', $escapedPattern);
 
-        $reverseMatchingRegExp = preg_replace_callback($this->regExp, function($matches) use ($that) {
+        $reverseMatchingRegExp = preg_replace_callback($this->regExp, function ($matches) use ($that) {
             $length = strlen($matches[0]);
             $transformerIndex = $matches[0][0];
 
@@ -211,7 +210,7 @@ class FullTransformer
      *
      * @param string $quoteMatch The string to check
      *
-     * @return Boolean              true if matches, false otherwise
+     * @return bool true if matches, false otherwise
      */
     public function isQuoteMatch($quoteMatch)
     {
@@ -223,7 +222,7 @@ class FullTransformer
      *
      * @param string $quoteMatch The string to replace the quotes
      *
-     * @return string               A string with the single quotes replaced
+     * @return string A string with the single quotes replaced
      */
     public function replaceQuoteMatch($quoteMatch)
     {
@@ -239,13 +238,13 @@ class FullTransformer
      *
      * @param string $specialChars A string of chars to build the regular expression
      *
-     * @return string                 The chars match regular expression
+     * @return string The chars match regular expression
      */
     protected function buildCharsMatch($specialChars)
     {
         $specialCharsArray = str_split($specialChars);
 
-        $specialCharsMatch = implode('|', array_map(function($char) {
+        $specialCharsMatch = implode('|', array_map(function ($char) {
             return $char.'+';
         }, $specialCharsArray));
 
@@ -271,7 +270,7 @@ class FullTransformer
 
             $ret[$key[0]] = array(
                 'value' => $value,
-                'pattern' => $key
+                'pattern' => $key,
             );
         }
 
@@ -285,21 +284,21 @@ class FullTransformer
      * @param \DateTime $dateTime The DateTime object to be used to calculate the timestamp
      * @param array     $options  An array with the matched values to be used to calculate the timestamp
      *
-     * @return Boolean|int        The calculated timestamp or false if matched date is invalid
+     * @return bool|int The calculated timestamp or false if matched date is invalid
      */
     protected function calculateUnixTimestamp(\DateTime $dateTime, array $options)
     {
         $options = $this->getDefaultValueForOptions($options);
 
-        $year         = $options['year'];
-        $month        = $options['month'];
-        $day          = $options['day'];
-        $hour         = $options['hour'];
+        $year = $options['year'];
+        $month = $options['month'];
+        $day = $options['day'];
+        $hour = $options['hour'];
         $hourInstance = $options['hourInstance'];
-        $minute       = $options['minute'];
-        $second       = $options['second'];
-        $marker       = $options['marker'];
-        $timezone     = $options['timezone'];
+        $minute = $options['minute'];
+        $second = $options['second'];
+        $marker = $options['marker'];
+        $timezone = $options['timezone'];
 
         // If month is false, return immediately (intl behavior)
         if (false === $month) {
@@ -342,15 +341,15 @@ class FullTransformer
     private function getDefaultValueForOptions(array $options)
     {
         return array(
-            'year'         => isset($options['year']) ? $options['year'] : 1970,
-            'month'        => isset($options['month']) ? $options['month'] : 1,
-            'day'          => isset($options['day']) ? $options['day'] : 1,
-            'hour'         => isset($options['hour']) ? $options['hour'] : 0,
+            'year' => isset($options['year']) ? $options['year'] : 1970,
+            'month' => isset($options['month']) ? $options['month'] : 1,
+            'day' => isset($options['day']) ? $options['day'] : 1,
+            'hour' => isset($options['hour']) ? $options['hour'] : 0,
             'hourInstance' => isset($options['hourInstance']) ? $options['hourInstance'] : null,
-            'minute'       => isset($options['minute']) ? $options['minute'] : 0,
-            'second'       => isset($options['second']) ? $options['second'] : 0,
-            'marker'       => isset($options['marker']) ? $options['marker'] : null,
-            'timezone'     => isset($options['timezone']) ? $options['timezone'] : null,
+            'minute' => isset($options['minute']) ? $options['minute'] : 0,
+            'second' => isset($options['second']) ? $options['second'] : 0,
+            'marker' => isset($options['marker']) ? $options['marker'] : null,
+            'timezone' => isset($options['timezone']) ? $options['timezone'] : null,
         );
     }
 }

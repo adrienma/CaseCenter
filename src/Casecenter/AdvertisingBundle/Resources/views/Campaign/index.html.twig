@@ -1,0 +1,22 @@
+{# src/Casecenter/AdvertisingBundle/Resources/views/Campaign/index.html.twig #}
+{% extends "CasecenterAdvertisingBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'campaign.plural'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_id %}campaign{% endblock %}
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'campaign.plural'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'campaign.plural'|trans }}
+{% endblock %}
+
+{% block header_boutons %}{% endblock %}
+
+{% block header_nav %}{% endblock %}
+
+{% block body %}{% endblock %}

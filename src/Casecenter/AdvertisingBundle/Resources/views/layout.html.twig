@@ -1,0 +1,7 @@
+{# src/Casecenter/AdvertisingBundle/Resources/views/layout.html.twig #}
+
+{% extends "::layout.html.twig" %}
+
+{% block stylesheets %}
+	{% stylesheets filter='cssrewrite' output='css/advertising.css' '@CasecenterAdvertisingBundle/Resources/public/css/main.css' %}<link rel="stylesheet" type="text/css" href="{{ asset_url }}">{% endstylesheets %}
+{% endblock %}

@@ -1,0 +1,43 @@
+{# src/Casecenter/SupportBundle/Resources/views/Page/view.html.twig #}
+
+{% extends "CasecenterSupportBundle::layout.html.twig" %}
+
+{% block head_title %}{{ page.name }} - {{ page.support.name }} - {{ 'support.singular'|trans }} - {{ 'Administration'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}view{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li><a href="{{ path('support_index') }}">{{ 'support.plural'|trans }}</a></li>
+	<li><a href="{{ path('support_view', {'slug': page.support.slug}) }}">{{ page.support.name }}</a></li>
+	<li class="active">{{ page.name }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'support.singular'|trans }} <span>:</span> {{ page.support.name }} <span>:</span> {{ page.name }}
+	<span class="btn-group">
+		<a href="{{ path('support_format_add', {'slugSupport': page.support.slug, 'slug': page.slug}) }}" title="{{ 'format.new.label'|trans }}" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-plus"></span></a>
+		<a class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></a>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="{{ path('support_page_edit', {'slugSupport': page.support.slug, 'slugPage': page.slug}) }}">{{ 'page.edit.label'|trans }}</a></li>
+			<li><a href="{{ path('support_page_delete', {'slugSupport': page.support.slug, 'slugPage': page.slug}) }}">{{ 'page.delete.label'|trans }}</a></li>
+		</ul>
+	</span>
+{% endblock %}
+
+{% block body %}
+	<table class="table table-striped">
+		<thead><tr><th>{{ 'support.singular'|trans }}</th><th>{{ 'page.singular'|trans }}</th><th>{{ 'format.count'|transchoice(page.formats|length) }}</th></tr></thead>
+		<tbody>
+			{% for format in page.formats %}
+				<tr>
+					{% if loop.first %}<td rowspan="{{ page.formats|length }}"><b><a href="{{ path('support_view', {'slug': page.support.slug}) }}" class="inherit">{{ page.support.name }}</a></b> &rsaquo; </td>{% endif %}
+					{% if loop.first %}<td rowspan="{{ page.formats|length }}"><b>{{ page.name }}</b> &rsaquo; </td>{% endif %}
+					<td width='100%'><a href="{{ path('support_format_edit', {'slugSupport': page.support.slug, 'slugPage': page.slug, 'slugFormat': format.slug}) }}">{{ format.name }}</a></td>
+				</tr>
+			{% else %}
+				<tr><td>{{ 'format.nul'|trans }}</td></tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

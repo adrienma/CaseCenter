@@ -1,0 +1,61 @@
+# src/Casecenter/SupportBundle/Resources/translations/messages.fr.yml
+
+support:
+    nul: "Pas de support enregistré"
+    singular: Support
+    plural: Supports
+    count: "Support (%count%)|]1,+Inf]Supports (%count%)"
+    new:
+        label: "Nouveau support"
+        flashmessage: "Le support %name% a bien été crée."
+    edit:
+        label: "Editer ce support"
+        flashmessage: "Le support %name% a bien été modifié."
+    delete:
+        label: "Supprimer ce support"
+        paragraph: "Vous êtes sur le point de supprimer le support %name%."
+        flashmessage: "Le support %name% a bien été supprimé."
+    index:
+        link: "Gérer les supports"
+    form:
+        name: "Intitulé du support"
+
+page:
+    nul: "Pas de page enregistré"
+    singular: Page
+    plural: Pages
+    count: "Page (%count%)|]1,+Inf]Pages (%count%)"
+    counter: "%count% page|]1,+Inf]%count% pages"
+    new:
+        label: "Nouvelle page"
+        title: "Nouvelle page pour %support%"
+        flashmessage: "La page %name% a bien été crée."
+    edit:
+        label: "Editer cette page"
+        flashmessage: "La page %name% a bien été modifiée."
+    delete:
+        label: "Supprimer cette page"
+        paragraph: "Vous êtes sur le point de supprimer la page %name%."
+        flashmessage: "La page %name% a bien été supprimée."
+    form:
+        name: "Intitulé de la page"
+
+format:
+    nul: "Pas de format enregistré"
+    singular: Format
+    plural: Formats
+    count: "Format (%count%)|]1,+Inf]Formats (%count%)"
+    counter: "%count% format|]1,+Inf]%count% formats"
+    new:
+        label: "Nouveau format"
+        title: "Nouveau format pour %support%/%page%"
+        flashmessage: "Le format %name% a bien été crée."
+    edit:
+        label: "Editer ce format"
+        flashmessage: "Le format %name% a bien été modifiée."
+    delete:
+        label: "Supprimer ce format"
+        paragraph: "Vous êtes sur le point de supprimer le format %name%."
+        flashmessage: "Le format %name% a bien été supprimée."
+    form:
+        name: "Intitulé du format"

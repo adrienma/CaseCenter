@@ -1,0 +1,92 @@
+# src/Casecenter/UserBundle/Resources/translations/messages.fr.yml
+
+login:
+    signin: "J'ai déjà un compte, je me connecte :"
+    signon: "Créer mon compte"
+
+switch_user:
+    link: "Utiliser le mode Usurpation"
+    footer: "Vous êtes dans le mode usurpation."
+    exit: "Revenir à mon profil"
+
+user:
+    nul: "Pas d'utilisateur trouvé"
+    singular: Utilisateur
+    plural: Utilisateurs
+    count: "Utilisateur (%count%)|]1,+Inf]Utilisateurs (%count%)"
+    #name: "Utilisateur : %name%"
+    avatar: "Image de profil (gravatar.com)"
+    role:
+        none: "Accès non autorisé"
+        user: "Accès autorisé"
+        admin: "Administrateur"
+        superadmin: "Super Administrateur"
+    lastlogin:
+        never: "Jamais"
+    form:
+        fieldset:
+           identity: Identité :
+           login: Identifiants :
+           connexion: Paramètres de connexion :
+           roles: Les accès :
+           groups: Les groupes d'utilisateurs :
+           params: Paramètres divers :
+        group:
+            message: "Sélectionnez les groupes"
+        locked:
+            label: "Verrouillé"
+            index_filter: "{0}Verrouillé (-)|{1}Verrouillé (%count%)|]1,+Inf]Verrouillés (%count%)"
+            alert: "Ce compte est verrouillé."
+        enabled:
+            label: "Activé"
+            index_filter_enable: "{0}Actif (-)|{1}Actif (%count%)|]1,+Inf]Actifs (%count%)"
+            index_filter_disable: "{0}Inactif (-)|{1}Inactif (%count%)|]1,+Inf]Inactifs (%count%)"
+            disable: "Compte inactif"
+            alert: "Ce compte n'a pas été activé par l'utilisateur."
+        expired:
+            label: "Expiré"
+            index_filter: "{0}Expiré (-)|{1}Expiré (%count%)|]1,+Inf]Expirés (%count%)"
+            index_legend: "Cet utilisateur expire le %date%."
+        role:
+            planning:
+                label: "Accès au module Plannings"
+            campaign:
+                label: "Accès au module Campagnes"
+            partner:
+                label: "Accès au module Partenaires"
+            project:
+                label: "Accès au module Projets"
+            report:
+                label: "Accès au module Rapports"
+            wiki:
+                label: "Accès au module Wiki"
+            admin:
+                label: "Accès à l'administration"
+                help: "Gestion des paramètres généraux de la plateforme et des utilisateurs."
+    index:
+        link: "Gérer les utilisateurs"
+        index_filter: "Tous (%count%)"
+    new:
+        label: "Nouvel utilisateur"
+        flashmessage: "L'utilisateur %name% a bien été crée."
+        mailalert:
+            checkbox: "Envoyer un mail à ce nouvel utilisateur avec ses accès."
+    edit:
+        label: "Editer l'utilisateur"
+        flashmessage: "L'utilisateur %name% a bien été modifié."
+    delete:
+        label: "Supprimer cet utilisateur"
+        paragraph: "Vous êtes sur le point de supprimer l'utilisateur %name%."
+        flashmessage: "L'utilisateur %name% a bien été supprimé."
+
+group:
+    nul: "Pas de groupe trouvé"
+    singular: Groupe d'utilisateurs
+    plural: Groupes d'utilisateurs
+    count: "Groupe d'utilisateurs (%count%)|]1,+Inf]Groupes d'utilisateurs (%count%)"
+    count_users: "%count% utilisateur|]1,+Inf]%count% utilisateurs"
+    count_users_label: "Nombre d'utilisateurs"
+    index:
+        link: "Gérer les groupes d'utilisateurs"
+    new:
+        label: "Nouveau groupe"

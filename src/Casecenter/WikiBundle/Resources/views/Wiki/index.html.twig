@@ -1,0 +1,21 @@
+{# src/Casecenter/WikiBundle/Resources/views/Wiki/index.html.twig #}
+{% extends "CasecenterWikiBundle::layout.html.twig" %}
+
+{% block head_title %}{{ 'wiki.title'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_class %}{{ parent() }}index{% endblock %}
+
+{% block breadcrumb %}
+	{{ parent() }}
+	<li class="active">{{ 'wiki.title'|trans }}</li>
+{% endblock %}
+
+{% block header_title %}
+	{{ parent() }} <span>/</span> {{ 'wiki.title'|trans }}
+{% endblock %}
+
+{% block header_boutons %}{% endblock %}
+
+{% block header_nav %}{% endblock %}
+
+{% block body %}{% endblock %}
