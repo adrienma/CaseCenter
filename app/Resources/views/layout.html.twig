@@ -66,9 +66,11 @@
                     <h1>
                         {% if app.request.requesturi != path('dashboard') %}<a href="{{ path('dashboard') }}">{% endif %}<img src="{{ asset('images/amaurymediasdigital_h.png') }}" alt="Amaury Médias Digital" border="0" />{% if app.request.requesturi != path('dashboard') %}</a>{% endif %}
                         {% block header_title %}{% endblock %}
-                        {% set header_boutons_block = block('header_boutons') %}
-                        {% if header_boutons_block is not empty %}<div class="btn-group">{{ header_boutons_block|raw }}</div>{% endif %}
                     </h1>
+					
+					{% set header_boutons_block = block('header_boutons') %}
+					{% if header_boutons_block is not empty %}<div class="bg-danger">DELETE >> {{ header_boutons_block|raw }}</div>{% endif %}
+					
                     {% set header_nav_block = block('header_nav') %}
                     {% if header_nav_block is not empty %}<nav><ul class="list-inline">{{ header_nav_block|raw }}</ul></nav>{% endif %}
                 {% else %}

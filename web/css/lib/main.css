@@ -73,21 +73,23 @@ body > nav > ul > li.user.usadmin > a > .glyphicon, body > nav > ul > li.user.us
 */
 
 /* Page */
-#page {/*box-shadow: 1px 3px 10px 1px rgba(0, 0, 0, 0.3);*/}
-#page > header, #page > div.main {background-color: #fcfcfc; padding: 10px 20px 10px 10px;}
+#page {}
+#page > header, #page > div.main {background-color: #fcfcfc;}
 
-#page > header {border-top: 5px solid #482f92; border-bottom: 1px solid #e4e4e4; height: 94px;}
-#page > header h1 {float: left; margin-top: 10px; color: #ffbe00;}
+#page > header {border-top: 5px solid #482f92; border-bottom: 1px solid #e4e4e4;}
+#page > header h1 {margin: 0; padding: 20px 10px; color: #ffbe00;}
 #page > header h1 > span {margin: 0 10px; opacity: 0.5; font-weight: normal;}
-#page > header h1 a.btn {opacity: 0.5;}
-#page > header h1 a.btn:hover {opacity: 1;}
-#page > header h1 a.btn span {opacity: 0.8;}
-#page > header nav {float: right; margin-top: 23px;}
-#page > header nav .divider {margin: 0 5px; height: 10px; padding: 0px; /*border-left: 1px solid #E4E4E4;*/}
-#page > header nav a {font-size: 14px; color: #737373;}
-#page > header nav a:hover {text-decoration: none; color: #000;}
+#page > header nav {border-top: 1px solid #e4e4e4; padding-right: 10px; font-size: 13px; color: #737373;}
+#page > header nav > ul {margin: 0;}
+#page > header nav > ul > li {padding: 0;}
+#page > header nav > ul > li > a {display: block; border-bottom: 3px solid transparent; padding: 10px 10px 7px 10px; text-decoration: none; color: #737373;}
+#page > header nav > ul > li > a:hover {border-color: #000; text-decoration: none; color: #000;}
+#page > header nav > ul > li > a > span.glyphicon {font-size: 12px; line-height: 1.5; border-radius: 3px;}
+#page > header nav > ul > li.right {float: right;}
+#page > header nav > ul > li.section {margin-left: 10px; border-left: 1px solid #e4e4e4; padding-left: 10px;}
+#page > header nav > ul > li.box {margin: 0 10px 0 10px; border-left: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4; padding: 0 10px 0 10px;}
 
-#page > div.main {padding-bottom: 30px; border-bottom: 1px solid #e4e4e4;}
+#page > div.main {padding: 10px 20px 30px 10px; border-bottom: 1px solid #e4e4e4;}
 #page > div.main h2 {margin: 10px 0 5px 0;}
 /*
 #page > div.main h3 {margin: 25px 0 20px 0;}
