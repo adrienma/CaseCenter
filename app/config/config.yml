@@ -67,6 +67,13 @@ doctrine:
             softdeleteable:
                 class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
                 enabled: true
+        mappings:
+            gedmo_loggable:
+                type: annotation
+                prefix: Gedmo\Loggable\Entity
+                dir: "%kernel.root_dir%/../vendor/gedmo/doctrine-extensions/lib/Gedmo/Loggable/Entity"
+                alias: loggable
+                is_bundle: false
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -107,10 +114,12 @@ ornicar_gravatar:
 
 # Stof Doctrine Extension bundle
 stof_doctrine_extensions:
+    default_locale: fr_FR
     orm:
         default:
             sluggable: true
             softdeleteable: true
+            loggable: true
             timestampable: true
             blameable: true
             tree: true
