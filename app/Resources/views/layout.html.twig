@@ -55,9 +55,7 @@
         {% endspaceless %}
         {% endif %}
         
-
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}{% spaceless %}{{ render(controller('CasecenterUserBundle:User:nav', {'route': app.request.attributes.get('_route')})) }}{% endspaceless %}{% endif %}
-
 
         {% spaceless %}
         <div id="page">
@@ -72,7 +70,7 @@
 					{% if header_boutons_block is not empty %}<div class="bg-danger">DELETE >> {{ header_boutons_block|raw }}</div>{% endif %}
 					
                     {% set header_nav_block = block('header_nav') %}
-                    {% if header_nav_block is not empty %}<nav><ul class="list-inline">{{ header_nav_block|raw }}</ul></nav>{% endif %}
+                    {% if header_nav_block is not empty %}<nav class="clearfix"><ul class="list-inline">{{ header_nav_block|raw }}</ul></nav>{% endif %}
                 {% else %}
                     <h1><img src="{{ asset('images/amaurymediasdigital.png') }}" alt="Amaury Médias Digital" border="0" /></h1>
                 {% endif %}
@@ -85,7 +83,7 @@
 
             <footer>
                 {% if is_granted('ROLE_PREVIOUS_ADMIN') %}<p class="switch_user"><span class="glyphicon glyphicon-eye-open"></span> {{ 'switch_user.footer'|trans() }} <a href="?_switch_user=_exit">{{ 'switch_user.exit'|trans() }}</a>.</p>{% endif %}
-                {% block footer %}Amaury M&eacute;dias Digital{% endblock %}
+                {% block footer %}<a href="http://www.amaurymedias.fr" target="_blank"><img src="{{ asset('images/amaurymedias_footer.png') }}" alt="Amaury M&eacute;dias" border="0" /></a><br />{% endblock %}
             </footer>
         </div>
         {% endspaceless %}
