@@ -35,7 +35,7 @@ abstract class FixtureMonologExtensionTest extends DependencyInjectionTest
 
         $handler = $container->getDefinition('monolog.handler.custom');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.stream.class%');
-        $this->assertDICConstructorArguments($handler, array('/tmp/symfony.log', \Monolog\Logger::ERROR, false));
+        $this->assertDICConstructorArguments($handler, array('/tmp/symfony.log', \Monolog\Logger::ERROR, false, 0666));
 
         $handler = $container->getDefinition('monolog.handler.main');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.fingers_crossed.class%');
@@ -62,7 +62,7 @@ abstract class FixtureMonologExtensionTest extends DependencyInjectionTest
 
         $handler = $container->getDefinition('monolog.handler.custom');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.stream.class%');
-        $this->assertDICConstructorArguments($handler, array('/tmp/symfony.log', \Monolog\Logger::WARNING, true));
+        $this->assertDICConstructorArguments($handler, array('/tmp/symfony.log', \Monolog\Logger::WARNING, true, null));
 
         $handler = $container->getDefinition('monolog.handler.main');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.fingers_crossed.class%');
@@ -87,7 +87,7 @@ abstract class FixtureMonologExtensionTest extends DependencyInjectionTest
 
         $handler = $container->getDefinition('monolog.handler.new');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.stream.class%');
-        $this->assertDICConstructorArguments($handler, array('/tmp/monolog.log', \Monolog\Logger::ERROR, true));
+        $this->assertDICConstructorArguments($handler, array('/tmp/monolog.log', \Monolog\Logger::ERROR, true, null));
     }
 
     public function testLoadWithNewAndPriority()
@@ -114,11 +114,11 @@ abstract class FixtureMonologExtensionTest extends DependencyInjectionTest
 
         $handler = $container->getDefinition('monolog.handler.first');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.rotating_file.class%');
-        $this->assertDICConstructorArguments($handler, array('/tmp/monolog.log', 0, \Monolog\Logger::ERROR, true));
+        $this->assertDICConstructorArguments($handler, array('/tmp/monolog.log', 0, \Monolog\Logger::ERROR, true, null));
 
         $handler = $container->getDefinition('monolog.handler.last');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.stream.class%');
-        $this->assertDICConstructorArguments($handler, array('/tmp/last.log', \Monolog\Logger::ERROR, true));
+        $this->assertDICConstructorArguments($handler, array('/tmp/last.log', \Monolog\Logger::ERROR, true, null));
     }
 
     public function testHandlersWithChannels()
@@ -134,6 +134,28 @@ abstract class FixtureMonologExtensionTest extends DependencyInjectionTest
             ),
             $container->getParameter('monolog.handlers_to_channels')
         );
+    }
+
+    public function testSingleEmailRecipient()
+    {
+        $container = $this->getContainer('single_email_recipient');
+
+        $this->assertSame(array(
+            array('setFrom', array('error@example.com')),
+            array('setTo', array(array('error@example.com'))),
+            array('setSubject', array('An Error Occurred!')),
+        ), $container->getDefinition('monolog.handler.swift.mail_prototype')->getMethodCalls());
+    }
+
+    public function testMultipleEmailRecipients()
+    {
+        $container = $this->getContainer('multiple_email_recipients');
+
+        $this->assertSame(array(
+            array('setFrom', array('error@example.com')),
+            array('setTo', array(array('dev1@example.com', 'dev2@example.com'))),
+            array('setSubject', array('An Error Occurred!')),
+        ), $container->getDefinition('monolog.handler.swift.mail_prototype')->getMethodCalls());
     }
 
     protected function getContainer($fixture)

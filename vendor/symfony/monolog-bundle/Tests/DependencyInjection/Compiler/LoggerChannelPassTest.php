@@ -11,7 +11,6 @@
 
 namespace Symfony\Bundle\MonologBundle\Tests\DependencyInjection\Compiler;
 
-use Symfony\Bundle\MonologBundle\Tests\TestCase;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -19,7 +18,7 @@ use Symfony\Bundle\MonologBundle\DependencyInjection\Compiler\LoggerChannelPass;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
-class LoggerChannelPassTest extends TestCase
+class LoggerChannelPassTest extends \PHPUnit_Framework_TestCase
 {
     public function testProcess()
     {

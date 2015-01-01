@@ -31,12 +31,14 @@ class MonologExtensionTest extends DependencyInjectionTest
 
         $handler = $container->getDefinition('monolog.handler.main');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.stream.class%');
-        $this->assertDICConstructorArguments($handler, array('%kernel.logs_dir%/%kernel.environment%.log', \Monolog\Logger::DEBUG, true));
+        $this->assertDICConstructorArguments($handler, array('%kernel.logs_dir%/%kernel.environment%.log', \Monolog\Logger::DEBUG, true, null));
     }
 
     public function testLoadWithCustomValues()
     {
-        $container = $this->getContainer(array(array('handlers' => array('custom' => array('type' => 'stream', 'path' => '/tmp/symfony.log', 'bubble' => false, 'level' => 'ERROR')))));
+        $container = $this->getContainer(array(array('handlers' => array(
+            'custom' => array('type' => 'stream', 'path' => '/tmp/symfony.log', 'bubble' => false, 'level' => 'ERROR', 'file_permission' => '0666')
+        ))));
         $this->assertTrue($container->hasDefinition('monolog.logger'));
         $this->assertTrue($container->hasDefinition('monolog.handler.custom'));
 
@@ -45,7 +47,7 @@ class MonologExtensionTest extends DependencyInjectionTest
 
         $handler = $container->getDefinition('monolog.handler.custom');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.stream.class%');
-        $this->assertDICConstructorArguments($handler, array('/tmp/symfony.log', \Monolog\Logger::ERROR, false));
+        $this->assertDICConstructorArguments($handler, array('/tmp/symfony.log', \Monolog\Logger::ERROR, false, 0666));
     }
 
     /**
@@ -210,16 +212,19 @@ class MonologExtensionTest extends DependencyInjectionTest
 
     }
 
-    public function testRavenHandler()
+    public function testRavenHandlerWhenConfigurationIsWrong()
     {
-        $dsn = 'http://43f6017361224d098402974103bfc53d:a6a0538fc2934ba2bed32e08741b2cd3@marca.python.live.cheggnet.com:9000/1';
-
         try {
             $this->getContainer(array(array('handlers' => array('raven' => array('type' => 'raven')))));
             $this->fail();
         } catch (InvalidConfigurationException $e) {
             $this->assertContains('DSN', $e->getMessage());
         }
+    }
+
+    public function testRavenHandlerWhenADSNIsSpecified()
+    {
+        $dsn = 'http://43f6017361224d098402974103bfc53d:a6a0538fc2934ba2bed32e08741b2cd3@marca.python.live.cheggnet.com:9000/1';
 
         $container = $this->getContainer(array(array('handlers' => array('raven' => array(
             'type' => 'raven', 'dsn' => $dsn)
@@ -234,15 +239,36 @@ class MonologExtensionTest extends DependencyInjectionTest
 
         $handler = $container->getDefinition('monolog.handler.raven');
         $this->assertDICDefinitionClass($handler, '%monolog.handler.raven.class%');
+    }
 
+    public function testRavenHandlerWhenADSNAndAClientAreSpecified()
+    {
         $container = $this->getContainer(array(array('handlers' => array('raven' => array(
-            'type' => 'raven', 'dsn' => $dsn, 'client_id' => 'raven.client')
+            'type' => 'raven', 'dsn' => 'foobar', 'client_id' => 'raven.client')
         ))));
 
-        $this->assertTrue($container->hasDefinition('raven.client'));
+        $this->assertFalse($container->hasDefinition('raven.client'));
 
-        $handler = $container->getDefinition('raven.client');
-        $this->assertDICDefinitionClass($handler, 'Raven_Client');
+        $logger = $container->getDefinition('monolog.logger');
+        $this->assertDICDefinitionMethodCallAt(0, $logger, 'pushHandler', array(new Reference('monolog.handler.raven')));
+
+        $handler = $container->getDefinition('monolog.handler.raven');
+        $this->assertDICConstructorArguments($handler, array(new Reference('raven.client'), 100, true));
+    }
+
+    public function testRavenHandlerWhenAClientIsSpecified()
+    {
+        $container = $this->getContainer(array(array('handlers' => array('raven' => array(
+            'type' => 'raven', 'client_id' => 'raven.client')
+        ))));
+
+        $this->assertFalse($container->hasDefinition('raven.client'));
+
+        $logger = $container->getDefinition('monolog.logger');
+        $this->assertDICDefinitionMethodCallAt(0, $logger, 'pushHandler', array(new Reference('monolog.handler.raven')));
+
+        $handler = $container->getDefinition('monolog.handler.raven');
+        $this->assertDICConstructorArguments($handler, array(new Reference('raven.client'), 100, true));
     }
 
     public function testLogglyHandler()
